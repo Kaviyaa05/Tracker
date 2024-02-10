@@ -1,0 +1,48 @@
+/* src/app/app.component.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#form-container {
+    width: 20%; /* Adjust the width as needed */
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    }
+
+label {
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+    margin: 10px 0 5px;
+}
+
+input, select {
+    width: calc(100% - 140px);
+    padding: 8px;
+    margin: 5px 0 15px;
+    box-sizing: border-box;
+}
+
+/* button {
+    background-color: #1114d2;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+} */

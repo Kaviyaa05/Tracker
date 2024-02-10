@@ -1,0 +1,18 @@
+<app-home></app-home>
+<h2>Task Board</h2>
+<div class="board">
+    <div class="table-container" *ngFor="let table of tables; let i = index" (drop)="drop($event, i)" (dragover)="allowDrop($event)">
+      <table class="draggable" [id]="'table' + (i + 1)">
+        <thead>
+          <tr><th  bg-primary>{{ table.name }}</th></tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of table.items; let j = index">
+            <tr draggable="true" (dragstart)="drag($event, item)" class="draggable-item">
+              <td>{{ item }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>

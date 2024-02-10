@@ -1,0 +1,41 @@
+<app-home></app-home>
+<div class="col-md-20 mt-20">
+    <h3 class="text-dark font-weight-bold" style="margin-left: 20px;margin-top: 10px;">Notes</h3>
+  </div>
+  
+  <div>
+    <div class="row">
+      <div>
+        <button (click)="createNewPage()" class="btn btn-outline-primary btn-sm" style="margin-left: 300px;margin-top: 10px">Create New Notes</button>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped p-0" style="width: 60%; margin: 10px auto;">
+    <thead>
+        <tr>
+          <th>Title</th>
+          <th class="text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of notes">
+          <td>{{ note.title }}</td>
+          <td class="text-left">
+            <button (click)="viewPage(note)" class="btn btn-outline-primary btn-sm mr-10"style="margin-right: 20px;">View</button>
+            <button (click)="editPage(note)" class="btn btn-outline-primary btn-sm">Edit</button>
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+  
+  
+  
+  
+  
+  
+  
+    
+      
+     
+    

@@ -1,0 +1,65 @@
+<!-- time-tracking.component.html -->
+<app-home></app-home>
+<div>
+    <h2>Time Tracker</h2>
+  
+    <button class="btn btn-outline-primary" (click)="openPopup()">Add Time Entry</button>
+    <table *ngIf="timeEntries.length > 0" class="time-entry-table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Project ID</th>
+          <th>Task ID</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Total Working Hours</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of timeEntries; let i = index">
+          <td>{{ entry.userId }}</td>
+          <td>{{ entry.projectId }}</td>
+          <td>{{ entry.taskId }}</td>
+          <td>{{ entry.startTime | date: 'medium' }}</td>
+          <td>{{ entry.endTime | date: 'medium' }}</td>
+          <td>{{ entry.totalHours }}</td>
+          <td>
+            <button class="btn btn-outline-primary" (click)="editTimeEntry(i)">Edit</button>
+            <button class="btn btn-outline-primary" (click)="deleteTimeEntry(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Popup for adding new time entry -->
+    <div [ngStyle]="{'display': showPopup ? 'block' : 'none'}" class="popup">
+      <div class="popup-content">
+        <span class="close" (click)="closePopup()">&times;</span>
+        <h3>Add Time Entry</h3>
+  
+        <!-- Angular Reactive Form -->
+        <form [formGroup]="timeEntryForm" (ngSubmit)="addTimeEntry()" class="form-container">
+          <label for="userId">User ID:</label>
+          <input type="text" id="userId" formControlName="userId" />
+  
+          <label for="projectId">Project ID:</label>
+          <input type="text" id="projectId" formControlName="projectId" />
+  
+          <label for="taskId">Task ID:</label>
+          <input type="text" id="taskId" formControlName="taskId" />
+  
+          <label for="startTime">Start Time:</label>
+          <input type="datetime-local" id="startTime" formControlName="startTime" />
+  
+          <label for="endTime">End Time:</label>
+          <input type="datetime-local" id="endTime" formControlName="endTime" />
+          <label for="totalHours">Total Working Hours:</label>
+          <input type="text" id="totalHours" formControlName="totalHours" />
+  
+          <button type="button" (click)="addTimeEntry()">Add Entry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

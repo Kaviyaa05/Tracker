@@ -1,0 +1,41 @@
+<!-- user-add-edit.component.html -->
+<app-home></app-home>
+<div class="modal-header">
+    <h1 class="modal-title">User Form</h1>
+</div>
+
+<form [formGroup]="userForm" (ngSubmit)="onFormSubmit()" class="bigger-form">
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="UserName">UserName</label>
+            <input type="text" class="form-control" id="UserName" placeholder="Ex.GowreeshEA" formControlName="UserName">
+        </div>
+
+        <div class="form-group">
+            <label for="UserId">UserId</label>
+            <input type="number" class="form-control" id="UserId" placeholder="Ex.20011" formControlName="UserId">
+        </div>
+
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <select class="form-control" id="Role" formControlName="roles">
+                <option *ngFor="let val of roles" [value]="val">{{val}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Ex.abc@gmail.com" formControlName="email">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Ex.Abc@123" formControlName="password">
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Cancel</button>
+        <button type="submit" class="btn btn-primary">{{data ? 'Update' : 'Save'}}</button>
+    </div>
+</form>

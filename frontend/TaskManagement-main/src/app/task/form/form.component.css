@@ -1,0 +1,53 @@
+/* app.component.css */
+
+.container {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .task-form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgb(240, 239, 239);  
+  }
+  
+  .two-column-form {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .column {
+    width: 48%;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .bottom-centered {
+    text-align: center;
+    margin-top: 20px;
+  }
+  

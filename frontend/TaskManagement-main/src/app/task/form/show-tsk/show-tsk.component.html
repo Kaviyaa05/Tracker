@@ -1,0 +1,50 @@
+<!-- <div class="header">
+  <a class="project-name">Project Name</a>
+  <div class="nav-item users-btn d-flex justify-content-end">
+    <button class="btn btn-outline-primary notes-btn" routerLink="/boards">View Board</button>
+    <button class="btn btn-outline-primary notes-btn" routerLink="/documents">Notes</button>
+    <button class="btn btn-outline-primary add-task-btn">Add Task</button>
+  </div>
+</div> -->
+
+
+<div class="container mt-5">
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Task ID</th>
+          <th>User ID</th>
+          <th>Task Name</th>
+          <th>Task Type</th>
+          <th>Priority</th>
+          <th>CreatedBy</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Actions</th> <!-- Added header for actions -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dataItem of TaskList">
+          <td>{{dataItem.TaskId}}</td>
+          <td>{{dataItem.UserId}}</td>
+          <td>{{dataItem.Taskname}}</td>
+          <td>{{dataItem.TaskType}}</td>
+          <td>{{dataItem.Priority}}</td>
+          <td>{{dataItem.CreatedBy}}</td>
+          <td>{{dataItem.StartDate | date:'yyyy-MM-dd'}}</td>
+          <td>{{dataItem.EndDate| date:'yyyy-MM-dd'}}</td>
+          <td>{{dataItem.Status}}</td>
+          <td>{{dataItem.Description}}</td>
+          <td>
+            <button type="button" class="btn btn-outline-primary mr-1">
+               Edit
+              </button>
+            <button type="button" class="btn btn-outline-primary mr-1">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,27 @@
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+/* Add this to your component's CSS file or the global styles file */
+
+.error-message {
+    color: red;
+    font-size: 14px; /* Adjust font size as needed */
+    height: 16px; /* Set a fixed height for the error message container */
+    margin-top: 4px; /* Adjust margin as needed */
+    overflow: hidden; /* Hide overflow content */
+  }
+  
+  /* You may need to adjust these styles based on your design and layout */
+  

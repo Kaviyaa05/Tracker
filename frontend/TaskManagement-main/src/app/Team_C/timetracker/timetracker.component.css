@@ -1,0 +1,95 @@
+/* time-tracking-blue-headers.css */
+
+/* Style for the time entry table */
+.time-entry-table {
+    width: 70%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+  }
+  
+  /* Style for table headers with blue color */
+  .time-entry-table th {
+    background-color: #2360d9; /* Blue color */
+    color: #fff; /* Text color for headers */
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  /* Style for table data cells */
+  .time-entry-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  /* Style for alternating row colors */
+  .time-entry-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Style for table actions column */
+  .time-entry-table td:last-child {
+    text-align: center;
+  }
+  
+  /* Popup styles */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    z-index: 1;
+  }
+  
+  .popup-content {
+    padding: 15px;
+  }
+  
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+  }
+  
+  /* Styling for the form inside the popup */
+  .form-container {
+    margin-top: 10px;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-container input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .form-container button {
+    background-color: #2360d9; /* Blue color */
+    color: #fff;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+  
+  }
+  
+  button {
+    background-color: #ffffff; /* Blue color */
+    border-color: #2360d9;
+    text-decoration: #2360d9db;
+    
+  }
+  

@@ -1,0 +1,50 @@
+<app-home></app-home>
+<div class="container">
+    <h4>Audit_Page</h4>
+    <div class="container mt-1"></div>
+  
+    <form [formGroup]="auditForm" (ngSubmit)="filterLogs()">
+      <label for="dateRange">Date Range:</label>
+
+      <select id="dateRange" formControlName="dateRange">
+        <option value="today">Today</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="custom">Custom Date</option>
+      </select>
+  
+      <div *ngIf="auditForm.get('dateRange')?.value === 'custom'" class="custom-date">
+        <label for="customDate">Custom Date:</label>
+        <input type="date" id="customDate" formControlName="customDate">
+      </div>
+      <button type="submit" class="btn btn-outline-custom">Filter</button>
+      
+    </form>
+
+    <div class="container mt-1"></div>
+  
+    <div *ngIf="filteredLogs.length === 0; else table">
+      <p>No record is matched!</p>
+    </div>
+  
+  <ng-template #table>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="g">Date and Time</th>
+          <th class="g">User Name</th>
+          <th class="g">Module</th>
+          <th >Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of filteredLogs">
+          <td class="g">{{ log.dateTime | date: 'medium' }}</td>
+          <td class="g">{{ log.userName }}</td>
+          <td class="g">{{ log.module }}</td>
+          <td >{{ log.action }}</td>
+        </tr>
+      </tbody>
+    </table>
+   </ng-template>
+  </div>
+  

@@ -1,0 +1,35 @@
+<app-home></app-home>
+ <div *ngIf="showAlert" class="alert alert-success" role="alert">
+    Permission saved successfully!
+  </div>
+  <div class="container mt-5"> 
+    <h4>ACL_Settings</h4>
+    <div class="container mt-5"> 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th *ngFor="let permission of permissions">{{ permission }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles">
+        <td>{{ role }}</td>
+        <td *ngFor="let permission of permissions">
+          <label class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="rolePermissions[role].permissions.includes(permission)"
+              (change)="onPermissionChange(role, permission, $event)"
+            />
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-success" (click)="saveRolePermissions()">Save Permissions</button>
+    </div>
+  </div>
+  
+  

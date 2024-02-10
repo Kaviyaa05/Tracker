@@ -1,0 +1,13 @@
+<app-home></app-home>
+ <div>
+    <button type="button" (click)="toggleUploadForm()" class="btn btn-outline-primary" >Add Images</button>
+
+    <button type="button"class="btn btn-outline-primary" *ngIf="showUploadForm" (click)="openViewModal()">View</button>
+
+    <form *ngIf="showUploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+      <label for="images">Select images:</label>
+      <input type="file" name="images[]" id="images" accept=".jpeg, .jpg, .png, .gif" multiple>
+      <button type="submit" name="submit"class="btn btn-outline-primary"  >Upload</button>
+    </form>
+  </div>
+

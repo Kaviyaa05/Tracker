@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.user-avatar img {
+    max-width: 100%;
+    height: auto;
+}
+
+.user-profile {
+    text-align: center;
+}
+
+.about {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.text-primary {
+    color: #007bff;
+}
+
+.text-right {
+    text-align: right;
+}

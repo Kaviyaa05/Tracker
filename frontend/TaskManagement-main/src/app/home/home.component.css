@@ -1,0 +1,78 @@
+.users-btn {
+    margin-right: 10px; /* Adjust the margin value as needed */
+    margin-left:10px;
+}
+
+/* Custom styling for the dropdown menu */
+.dropdown-menu-custom {
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: 100%;
+    transform: translateX(-10%);
+  }
+
+  .fa-icon-bell {
+    margin-right: 50px; /* Adjust the value according to your desired spacing */
+  }
+  
+  /* Custom styling for the user dropdown button */
+  #profileDropdown {
+    margin-right: 50px; /* Adjust the value according to your desired spacing */
+  }
+
+  #mydropdown, #mydropdowntask, #mydropdownProject {
+    border: 1px solid #ccc; /* Add the border style you want */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+    padding: 10px; /* Optional: Add padding for spacing inside the container */
+  }
+
+
+  
+  .dropdown-content {
+   display: none;
+    position:inherit;
+    padding-left: 10px;
+    background-color: #ffffff;
+    min-width: 100px;
+    left: 25%;
+    padding-top: 0;
+  }
+
+  .show {display: inline}
+ 
+  .caret {
+    display: inline-block;
+    width: 0;
+    height: 5px;
+    vertical-align: middle;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid; /* Adjust the thickness and color of the caret */
+    margin-left: 75px; /* Add some spacing between the text and the caret */
+    transition: transform 0.3s ease; /* Optional: Add transition for smooth rotation */
+  }
+  
+  .sub-caret {
+    display: inline-block;
+    width: 0;
+    height: 5px;
+    vertical-align: middle;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid; /* Adjust the thickness and color of the caret */
+    margin-left: 45px; /* Add some spacing between the text and the caret */
+    transition: transform 0.3s ease; /* Optional: Add transition for smooth rotation */
+  }
+  
+  .sub1-caret {
+    display: inline-block;
+    width: 0;
+    height: 5px;
+    vertical-align: middle;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid; /* Adjust the thickness and color of the caret */
+    margin-left: 25px; /* Add some spacing between the text and the caret */
+    transition: transform 0.3s ease; /* Optional: Add transition for smooth rotation */
+  }

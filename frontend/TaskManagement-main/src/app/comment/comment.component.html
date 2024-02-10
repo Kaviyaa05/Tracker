@@ -1,0 +1,14 @@
+<app-home></app-home>
+<div  class="shadow p-3 mb-5 bg-white rounded">
+    <h4>Comments</h4>
+    <div class="container">
+      <textarea [(ngModel)]="newComment" placeholder="Add a new comment"></textarea><br><br>
+      <button (click)="addComment()"  class="btn btn-success">Add Comment</button>
+    </div>
+    <div>
+      <p *ngFor="let comment of comments; let i = index">
+        {{ comment }}
+        <button (click)="deleteComment(i)" class="btn btn-danger">Delete</button>
+      </p>
+  </div>
+</div>
