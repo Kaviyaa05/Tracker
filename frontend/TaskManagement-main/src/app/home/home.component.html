@@ -91,9 +91,7 @@
         <fa-icon [icon]="faBell" class="fa-2x"></fa-icon>
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-custom ml-2">
-        <p ngbDropdownItem>Arunagiri sent Message</p>
-        <p ngbDropdownItem>GuhaSaravanan sent Message</p>
-        <p ngbDropdownItem>Priya sent Message</p>
+        <p ngbDropdownItem *ngFor="let message of latestMessages">{{message}}</p>
         <div class="dropdown-divider"></div>
         <a  class="dropdown-item" [routerLink]="['/notification']" routerLinkActive="router-link-active"><button  type="button" class="btn btn-outline-primary ">Show All</button></a>
       </div>

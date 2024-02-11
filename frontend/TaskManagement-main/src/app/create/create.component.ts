@@ -1,5 +1,7 @@
 // Import necessary Angular modules
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { NotifyService } from '../Team_C/notification/notify.service';
 
 @Component({
   selector: 'app-create', // Adjusted selector to 'app-create'
@@ -20,9 +22,21 @@ export class CreateComponent {
 
   submitForm() {
     // You can add your logic here to handle the form submission
+    this.addnoti();
     console.log('Form submitted!', this.projectId, this.projectName, this.priority, this.description, this.owner, this.teamMembers, this.startDate, this.endDate, this.status);
   }
   
-
-  // Add any additional logic or methods as needed
+  constructor(private http:HttpClient,private notify:NotifyService){}
+  noti: any = {
+    Username: 'guha',  
+    Time: new Date().toLocaleString(),  
+    Message: 'You Have been assigned in a Project.',
+    Priority: 'High'
+  };
+  addnoti(){
+    this.notify.addnotification(this.noti)
+    .subscribe(()=>{
+      console.log("notification added");
+    })
+  }
 }

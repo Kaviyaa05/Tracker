@@ -13,6 +13,7 @@ export class TaskComponent {
   navigateToForm() {
     this.router.navigate(['/form']); // Adjust the route based on your actual route configuration
   }
+  
 
 
 }

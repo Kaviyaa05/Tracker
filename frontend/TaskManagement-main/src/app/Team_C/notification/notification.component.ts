@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Subject, interval, takeUntil } from 'rxjs';
+import { NotifyService } from './notify.service';
 
 @Component({
   selector: 'app-notification',
@@ -15,15 +16,15 @@ export class NotificationComponent {
 
   latestMessages:any[]=[];
 
-  constructor(private http: HttpClient) {
-    this.getAllStudent();
+  constructor(private http: HttpClient,private notify:NotifyService) {
+    this.getAll();
   }
 
   ngOnInit(): void {
     interval(5000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.getAllStudent();
+        this.getAll();
         console.log(this.StudentArray);
       });
   }
@@ -32,11 +33,11 @@ export class NotificationComponent {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  id:Number=4;
-//need to place it in the service 
-  getAllStudent() {
+  id:Number=7;
+
+  getAll() {
    
-    this.http.get("https://localhost:44354/api/values"+"/"+this.id)
+    this.notify.getNotification(this.id)
 
       .subscribe((resultData: any) => {
 
@@ -51,9 +52,8 @@ export class NotificationComponent {
 
   
   markAsRead(StudentItem: any) {
-    StudentItem.isRead = true;
 
-    this.http.put("https://localhost:44354/api/values"+"/" + StudentItem.NId,StudentItem)
+    this.notify.isRead(StudentItem)
     .subscribe(()=>
       {
         console.log("Marked as Read");
@@ -61,5 +61,5 @@ export class NotificationComponent {
      
       );
   }
-}
 
+}
