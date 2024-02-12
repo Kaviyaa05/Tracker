@@ -54,18 +54,13 @@
 
                 <button ngbDropdownItem class="nav-item dropdown"  name="drop"(mouseenter)="onMouseLeave()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Report<span class="caret"(mouseenter)="dropDownFun()" ></span></button>
                 <div class="dropdown-content nav-item dropdown users-btn" id="mydropdown" aria-labelledby="dropdownMenuButton">
-                  <button ngbDropdownItem name="dropTask">Task<span class="sub-caret" (mouseenter)="dropDownFunTask()" (mouseleave)="onMouseLeave()"></span></button>
-                  <div class="dropdown-content" id="mydropdowntask" >
-                    <button ngbDropdownItem [routerLink]="['/tasktype']">Type</button>
-                      <button ngbDropdownItem [routerLink]="['/taskpriority']">Priority</button>
-                      <button ngbDropdownItem [routerLink]="['/burndowntask']">Burndown</button>
-                  </div>
-
-                  <button ngbDropdownItem  name="dropProject">Project<span class="sub1-caret" (mouseenter)="dropDownFunProject()" (mouseleave)="onMouseLeave()"></span></button>
-                  <div class="dropdown-content" id="mydropdownProject" >
-                    <button ngbDropdownItem [routerLink]="['/projectpriority']">Priority</button>
-                    <button ngbDropdownItem [routerLink]="['/burndownproject']">Burndown</button>
-                  </div>
+                
+                    <button ngbDropdownItem [routerLink]="['/tasktype']">Task Type</button>
+                      <button ngbDropdownItem [routerLink]="['/taskpriority']">Task Priority</button>
+                      <button ngbDropdownItem [routerLink]="['/burndowntask']">Task Burndown</button>
+                    <button ngbDropdownItem [routerLink]="['/projectpriority']">Project Priority</button>
+                    <button ngbDropdownItem [routerLink]="['/burndownproject']">Project Burndown</button>
+                  
                     
 
                 </div>
