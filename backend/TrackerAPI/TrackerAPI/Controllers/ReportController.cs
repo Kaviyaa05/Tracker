@@ -12,7 +12,7 @@ namespace TrackerAPI.Controllers
     [EnableCors(origins:"*" , headers:"*" , methods: "*")]
     public class ReportController : ApiController
     {
-        Dao dao = new Dao();
+        ReportDao dao = new ReportDao();
         // GET: api/Report
 
         [HttpGet]
