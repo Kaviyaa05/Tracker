@@ -13,17 +13,25 @@ export class ShowTskcomponent implements OnInit {
   TaskList:any=[];
   ModalTitle: string ='';
   FormComp:boolean=false;
-  tsk:any;
+  tsk:any=[];
   
   ngOnInit(): void { 
     this.refreshtskList();
 }
 
   AddClick(){
-    this.tsk={
-      UserId:'',
-      Taskname:'',
-    }
+    // this.tsk={
+    //   TaskId:"",
+    //   UserId:"",
+    //   Taskname:"",
+    //   TaskType:"",
+    //   Priority:"",
+    //   CreatedBy:"",
+    //   StartDate:"",
+    //   EndDate:"",
+    //   Status:"",
+    //   Description:""
+    // }
     this.ModalTitle="Add Task";
     this.FormComp=true;
 }
