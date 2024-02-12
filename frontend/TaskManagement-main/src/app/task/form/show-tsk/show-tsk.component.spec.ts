@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowTskComponent } from './show-tsk.component';
+import { ShowTskcomponent } from './show-tsk.component';
 
 describe('ShowTskComponent', () => {
-  let component: ShowTskComponent;
-  let fixture: ComponentFixture<ShowTskComponent>;
+  let component: ShowTskcomponent;
+  let fixture: ComponentFixture<ShowTskcomponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ShowTskComponent]
+      declarations: [ShowTskcomponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ShowTskComponent);
+    fixture = TestBed.createComponent(ShowTskcomponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
