@@ -73,8 +73,12 @@ export class ProfileComponent implements OnInit {
       console.log('Profile updated successfully:', response);
       this.originalProfileData = { ...profileData }; // Update original profile data
       this.isEditMode = false; // Exit edit mode after updating
+      // Show a success message
+      alert('Profile updated successfully!');
     }, (error: any) => {
       console.error('Error updating profile:', error);
+      // Show an error message
+      alert('Failed to update profile. Please try again.');
     });
   }
 
