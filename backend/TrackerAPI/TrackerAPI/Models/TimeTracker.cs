@@ -8,13 +8,13 @@ namespace TrackerAPI.Models
 {
     public class TimeTracker
     {
-        public int UserID { get; set; }
+        public int UserID { get; set; } 
         public int ProjectID { get; set; }
 
         [Key]
         public int TaskID { get; set; }
-        public int StartTime { get; set; }
-        public int EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public int TotalWorkingHours { get; set; }
 
     }
