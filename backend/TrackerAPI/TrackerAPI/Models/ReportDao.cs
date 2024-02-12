@@ -8,7 +8,7 @@ using System.Web;
 
 namespace TrackerAPI.Models
 {
-    public class Dao
+    public class ReportDao
     {
 
         public List<Project> fetchProjects()
