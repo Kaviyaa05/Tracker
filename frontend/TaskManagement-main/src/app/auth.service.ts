@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient,private router: Router) {}
 
   login(username: string, password: string): Observable<any> {
-    const loginUrl = 'https://localhost:44389/token';
+    const loginUrl = 'https://localhost:44388//token';
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -48,7 +48,7 @@ export class AuthService {
 
   }
   getUserInfo(): Observable<any> {
-    const apiUrl = 'https://localhost:44389/api/values'; // Replace with your API endpoint
+    const apiUrl = 'https://localhost:44388/api/values'; // Replace with your API endpoint
     const token = this.getToken();
     
     if (!token) {
