@@ -6,8 +6,8 @@ using System.Security.Principal;
 using System.Web;
 namespace TrackerAPI.Utils
 {
-    public static class AuthUtils
-    {
+	public static class AuthUtils
+	{
 		public static string GetUsername(this IPrincipal user)
 		{
 			var identity = user.Identity as ClaimsIdentity;

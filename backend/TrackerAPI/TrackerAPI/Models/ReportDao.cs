@@ -61,10 +61,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchTask()
+        public List<TaskManagement> fetchTask()
         {
             string connectionStirng = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            List<Task> tasks = new List<Task>();
+            List<TaskManagement> tasks = new List<TaskManagement>();
 
             using (SqlConnection connection = new SqlConnection(connectionStirng))
             {
@@ -89,7 +89,7 @@ namespace TrackerAPI.Models
                                 DateTime startDate = reader.GetDateTime(8);
                                 DateTime endDate = reader.GetDateTime(9);
 
-                                tasks.Add(new Task
+                                tasks.Add(new TaskManagement
                                 {
                                     ProjectID = projectId,
                                     TaskID = taskId,
@@ -120,10 +120,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchTaskByType(string taskType)
+        public List<TaskManagement> fetchTaskByType(string taskType)
         {
             string query = "SELECT * FROM dummytask WHERE task_type = @TaskType";
-            List<Task> tasks = new List<Task>();
+            List<TaskManagement> tasks = new List<TaskManagement>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -148,7 +148,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(8);
                             DateTime endDate = reader.GetDateTime(9);
 
-                            tasks.Add(new Task
+                            tasks.Add(new TaskManagement
                             {
                                 ProjectID = projectId,
                                 TaskID = taskId,
@@ -177,10 +177,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchOverdue(DateTime currentDate)
+        public List<TaskManagement> fetchOverdue(DateTime currentDate)
         {
             string query = "SELECT * FROM dummytask WHERE end_date <= @CurrentDate";
-            List<Task> tasks = new List<Task>();
+            List<TaskManagement> tasks = new List<TaskManagement>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -205,7 +205,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(8);
                             DateTime endDate = reader.GetDateTime(9);
 
-                            tasks.Add(new Task
+                            tasks.Add(new TaskManagement
                             {
                                 ProjectID = projectId,
                                 TaskID = taskId,
@@ -284,10 +284,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchTaskByPriority(string taskPriority)
+        public List<TaskManagement> fetchTaskByPriority(string taskPriority)
         {
             string query = "SELECT * FROM dummytask WHERE task_priority = @TaskPriority";
-            List<Task> tasks = new List<Task>();
+            List<TaskManagement> tasks = new List<TaskManagement>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -312,7 +312,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(8);
                             DateTime endDate = reader.GetDateTime(9);
 
-                            tasks.Add(new Task
+                            tasks.Add(new TaskManagement
                             {
                                 ProjectID = projectId,
                                 TaskID = taskId,
