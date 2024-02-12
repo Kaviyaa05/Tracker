@@ -29,7 +29,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormComponent } from './task/form/form.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { HttpClientModule } from '@angular/common/http';
 Chart.register(...registerables);
 import { DetailsComponent } from './details/details.component';
 import { TasktypeComponent } from './report/tasktype/tasktype.component';
@@ -64,6 +64,7 @@ import { SharedService } from './task/form/shared.service';
      DocumentsComponent,
      ImageuploaderComponent, 
      UsersComponent,
+     
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
       ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, 
   ],
@@ -74,6 +75,7 @@ import { SharedService } from './task/form/shared.service';
     FormsModule,
     FontAwesomeModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [

@@ -102,20 +102,14 @@
   <!-- Profile Dropdown items and its icon -->
 
   <div ngbDropdown class="d-inline-block position-relative">
-      <button class="dropdown-item" id="profileDropdown" style="margin-right: 50px;" ngbDropdownToggle>
-        <fa-icon [icon]="faUser" class="fa-2x"></fa-icon>
-      </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-custom ml-2">
-      <p ngbDropdownItem>Arunagiri</p>
-      <p ngbDropdownItem>arunagiri1706&#64;gmail.com</p>
-      <div class="dropdown-divider"></div>      
-      <button ngbDropdownItem [routerLink]="['/profile']" routerLinkActive="router-link-active" >
-        <fa-icon [icon]="faUser" class="mr-2"></fa-icon> Profile
-      </button>
-            <div class="dropdown-divider"></div>
-      <button ngbDropdownItem>
-        <fa-icon [icon]="faPower" class="mr-2"></fa-icon> Log Out
-      </button>
-    </div>
-  </div>  
+    <div class="dropdown-divider"></div>
+    <button ngbDropdownItem [routerLink]="['/profile']" routerLinkActive="router-link-active">
+      <fa-icon [icon]="faUser" class="mr-2"></fa-icon>{{ username }}
+    </button>
+    <div class="dropdown-divider"></div>
+    <button ngbDropdownItem (click)="logout()">
+      <fa-icon [icon]="faPower" class="mr-2"></fa-icon> Log Out
+    </button>
+  </div>
+
 </nav>

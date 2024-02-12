@@ -1,5 +1,4 @@
 <!-- loginpage.component.html -->
-
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -13,50 +12,42 @@
           <h4 class="text-primary fs-1">
             Seyyone
           </h4>
-
           <div class="container mt-3"></div>
-
           <div class="form-outline mb-4">
-            <label class="form-label" for="form3Example3">UserId</label>
-            <input type="text" id="form3Example3" class="form-control form-control-lg" formControlName="userId" />
+            <label class="form-label" for="form3Example3">UserName</label>
+            <input type="text" id="form3Example3" class="form-control form-control-lg" formControlName="username" />
             <div class="error-message-container mt-2">
-              <div class="error-message" *ngIf="userId?.hasError('required') && (userId?.dirty || userId?.touched)">
-                User ID is required.
+              <div class="error-message" *ngIf="loginForm.get('username')?.hasError('required') && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)">
+                UserName is required.
               </div>
-              <div class="error-message" *ngIf="userId?.hasError('minlength') && (userId?.dirty || userId?.touched)">
-                User ID should have a minimum length of 4 characters.
+              <div class="error-message" *ngIf="loginForm.get('username')?.hasError('minlength') && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)">
+                UserName should have a minimum length of 4 characters.
               </div>
-              <div class="error-message" *ngIf="userId?.hasError('maxlength') && (userId?.dirty || userId?.touched)">
-                User ID should have a maximum length of 20 characters.
+              <div class="error-message" *ngIf="loginForm.get('username')?.hasError('maxlength') && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)">
+                UserName should have a maximum length of 20 characters.
               </div>
             </div>
           </div>
-
           <div class="form-outline mb-3">
             <label class="form-label" for="form3Example4">Password</label>
             <input type="password" id="form3Example4" class="form-control form-control-lg" formControlName="password" />
             <div class="error-message-container mt-2">
-              <div class="error-message" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">
+              <div class="error-message" *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
                 Password is required.
               </div>
-              <div class="error-message" *ngIf="password?.hasError('minlength') && (password?.dirty || password?.touched)">
-                Password should have a minimum length of 8 characters.
+              <div class="error-message" *ngIf="loginForm.get('password')?.hasError('minlength') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                Password should have a minimum length of 5 characters.
               </div>
-              <div class="error-message" *ngIf="password?.hasError('pattern') && (password?.dirty || password?.touched)">
-                Password should contain at least one uppercase letter, one digit, and one special character.
-              </div>
+              <!-- You can add additional error messages for password validation here -->
             </div>
           </div>
 
           <div class="text-center text-lg-center mt-4 pt-2">
-              <div class="text-center text-lg-center mt-4 pt-2">
-            <!-- Divide the template for login button -->
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary btn-lg">Login</button>
+              <button type="submit" class="btn btn-primary btn-lg" >Login</button>
             </div>
           </div>
-          </div>
-
+          <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
         </form>
       </div>
     </div>
