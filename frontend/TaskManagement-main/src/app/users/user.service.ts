@@ -8,7 +8,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = 'https://localhost:44392/api/Profile';
+  baseUrl: string = 'https://localhost:44329/api/User';
 
   getAllUsers() {
     return this.http.get(this.baseUrl);
