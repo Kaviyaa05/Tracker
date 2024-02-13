@@ -34,7 +34,6 @@ export class AuditComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching audit logs:', error);
-        // Handle error as needed
       }
     );
   }
@@ -47,7 +46,6 @@ export class AuditComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching today\'s audit logs:', error);
-        // Handle error as needed
       }
     );
   }
@@ -60,7 +58,6 @@ export class AuditComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching yesterday\'s audit logs:', error);
-        // Handle error as needed
       }
     );
   }
@@ -73,7 +70,6 @@ export class AuditComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching custom date audit logs:', error);
-        // Handle error as needed
       }
     );
   }
