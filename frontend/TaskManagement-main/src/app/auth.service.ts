@@ -48,7 +48,7 @@ export class AuthService {
 
   }
   getUserInfo(): Observable<any> {
-    const apiUrl = 'https://localhost:44388/api/values'; // Replace with your API endpoint
+    const apiUrl = 'https://localhost:44388/api/data'; // Replace with your API endpoint
     const token = this.getToken();
     
     if (!token) {
