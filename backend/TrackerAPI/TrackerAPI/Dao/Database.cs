@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,7 @@ namespace TrackerAPI.Dao
 {
     public class Database
     {
-        private readonly static string connectionString = "Data Source=LAPTOP-MK5JCOPU\\SQLEXPRESS;Initial Catalog=Guha;Integrated Security=True";
+        public static string connectionString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
 
         private static SqlConnection con = null;
         private Database()
@@ -34,5 +35,8 @@ namespace TrackerAPI.Dao
                 return con;
             }
         }
+       
+
+           
     }
 }

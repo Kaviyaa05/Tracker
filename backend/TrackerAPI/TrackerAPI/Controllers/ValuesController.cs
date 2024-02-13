@@ -10,58 +10,30 @@ using TrackerAPI.Dao;
 namespace TrackerAPI.Controllers
 {
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+   
     public class ValuesController : ApiController
     {
         // GET api/values
-
-
-
-        // GET api/values
-        private readonly Dao1 dao = new Dao1();
-
-        [EnableCors("*", "*", "*")]
-
-
-        public IHttpActionResult Get()
+      
+      public IEnumerable<string> Get()
         {
-            try
-            {
-                var records = dao.Show();
-
-
-                return Ok(records);
-
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions and return appropriate response
-                Console.WriteLine(ex.Message);
-                return InternalServerError();
-            }
+            return new string[] { "value1", "value2" };
         }
 
-
         // GET api/values/5
-        public IHttpActionResult Get(int id)
+        public string Get(int id)
         {
-            var currentuser = dao.getId(id);
-            return Ok(currentuser);
-
+            return "value";
         }
 
         // POST api/values
-        public string Post([FromBody] Data data)
+        public void Post([FromBody] string value)
         {
-            dao.Insert(data);
-            return "data added";
         }
 
         // PUT api/values/5
-        public string Put(int id, [FromBody] Data data)
+        public void Put(int id, [FromBody] string value)
         {
-            dao.update(data);
-            return "marked as read";
         }
 
         // DELETE api/values/5
