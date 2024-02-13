@@ -1,44 +1,47 @@
+/* view-all-project.component.css */
+
 .container {
   margin-top: 20px;
-  }
-  
-  h2 {
+}
+
+h2 {
   margin-bottom: 20px;
-  }
-  
-  .table {
+}
+
+.table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  }
-  
-  .table th, .table td {
+}
+
+.table th,
+.table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-  }
-  
-  .table th {
+}
+
+.table th {
   background-color: #f2f2f2;
-  }
-  
-  .table td {
+}
+
+.table td {
   vertical-align: middle;
-  }
-  
-  .btn {
+}
+
+.btn {
   margin-right: 5px;
-  }
-  
-  /* Add styles for the edit form */
-  .edit-form {
-  margin-top: 20px;
-  }
-  
-  .edit-form .form-group {
-  margin-bottom: 15px;
-  }
-  
-  .edit-form button {
-  margin-right: 10px;
-  }
+}
+
+/* Add styles for the edit form */
+.edit-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000; /* Ensure the form appears above other elements */
+}
