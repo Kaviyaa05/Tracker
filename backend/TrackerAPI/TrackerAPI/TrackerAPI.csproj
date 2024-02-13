@@ -222,9 +222,9 @@
     </Compile>
     <Compile Include="Filters\AuditLogAttribute.cs" />
     <Compile Include="Models\ReportDao.cs" />
-    <Compile Include="Models\Details.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\TaskManagement.cs" />
+    <Compile Include="Models\TaskDetails.cs" />
+    <Compile Include="Models\ReportProject.cs" />
+    <Compile Include="Models\ReportTask.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\AuditLog.cs" />
