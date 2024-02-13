@@ -6,7 +6,8 @@
 /Sample/bin
 /Sample/.vs/Sample
 /Sample/obj/Debug
-
+.vs/**
+.vs/
 # Created by https://www.toptal.com/developers/gitignore/api/csharp
 # Edit at https://www.toptal.com/developers/gitignore?templates=csharp
 
