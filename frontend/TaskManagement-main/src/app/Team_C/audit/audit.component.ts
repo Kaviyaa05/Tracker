@@ -72,16 +72,14 @@ export class AuditComponent implements OnInit {
       return startDate && logDate >= startDate && logDate < new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
     });
 
-    // Apply search after filtering
     this.applySearch();
   }
   
   applySearch() {
     if (!this.searchQuery) {
-      return; // If search query is empty, no need to apply search
+      return; 
     }
 
-    // Filter logs based on search query
     this.filteredLogs = this.filteredLogs.filter((log) => {
       for (const key in log) {
         if (log.hasOwnProperty(key)) {
