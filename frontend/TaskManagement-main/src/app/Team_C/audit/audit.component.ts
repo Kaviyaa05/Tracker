@@ -1,76 +1,123 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuditService } from './Service/audit.service';
 
 @Component({
   selector: 'app-audit',
   templateUrl: './audit.component.html',
-  styleUrls: ['./audit.component.css']
+  styleUrls: ['./audit.component.css'],
 })
-export class AuditComponent implements OnInit  {
-  auditLogs = [
-    { dateTime: new Date('2024-01-01T12:00:00'), userName: 'Lakshmi Priya', module: 'Documents', action: 'Added document' },
-    { dateTime: new Date('2024-01-02T14:30:00'), userName: 'Shruti', module: 'Profile', action: 'Updated profile information' },
-    { dateTime: new Date('2024-01-03T10:45:00'), userName: 'Kaniga', module: 'Task', action: 'Added a new task'},
-    { dateTime: new Date('2024-01-04T08:20:00'), userName: 'Priyanka', module: 'Home', action: 'Priyanka logged in'}
-  ];
-
-  searchTerm: string = '';
+export class AuditComponent implements OnInit {
+  auditLogs: any[] = [];
   filteredLogs: any[] = [];
-  auditForm: FormGroup = this.formBuilder.group({
-    dateRange: [''],
-    customDate: [null],
-  });
+  auditForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private auditService: AuditService
+  ) {
+    this.auditForm = this.formBuilder.group({
+      dateRange: ['all'],
+      customDate: [null],
+    });
+  }
 
   ngOnInit() {
-    this.filterLogs();
+    this.getAuditLogs();
+  }
+
+  getAuditLogs() {
+    this.auditService.getAuditLogs().subscribe(
+      (auditLogs) => {
+        this.auditLogs = auditLogs;
+        this.filterLogs();
+      },
+      (error) => {
+        console.error('Error fetching audit logs:', error);
+        // Handle error as needed
+      }
+    );
+  }
+
+  getTodayLogs() {
+    this.auditService.getTodayAuditLogs().subscribe(
+      (auditLogs) => {
+        this.auditLogs = auditLogs;
+        this.filterLogs();
+      },
+      (error) => {
+        console.error('Error fetching today\'s audit logs:', error);
+        // Handle error as needed
+      }
+    );
+  }
+
+  getYesterdayLogs() {
+    this.auditService.getYesterdayAuditLogs().subscribe(
+      (auditLogs) => {
+        this.auditLogs = auditLogs;
+        this.filterLogs();
+      },
+      (error) => {
+        console.error('Error fetching yesterday\'s audit logs:', error);
+        // Handle error as needed
+      }
+    );
+  }
+
+  getCustomDateLogs(date: string) {
+    this.auditService.getCustomDateAuditLogs(date).subscribe(
+      (auditLogs) => {
+        this.auditLogs = auditLogs;
+        this.filterLogs();
+      },
+      (error) => {
+        console.error('Error fetching custom date audit logs:', error);
+        // Handle error as needed
+      }
+    );
   }
 
   filterLogs() {
-    const auditForm = this.auditForm;
-
-    if (auditForm) {
-      const dateRangeControl = auditForm.get('dateRange');
-      const customDateControl = auditForm.get('customDate');
-
-      if (dateRangeControl && customDateControl) {
-        const dateRange = dateRangeControl.value;
-        const customDate = customDateControl.value;
-
-        if (!dateRange || (dateRange === 'custom' && !customDate)) {
-          // If custom date is selected but not provided, don't filter
-          this.filteredLogs = this.auditLogs;
-          return;
-        }
-
-        const today = new Date();
-        let startDate = new Date();
-        let endDate = new Date();
-
-        if (dateRange === 'today') {
-          startDate.setHours(0, 0, 0, 0);
-        } else if (dateRange === 'yesterday') {
-          startDate.setDate(today.getDate() - 1);
-          startDate.setHours(0, 0, 0, 0);
-          endDate.setDate(today.getDate() - 1);
-          endDate.setHours(23, 59, 59, 999);
-        } else if (dateRange === 'custom' && customDate) {
-          startDate = new Date(customDate);
-          startDate.setHours(0, 0, 0, 0);
-          endDate = new Date(customDate);
-          endDate.setHours(23, 59, 59, 999);
-        }
-
-        this.filteredLogs = this.auditLogs.filter((log) => {
-          const logDate = new Date(log.dateTime);
-          return logDate >= startDate && logDate <= endDate;
-        });
-      }
-    } else {
-      // If auditForm is null or undefined, show all records
+    const dateRange = this.auditForm.get('dateRange')?.value;
+    const customDate = this.auditForm.get('customDate')?.value;
+    let startDate: Date | null = null;
+  
+    if (dateRange === 'all') {
       this.filteredLogs = this.auditLogs;
+      return;
     }
+  
+    const today = new Date();
+  
+    if (dateRange === 'today') {
+      startDate = new Date(today);
+      startDate.setHours(0, 0, 0, 0);
+    } else if (dateRange === 'yesterday') {
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      yesterday.setHours(0, 0, 0, 0);
+      startDate = yesterday;
+    } else if (dateRange === 'custom' && customDate) {
+      startDate = new Date(customDate);
+      startDate.setHours(0, 0, 0, 0);
+    }
+  
+    console.log('startDate:', startDate);
+  
+    this.filteredLogs = this.auditLogs.filter((log) => {
+      const logDate = new Date(log.Date_And_Time);
+      console.log('logDate:', logDate);
+      return startDate && logDate >= startDate && logDate < new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
+    });
   }
+  
 
+  onDateRangeChange() {
+    const dateRange = this.auditForm.get('dateRange')?.value;
+    if (dateRange === 'custom') {
+      this.auditForm.get('customDate')?.setValue(null);
+    }
+    this.filterLogs();
+  }
 }
