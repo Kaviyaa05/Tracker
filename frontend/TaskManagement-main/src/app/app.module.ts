@@ -29,7 +29,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormComponent } from './task/form/form.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HttpClientModule } from '@angular/common/http';
 Chart.register(...registerables);
 import { DetailsComponent } from './details/details.component';
 import { TasktypeComponent } from './report/tasktype/tasktype.component';
