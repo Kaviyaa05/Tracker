@@ -42,6 +42,7 @@ import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
 import { ProfileService } from './profile/profile.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './users/user.service';
 
 
 
@@ -82,7 +83,7 @@ import { HttpClientModule } from '@angular/common/http';
    
   ],
   providers: [
-    provideClientHydration(),SharedService,ProfileService
+    provideClientHydration(),SharedService,ProfileService,UserService
   ],
   bootstrap: [AppComponent,ShowTskcomponent]
 })
