@@ -11,19 +11,18 @@ export class UserService {
   baseUrl: string = 'https://localhost:44392/api/Profile';
 
   getAllUsers() {
-    return this.http.get(this.baseUrl + '/users');
+    return this.http.get(this.baseUrl);
   }
 
   createUser(user: any) {
-    return this.http.post(this.baseUrl + '/users', user);
+    return this.http.post(this.baseUrl, user);
   }
 
   updateUser(user: any) {
-    return this.http.put(this.baseUrl + '/users/' + user.UserId, user);
+    return this.http.put(this.baseUrl + '/' + user.UserId, user);
   }
 
-  deleteUser(UserId: number) { // Modify the parameter name to match the backend
-    return this.http.delete(this.baseUrl + '/users/' + UserId);
+  deleteUser(userId: number) {
+    return this.http.delete(this.baseUrl + '/' + userId);
   }
-  
 }

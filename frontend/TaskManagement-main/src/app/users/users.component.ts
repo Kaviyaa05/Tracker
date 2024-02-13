@@ -73,9 +73,9 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  deleteUser(UserId: number) { // Modify the parameter name to match the service
+  deleteUser(userId: number) {
     if (confirm("Are you sure you want to delete this user?")) {
-      this.userService.deleteUser(UserId).subscribe(
+      this.userService.deleteUser(userId).subscribe(
         () => {
           alert("User deleted successfully");
           this.getAllUsers();
@@ -87,4 +87,5 @@ export class UsersComponent implements OnInit {
       );
     }
   }
+  
 }
