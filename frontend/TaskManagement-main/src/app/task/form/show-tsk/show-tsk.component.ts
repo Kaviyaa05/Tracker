@@ -20,18 +20,18 @@ export class ShowTskcomponent implements OnInit {
 }
 
   AddClick(){
-    // this.tsk={
-    //   TaskId:"",
-    //   UserId:"",
-    //   Taskname:"",
-    //   TaskType:"",
-    //   Priority:"",
-    //   CreatedBy:"",
-    //   StartDate:"",
-    //   EndDate:"",
-    //   Status:"",
-    //   Description:""
-    // }
+    this.tsk={
+      TaskId:"",
+      UserId:"",
+      Taskname:"",
+      TaskType:"",
+      Priority:"",
+      CreatedBy:"",
+      StartDate:"",
+      EndDate:"",
+      Status:"",
+      Description:""
+    }
     this.ModalTitle="Add Task";
     this.FormComp=true;
 }
@@ -43,6 +43,15 @@ editClick(item:any){
   this.tsk=item;
   this.ModalTitle="Edit Task";
   this.FormComp=true;
+}
+
+deleteClick(item:any){
+  if(confirm('Are you sure want to delete?')){
+    this.service.deleteTask(item.TaskId).subscribe(data=>{
+      alert(data.toString());
+      this.refreshtskList();
+    })
+  }
 }
 
   closeClick(){
