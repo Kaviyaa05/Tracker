@@ -1,5 +1,7 @@
 
 <app-home></app-home>
+
+
 <div class="header">
   <a class="project-name" routerLink="/task">Project Name</a>
   <div class="nav-item users-btn d-flex justify-content-end">
@@ -14,9 +16,9 @@
 
 <div class="content-box">
   <!-- Detailed Task Box -->
-  <div class="detailed-task-box">
+  <div class="detailed-task-box" *ngFor="let detail of details" (change)="getDetails()">
     <div class="task-header">
-      <span class="project-id">Project ID: 123</span>
+      <span class="project-id">{{detail.ProjectID}}-{{detail.ProjectName}}</span>
       <div class="task-buttons">
         <button class="btn btn-outline-primary time-tracker-btn" routerLink="/timetracker">
           Time Tracker
@@ -24,37 +26,35 @@
         <button class="btn btn-outline-primary export-btn">Export</button>
       </div>
     </div>
-    <div class="task-details">
+    <div class="task-details" >
       <form class="task-form">
-        <label for="project-name">Project Name:</label>
-        <div class="underlined-value">Sample Project</div>
+        <p style="text-align: center;">{{detail.TaskID}}-{{detail.TaskName}}</p>
+        
 
-        <label for="task-name">Task ID:</label>
-        <div class="underlined-value">1</div>
-
-
-        <label for="task-name">Task Name:</label>
-        <div class="underlined-value">login</div>
+        <label for="priority">Task Priority:</label>
+        <div class="underlined-value">{{detail.TaskPriority}}</div>
 
         <label for="task-description">Task Description:</label>
         <div class="underlined-value">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatibus excepturi possimus accusamus blanditiis ipsam vitae assumenda dolore dolorum laboriosam aliquam nam corrupti ut nemo, voluptas, dolorem quibusdam aut accusantium.
+          {{detail.Description}}
         </div>
 
-        <label for="priority">Priority:</label>
-        <div class="underlined-value">High</div>
+        <label for="task-type">Task Type:</label>
+        <div class="underlined-value">{{detail.TaskType}}</div>
 
         <label for="assigned-by">Assigned By:</label>
-        <div class="underlined-value">Admin_name</div>
+        <div class="underlined-value">{{detail.Assigned_By}}</div>
+
+        <label for="priority">Assigned To:</label>
+        <div class="underlined-value">{{detail.UserID}}</div>
 
         <label for="start-date">Start Date:</label>
-        <div class="underlined-value">24/12/2023</div>
+        <div class="underlined-value">{{detail.StartDate}}</div>
 
         <label for="end-date">End Date:</label>
-        <div class="underlined-value">20/1/2024</div>
+        <div class="underlined-value">{{detail.EndDate}}</div>
 
-        <label for="task-type">Task Type:</label>
-        <div class="underlined-value">Create</div>
+      
 
         <button for="upload-image" class="btn btn-outline-primary" routerLink="/imageuploader">Upload Image</button>
         <!-- Add your image upload input here -->

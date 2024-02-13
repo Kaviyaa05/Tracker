@@ -24,15 +24,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-     <td><a href="/details">1</a></td>
-     <td>login</td>
-     <td>high</td>
-     <td>create</td>
-     <td>24/12/2023</td>
-     <td>20/1/2024</td>
-     <td>todo</td>
-    </tr>
+      
+        <tr *ngFor="let task of tasks" (click)="navigateToDetails(task.id)">
+          <td><a>{{ task.id }}</a></td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.priority }}</td>
+          <td>{{ task.type }}</td>
+          <td>{{ task.startDate }}</td>
+          <td>{{ task.endDate }}</td>
+          <td>{{ task.status }}</td>
+        </tr>
+      
+      
     <tr>
       <td><a href="/details">2</a></td>
       <td>signup</td>

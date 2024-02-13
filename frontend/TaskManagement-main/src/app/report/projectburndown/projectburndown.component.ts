@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-projectburndown',
@@ -6,21 +7,17 @@ import { Component } from '@angular/core';
   styleUrl: './projectburndown.component.css'
 })
 export class ProjectburndownComponent {
-  // selectedTaskType: string = ''; // Initialize with 'all' to show all tasks initially
+  projectdeadline:any[]=[];
+
+  constructor(private http : ReportService){}
   
-  tasks = [
-    { pid:2001,id: 101, name: 'Image button', userId: 1001,priority:'high', taskType: 'Issue', owner: 'Shruti', startDate: '20.01.24', dueDate: '24.01.24' , overdue:5},
-    { pid:2002,id: 102, name: 'Comment button', userId: 1002,priority:'Low',  taskType: 'Bug', owner: 'Priyanka', startDate: '22.01.24', dueDate: '25.01.24',overdue:4 },
-    
-    // Add other tasks as needed
-  ];
-
-  ngOnInit() {
-   
+  getAllOverdue(){
+    this.http.showAllProjectOverdue().subscribe((data:any[])=>{
+      this.projectdeadline = data;
+    })
   }
-
-  showAllTasks() {
-    this.tasks;
-  }
+  ngOnInit(){
+      this.getAllOverdue();
+  }  
   
 }

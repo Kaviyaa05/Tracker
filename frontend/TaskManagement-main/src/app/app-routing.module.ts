@@ -43,7 +43,7 @@ const routes: Routes = [
   {path:'audit' ,component:AuditComponent},
   { path: 'comment', component: CommentComponent },
   {path:'image' ,component:ImageuploaderComponent},
-  {path:'details',component:DetailsComponent},
+  {path:'details/:id',component:DetailsComponent},
   {path:'teams',component:TeamsComponent},
   {path:'boards',component:BoardsComponent},
   {path:'timetracker',component:TimetrackerComponent},
