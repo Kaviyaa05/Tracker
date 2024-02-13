@@ -11,6 +11,7 @@ export class AuditComponent implements OnInit {
   auditLogs: any[] = [];
   filteredLogs: any[] = [];
   auditForm: FormGroup;
+  searchQuery: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,42 +35,6 @@ export class AuditComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching audit logs:', error);
-      }
-    );
-  }
-
-  getTodayLogs() {
-    this.auditService.getTodayAuditLogs().subscribe(
-      (auditLogs) => {
-        this.auditLogs = auditLogs;
-        this.filterLogs();
-      },
-      (error) => {
-        console.error('Error fetching today\'s audit logs:', error);
-      }
-    );
-  }
-
-  getYesterdayLogs() {
-    this.auditService.getYesterdayAuditLogs().subscribe(
-      (auditLogs) => {
-        this.auditLogs = auditLogs;
-        this.filterLogs();
-      },
-      (error) => {
-        console.error('Error fetching yesterday\'s audit logs:', error);
-      }
-    );
-  }
-
-  getCustomDateLogs(date: string) {
-    this.auditService.getCustomDateAuditLogs(date).subscribe(
-      (auditLogs) => {
-        this.auditLogs = auditLogs;
-        this.filterLogs();
-      },
-      (error) => {
-        console.error('Error fetching custom date audit logs:', error);
       }
     );
   }
@@ -106,8 +71,29 @@ export class AuditComponent implements OnInit {
       console.log('logDate:', logDate);
       return startDate && logDate >= startDate && logDate < new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
     });
+
+    // Apply search after filtering
+    this.applySearch();
   }
   
+  applySearch() {
+    if (!this.searchQuery) {
+      return; // If search query is empty, no need to apply search
+    }
+
+    // Filter logs based on search query
+    this.filteredLogs = this.filteredLogs.filter((log) => {
+      for (const key in log) {
+        if (log.hasOwnProperty(key)) {
+          const value = log[key];
+          if (typeof value === 'string' && value.toLowerCase().includes(this.searchQuery.toLowerCase())) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+  }
 
   onDateRangeChange() {
     const dateRange = this.auditForm.get('dateRange')?.value;
@@ -115,5 +101,9 @@ export class AuditComponent implements OnInit {
       this.auditForm.get('customDate')?.setValue(null);
     }
     this.filterLogs();
+  }
+
+  onSearchInputChange() {
+    this.applySearch();
   }
 }

@@ -2,41 +2,47 @@
   <h4>Audit_Page</h4>
   <div class="container mt-2"> 
 
-  <form [formGroup]="auditForm" (ngSubmit)="filterLogs()">
-    <label for="dateRange">Date Range:</label>
-    <select id="dateRange" formControlName="dateRange" (change)="onDateRangeChange()">
-      <option value="today">Today</option>
-      <option value="yesterday">Yesterday</option>
-      <option value="custom">Custom Date</option>
-    </select>
+    <form [formGroup]="auditForm" (ngSubmit)="filterLogs()">
+      <label for="dateRange">Date Range:</label>
+      <select id="dateRange" formControlName="dateRange" (change)="onDateRangeChange()">
+        <option value="today">Today</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="custom">Custom Date</option>
+      </select>
 
-    <div *ngIf="auditForm.get('dateRange')?.value === 'custom'" class="custom-date">
-      <label for="customDate">Custom Date:</label>
-      <input type="date" id="customDate" formControlName="customDate">
+      <div *ngIf="auditForm.get('dateRange')?.value === 'custom'" class="custom-date">
+        <label for="customDate">Custom Date:</label>
+        <input type="date" id="customDate" formControlName="customDate">
+      </div>
+      <button type="submit" class="btn btn-outline-custom">Filter</button>
+    </form>
+
+    <div class="mt-3">
+      <label for="searchQuery">Search:</label>
+      <input type="text" id="searchQuery" [(ngModel)]="searchQuery" (input)="applySearch()">
     </div>
-    <button type="submit" class="btn btn-outline-custom">Filter</button>
-  </form>
 
-  <div *ngIf="filteredLogs.length === 0 && auditForm.get('dateRange')?.value !== 'custom'">
-    <p>No records matched!</p>
+    <div *ngIf="filteredLogs.length === 0 && auditForm.get('dateRange')?.value !== 'custom'">
+      <p>No records matched!</p>
+    </div>
+
+    <table *ngIf="filteredLogs.length > 0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date and Time</th>
+          <th>User Name</th>
+          <th>Module</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of filteredLogs">
+          <td>{{ log.Date_And_Time | date: 'medium' }}</td>
+          <td>{{ log.userName }}</td>
+          <td>{{ log.Module }}</td>
+          <td>{{ log.Action }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  <table *ngIf="filteredLogs.length > 0" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Date and Time</th>
-        <th>User Name</th>
-        <th>Module</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let log of filteredLogs">
-        <td>{{ log.Date_And_Time | date: 'medium' }}</td>
-        <td>{{ log.userName }}</td>
-        <td>{{ log.Module }}</td>
-        <td>{{ log.Action }}</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
