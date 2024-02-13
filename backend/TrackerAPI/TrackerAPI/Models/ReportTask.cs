@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TrackerAPI.Models
 {
-    public class Task
+    public class ReportTask
     {
 
         public int ProjectID { get; set; }

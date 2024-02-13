@@ -11,9 +11,9 @@ namespace TrackerAPI.Models
     public class ReportDao
     {
 
-        public List<Project> fetchProjects()
+        public List<ReportProject> fetchProjects()
         {
-            List<Project> projects = new List<Project>();
+            List<ReportProject> projects = new List<ReportProject>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand("SELECT * FROM dummyproject", connection))
@@ -36,7 +36,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(7);
                             DateTime endDate = reader.GetDateTime(8);
 
-                            projects.Add(new Project
+                            projects.Add(new ReportProject
                             {
                                 ProjectID = projectId,
                                 UserID = userId,
@@ -61,10 +61,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchTask()
+        public List<ReportTask> fetchTask()
         {
             string connectionStirng = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            List<Task> tasks = new List<Task>();
+            List<ReportTask> tasks = new List<ReportTask>();
 
             using (SqlConnection connection = new SqlConnection(connectionStirng))
             {
@@ -89,7 +89,7 @@ namespace TrackerAPI.Models
                                 DateTime startDate = reader.GetDateTime(8);
                                 DateTime endDate = reader.GetDateTime(9);
 
-                                tasks.Add(new Task
+                                tasks.Add(new ReportTask
                                 {
                                     ProjectID = projectId,
                                     TaskID = taskId,
@@ -120,10 +120,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchTaskByType(string taskType)
+        public List<ReportTask> fetchTaskByType(string taskType)
         {
             string query = "SELECT * FROM dummytask WHERE task_type = @TaskType";
-            List<Task> tasks = new List<Task>();
+            List<ReportTask> tasks = new List<ReportTask>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -148,7 +148,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(8);
                             DateTime endDate = reader.GetDateTime(9);
 
-                            tasks.Add(new Task
+                            tasks.Add(new ReportTask
                             {
                                 ProjectID = projectId,
                                 TaskID = taskId,
@@ -177,10 +177,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchOverdue(DateTime currentDate)
+        public List<ReportTask> fetchOverdue(DateTime currentDate)
         {
             string query = "SELECT * FROM dummytask WHERE end_date <= @CurrentDate";
-            List<Task> tasks = new List<Task>();
+            List<ReportTask> tasks = new List<ReportTask>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -205,7 +205,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(8);
                             DateTime endDate = reader.GetDateTime(9);
 
-                            tasks.Add(new Task
+                            tasks.Add(new ReportTask
                             {
                                 ProjectID = projectId,
                                 TaskID = taskId,
@@ -232,10 +232,10 @@ namespace TrackerAPI.Models
 
 
 
-        public List<Project> fetchProjectOverdue(DateTime currentDate)
+        public List<ReportProject> fetchProjectOverdue(DateTime currentDate)
         {
             string query = "SELECT * FROM dummyproject WHERE end_date <= @CurrentDate";
-            List<Project> projects = new List<Project>();
+            List<ReportProject> projects = new List<ReportProject>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -259,7 +259,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(7);
                             DateTime endDate = reader.GetDateTime(8);
 
-                            projects.Add(new Project
+                            projects.Add(new ReportProject
                             {
                                 ProjectID = projectId,
                                 UserID = userId,
@@ -284,10 +284,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Task> fetchTaskByPriority(string taskPriority)
+        public List<ReportTask> fetchTaskByPriority(string taskPriority)
         {
             string query = "SELECT * FROM dummytask WHERE task_priority = @TaskPriority";
-            List<Task> tasks = new List<Task>();
+            List<ReportTask> tasks = new List<ReportTask>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -312,7 +312,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(8);
                             DateTime endDate = reader.GetDateTime(9);
 
-                            tasks.Add(new Task
+                            tasks.Add(new ReportTask
                             {
                                 ProjectID = projectId,
                                 TaskID = taskId,
@@ -340,10 +340,10 @@ namespace TrackerAPI.Models
         }
 
 
-        public List<Project> fetchProjectByPriority(string projectPriority)
+        public List<ReportProject> fetchProjectByPriority(string projectPriority)
         {
             string query = "SELECT * FROM dummyproject WHERE project_priority = @ProjectPriority";
-            List<Project> projects = new List<Project>();
+            List<ReportProject> projects = new List<ReportProject>();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -368,7 +368,7 @@ namespace TrackerAPI.Models
                             DateTime endDate = reader.GetDateTime(8);
 
 
-                            projects.Add(new Project
+                            projects.Add(new ReportProject
                             {
                                 ProjectID = projectId,
                                 UserID = userId,
@@ -396,10 +396,10 @@ namespace TrackerAPI.Models
 
 
 
-        public List<Details> fetchTaskDetails(int taskid)
+        public List<TaskDetails> fetchTaskDetails(int taskid)
         {
             string query = "select dummytask.project_id, dummyproject.project_name,dummytask.task_id, dummytask.USER_ID,dummyproject.project_priority, dummytask.task_name,dummytask.task_priority, dummytask.task_type, dummytask.description,dummytask.owner,dummyproject.team_members, dummytask.start_date,dummytask.end_date from dummytask join dummyproject on dummytask.project_id = dummyproject.project_id where task_id=@TaskID";
-            List<Details> details = new List<Details>();
+            List<TaskDetails> details = new List<TaskDetails>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
@@ -425,7 +425,7 @@ namespace TrackerAPI.Models
                             DateTime startDate = reader.GetDateTime(11);
                             DateTime endDate = reader.GetDateTime(12);
 
-                            details.Add(new Details
+                            details.Add(new TaskDetails
                             {
                                 ProjectID = projectId,
                                 ProjectName = projectName,
