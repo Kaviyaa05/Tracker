@@ -40,7 +40,7 @@ import { ProjectburndownComponent } from './report/projectburndown/projectburndo
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
-import { HttpClientModule} from '@angular/common/http';
+
 
 
 
@@ -76,7 +76,7 @@ import { HttpClientModule} from '@angular/common/http';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+   
   ],
   providers: [
     provideClientHydration(),SharedService
