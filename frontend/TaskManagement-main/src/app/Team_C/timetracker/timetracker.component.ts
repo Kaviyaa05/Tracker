@@ -5,13 +5,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TimeTrackerService } from './timetracker.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
-
 @Component({
   selector: 'app-timetracker',
   templateUrl: './timetracker.component.html',
   styleUrls: ['./timetracker.component.css'],
   changeDetection: ChangeDetectionStrategy.Default, // or ChangeDetectionStrategy.OnPush
-
 })
 export class TimetrackerComponent implements OnInit {
   timeEntries: any[] = [];
@@ -22,13 +20,16 @@ export class TimetrackerComponent implements OnInit {
   filterProjectID: string = '';
   selectedIndex: number | null = null;
 
-  constructor(private fb: FormBuilder, private timeTrackerService: TimeTrackerService) { }
+  // Constructor with dependency injection
+  constructor(private fb: FormBuilder, private timeTrackerService: TimeTrackerService) {}
 
+  // Lifecycle hook for component initialization
   ngOnInit() {
     this.initializeForm();
     this.loadAllTimeEntries();
   }
 
+  // Initialize the form with validators and value change subscriptions
   initializeForm() {
     this.timeEntryForm = this.fb.group({
       UserID: ['', Validators.required],
@@ -36,9 +37,10 @@ export class TimetrackerComponent implements OnInit {
       TaskID: ['', Validators.required],
       StartTime: [null, Validators.required],
       EndTime: [null, Validators.required],
-      TotalWorkingHours: ['']
+      TotalWorkingHours: [''],
     });
 
+    // Subscribe to value changes for StartTime and EndTime to calculate total hours
     this.timeEntryForm.get('StartTime')?.valueChanges.subscribe(() => {
       this.calculateTotalHours();
     });
@@ -48,6 +50,7 @@ export class TimetrackerComponent implements OnInit {
     });
   }
 
+  // Load all time entries from the service
   loadAllTimeEntries() {
     this.timeTrackerService.GetAllTimeEntries().subscribe(
       (data) => {
@@ -61,59 +64,67 @@ export class TimetrackerComponent implements OnInit {
     );
   }
 
-
+  // Calculate total hours based on StartTime and EndTime
   calculateTotalHours() {
     const StartTime = this.timeEntryForm.get('StartTime')?.value;
     const EndTime = this.timeEntryForm.get('EndTime')?.value;
-  
+
     if (StartTime && EndTime) {
       const Start = new Date(StartTime);
       const End = new Date(EndTime);
-  
+
       const diffMillis = End.getTime() - Start.getTime();
       const hours = diffMillis / (1000 * 60 * 60);
-      
+
       // Set TotalWorkingHours as a numeric value
       this.timeEntryForm.get('TotalWorkingHours')?.setValue(hours);
     } else {
       this.timeEntryForm.get('TotalWorkingHours')?.setValue(null);
     }
   }
-  
 
+  // Open the popup for adding a new time entry
   openPopup() {
     this.showPopup = true;
     this.editingIndex = null;
     this.clearForm();
   }
 
+  // Close the popup and optionally refresh time entries
   closePopup() {
     this.showPopup = false;
     this.clearForm();
     this.viewAllEntries = false;
     this.filterProjectID = ''; // Reset filter when closing the popup
+    this.refreshTimeEntries();
   }
 
+  // Refresh time entries by calling the service again
+  refreshTimeEntries() {
+    this.timeTrackerService.GetAllTimeEntries().subscribe((data) => {
+      this.timeEntries = data;
+    });
+  }
+
+  // Add a new time entry or edit an existing one
   AddTimeEntry() {
     if (this.timeEntryForm.valid) {
-      const newEntry = {
-        ...this.timeEntryForm.value,
-        StartTime: new Date(this.timeEntryForm.get('StartTime')?.value),
-        EndTime: new Date(this.timeEntryForm.get('EndTime')?.value),
-        TotalWorkingHours: this.timeEntryForm.get('TotalWorkingHours')?.value,
-      };
+      const newEntry = { ...this.timeEntryForm.value, TotalWorkingHours: this.timeEntryForm.get('TotalWorkingHours')?.value };
 
       if (this.editingIndex === null) {
+        // Add a new time entry
         this.timeTrackerService.AddTimeEntry(newEntry).subscribe(
           (response: any) => {
             this.timeEntries.push(response);
             this.closePopup();
+            this.triggerChangeDetection();
           },
           (error: any) => {
             console.error('Failed to add time entry:', error);
           }
         );
       } else {
+        // Edit an existing time entry
         const editedEntry = { ...newEntry, id: this.timeEntries[this.editingIndex].id };
 
         this.timeTrackerService.EditTimeEntry(editedEntry).subscribe(
@@ -121,6 +132,7 @@ export class TimetrackerComponent implements OnInit {
             console.log('Time entry updated successfully:', response);
             this.updateLocalEntry(response);
             this.closePopup();
+            this.triggerChangeDetection();
           },
           (error: any) => {
             console.error('Failed to update time entry:', error);
@@ -129,40 +141,28 @@ export class TimetrackerComponent implements OnInit {
       }
     }
   }
-  
-  // Helper method to update the local entry after editing
-  
+
+  // Trigger change detection manually
+  triggerChangeDetection() {
+    throw new Error('Method not implemented.');
+  }
+
+  // Update a local time entry after editing
   private updateLocalEntry(updatedEntry: any) {
-    const index = this.timeEntries.findIndex(entry => entry.id === updatedEntry.id);
+    const index = this.timeEntries.findIndex((entry) => entry.id === updatedEntry.id);
     if (index !== -1) {
-      // Convert date strings to Date objects
-      updatedEntry.StartTime = new Date(updatedEntry.StartTime);
-      updatedEntry.EndTime = new Date(updatedEntry.EndTime);
-  
-      this.timeEntries[index] = updatedEntry;
+      Object.assign(this.timeEntries[index], updatedEntry);
     }
   }
 
- populateForm(entry: any) {
-  // Convert date strings to Date objects
-  entry.StartTime = new Date(entry.StartTime);
-  entry.EndTime = new Date(entry.EndTime);
-
-  // Set the form values
-  this.timeEntryForm.patchValue({
-    ...entry,
-    StartTime: entry.StartTime.toISOString().slice(0, -8), // Adjust the format as needed
-    EndTime: entry.EndTime.toISOString().slice(0, -8),     // Adjust the format as needed
-  });
-}
-
+  // Edit a specific time entry
   EditTimeEntry(index: number) {
     this.editingIndex = index;
     this.showPopup = true;
     this.populateForm(this.timeEntries[index]);
-    this.updateLocalEntry(Response);
-  }
+ }
 
+  // Delete a specific time entry
   DeleteTimeEntry(index: number) {
     const TaskID = this.timeEntries[index]?.TaskID;
     if (TaskID) {
@@ -178,12 +178,17 @@ export class TimetrackerComponent implements OnInit {
     }
   }
 
-  
+  // Populate the form with data for editing
+  populateForm(entry: any) {
+    this.timeEntryForm.patchValue(entry);
+  }
 
+  // Clear the form
   clearForm() {
     this.timeEntryForm.reset();
   }
 
+  // Toggle between viewing all entries and specific entries
   toggleViewAllEntries() {
     this.viewAllEntries = !this.viewAllEntries;
     if (!this.viewAllEntries) {
@@ -191,9 +196,10 @@ export class TimetrackerComponent implements OnInit {
     }
   }
 
+  // Get unique project IDs from time entries
   getUniqueProjects(): string[] {
     const projects: string[] = [];
-    this.timeEntries.forEach(entry => {
+    this.timeEntries.forEach((entry) => {
       if (!projects.includes(entry.ProjectID)) {
         projects.push(entry.ProjectID);
       }
