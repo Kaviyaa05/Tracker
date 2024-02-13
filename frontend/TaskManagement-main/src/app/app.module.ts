@@ -44,10 +44,6 @@ import { SharedService } from './task/form/shared.service';
 
 
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +74,7 @@ import { SharedService } from './task/form/shared.service';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule
+ 
   ],
   providers: [
     provideClientHydration(),SharedService
