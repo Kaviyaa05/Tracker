@@ -30,7 +30,7 @@ import { ProjectburndownComponent } from './report/projectburndown/projectburndo
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 
 const routes: Routes = [
-  { path : '', component : LoginpageComponent},
+  { path : 'login', component : LoginpageComponent},
   { path:'loginactivity', component:LoginactivityComponent },
   { path:'acl', component:AclSettingsComponent},
   { path:'chart', component:ChartComponent},
