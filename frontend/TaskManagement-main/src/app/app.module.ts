@@ -29,7 +29,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormComponent } from './task/form/form.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { HttpClientModule } from '@angular/common/http';
 Chart.register(...registerables);
 import { DetailsComponent } from './details/details.component';
 import { TasktypeComponent } from './report/tasktype/tasktype.component';
@@ -41,9 +41,6 @@ import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
 import { HttpClientModule } from '@angular/common/http';
-
-
-
 
 
 
@@ -65,6 +62,7 @@ import { HttpClientModule } from '@angular/common/http';
      DocumentsComponent,
      ImageuploaderComponent, 
      UsersComponent,
+     
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
       ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, 
   ],
@@ -75,8 +73,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     FontAwesomeModule,
     FormsModule,
+
     ReactiveFormsModule,
     HttpClientModule
+
   ],
   providers: [
     provideClientHydration(),SharedService
