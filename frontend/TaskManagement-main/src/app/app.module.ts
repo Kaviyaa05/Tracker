@@ -29,6 +29,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormComponent } from './task/form/form.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 Chart.register(...registerables);
 import { DetailsComponent } from './details/details.component';
@@ -40,6 +41,8 @@ import { ProjectburndownComponent } from './report/projectburndown/projectburndo
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
+import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
+
 
 
 
@@ -65,7 +68,7 @@ import { SharedService } from './task/form/shared.service';
      ImageuploaderComponent, 
      UsersComponent,
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
-      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, 
+      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent,ViewAllProjectsComponent, 
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,10 @@ import { SharedService } from './task/form/shared.service';
     FormsModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+    
+
   ],
   providers: [
     provideClientHydration(),SharedService

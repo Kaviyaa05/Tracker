@@ -1,0 +1,44 @@
+.container {
+  margin-top: 20px;
+  }
+  
+  h2 {
+  margin-bottom: 20px;
+  }
+  
+  .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  }
+  
+  .table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+  background-color: #f2f2f2;
+  }
+  
+  .table td {
+  vertical-align: middle;
+  }
+  
+  .btn {
+  margin-right: 5px;
+  }
+  
+  /* Add styles for the edit form */
+  .edit-form {
+  margin-top: 20px;
+  }
+  
+  .edit-form .form-group {
+  margin-bottom: 15px;
+  }
+  
+  .edit-form button {
+  margin-right: 10px;
+  }
