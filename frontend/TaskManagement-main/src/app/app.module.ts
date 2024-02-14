@@ -45,14 +45,6 @@ import { ProfileService } from './profile/profile.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './users/user.service';
 
-
-
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +64,7 @@ import { UserService } from './users/user.service';
      UsersComponent,
      
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
-      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, 
+      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, 
   ],
   imports: [
     BrowserModule,
@@ -91,7 +83,8 @@ import { UserService } from './users/user.service';
    
   ],
 
- 
-  bootstrap: [AppComponent,ShowTskcomponent]
+
+  bootstrap: [AppComponent]
+
 })
 export class AppModule { }
