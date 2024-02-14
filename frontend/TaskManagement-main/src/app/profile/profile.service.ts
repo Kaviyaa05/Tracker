@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileService {
-  private profileUrl = 'http://localhost:2682/api/profile'; // Replace with your backend URL
+  private profileUrl = 'https://localhost:44388/api/Profile'; // Replace with your backend URL
 
   constructor(private http: HttpClient) { }
 
