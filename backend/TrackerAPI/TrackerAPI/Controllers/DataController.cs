@@ -14,7 +14,7 @@ namespace TrackerAPI.Controllers
         public IHttpActionResult Get()
         {
             AuthDAO authDAO = new AuthDAO();
-         
+
             var username = User.GetUsername();
             var role = User.GetRole();
 

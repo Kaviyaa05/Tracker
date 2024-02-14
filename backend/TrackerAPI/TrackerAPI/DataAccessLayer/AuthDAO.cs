@@ -8,11 +8,11 @@ namespace TrackerAPI.DataAccessLayer
 {
     public class AuthDAO
     {
-        public User GetUserByUsername(string username)
+        public UserData GetUserByUsername(string username)
         {
             using (var connection = DbUtils.GetConnection())
             {
-                User user = null;
+                UserData user = null;
                 string query = "SELECT * FROM Login WHERE username = @UserName";
 
                 try

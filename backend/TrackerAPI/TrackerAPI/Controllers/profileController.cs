@@ -12,7 +12,7 @@ using TrackerAPI.Models;
 
 namespace TrackerAPI.Controllers
 {
-    public class profileController : ApiController
+    public class ProfileController : ApiController
     {
         // GET: login
         public HttpResponseMessage Get()
@@ -37,7 +37,7 @@ namespace TrackerAPI.Controllers
         }
 
         // POST: login
-        public HttpResponseMessage Post([FromBody] profile log)
+        public HttpResponseMessage Post([FromBody] Profile log)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace TrackerAPI.Controllers
         }
 
         // PUT: login
-        public HttpResponseMessage put([FromBody] profile log)
+        public HttpResponseMessage put([FromBody] Profile log)
         {
             try
             {

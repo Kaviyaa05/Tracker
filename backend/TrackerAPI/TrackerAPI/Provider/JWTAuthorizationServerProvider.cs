@@ -22,7 +22,7 @@ public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvide
 
 	public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
 	{
-		User user = _authDAO.GetUserByUsername(context.UserName);
+		UserData user = _authDAO.GetUserByUsername(context.UserName);
 		if (user != null && user.Password.Trim().Equals(context.Password)) 
 		{
 			var identity = new ClaimsIdentity(context.Options.AuthenticationType);

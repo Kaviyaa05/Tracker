@@ -56,7 +56,6 @@ namespace TrackerAPI.Models
                     cmd.Parameters.AddWithValue("@Role", log.Role ?? "");
                     cmd.Parameters.AddWithValue("@Email", log.Email ?? "");
                     cmd.Parameters.AddWithValue("@Password", log.Password ?? "");
-
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }

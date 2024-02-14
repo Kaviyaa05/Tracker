@@ -10,9 +10,9 @@ namespace TrackerAPI.Models.mapper
 {
     public class UserMapper
     {
-        public static User MapToUser(SqlDataReader reader)
+        public static UserData MapToUser(SqlDataReader reader)
         {
-            User user = new User();
+            UserData user = new UserData();
             user.UserID = reader.GetInt32(reader.GetOrdinal("userid"));
             user.UserName = reader["username"] as string;
             user.Password = reader["password"] as string;

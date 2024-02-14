@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TrackerAPI.Models
 {
-    public class profile
+    public class Profile
     {
         public string Name { get; set; }
         public string Email { get; set; }
