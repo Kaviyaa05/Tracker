@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ImageuploaderService {
-  private baseUrl = 'http://localhost:9336/api/image'; // Replace with your actual backend URL
+  private baseUrl = 'https://localhost:44388/api/image'; // Replace with your actual backend URL
 
   constructor(private http: HttpClient) {}
 
