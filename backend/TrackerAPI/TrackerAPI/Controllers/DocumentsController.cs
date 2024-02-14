@@ -12,133 +12,180 @@ namespace TrackerAPI.Controllers
 {
     public class DocumentsController : ApiController
     {
-    
-            // Add document
-            //[EnableCors(origins: "*", headers: "*", methods: "*")]
-            public string Post(Table review)
+
+        // Add document
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        public IHttpActionResult Post(DocumentsTable review)
+        {
+
+
+            using (SqlConnection connection = DocumentsDao.GetConnection())
             {
+                review.CreatedAt = DateTime.Now;
+                string query = "INSERT INTO notes (Title, Content, CreatedAt) VALUES (@Title, @Content, @CreatedAt)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Title", review.Title);
+                command.Parameters.AddWithValue("@Content", review.Content);
+                command.Parameters.AddWithValue("@CreatedAt", review.CreatedAt);
+                
 
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
 
-                using (SqlConnection connection = MainClass.GetConnection())
+                if (rowsAffected > 0)
+                    return Ok();
+                else
+                    return NotFound();
+            }
+        }
+
+        // Get all records
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [HttpPost]
+        public IHttpActionResult Get(DocumentsTable review)
+        {
+            try
+            {
+                using (SqlConnection connection = DocumentsDao.GetConnection())
                 {
-                    review.CreatedAt = DateTime.Now; 
-                    string query = "INSERT INTO notes (Title, Content, CreatedAt, ModifiedAt) VALUES (@Title, @Content, @CreatedAt, @ModifiedAt)";
+                    connection.Open();
+                    string query = "INSERT INTO notes (Title, Content, CreatedAt) VALUES (@Title, @Content, @CreatedAt)";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Title", review.Title);
                     command.Parameters.AddWithValue("@Content", review.Content);
-                    command.Parameters.AddWithValue("@CreatedAt", review.CreatedAt);
-                    command.Parameters.AddWithValue("@ModifiedAt", review.ModifiedAt);
-
-                    connection.Open();
+                    command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
-                        return "Document added successfully";
+                        return Ok("Note added successfully");
                     else
-                        return "Failed to add document";
+                        return BadRequest("Failed to add note");
                 }
             }
-
-            // Get all documents
-            //[EnableCors(origins: "*", headers: "*", methods: "*")]
-            public IEnumerable<Table> Get()
+            catch (Exception ex)
             {
-                List<Table> bookReviews = new List<Table>();
-                using (SqlConnection connection = MainClass.GetConnection())
+                return InternalServerError(ex);
+            }
+        }
+
+        // Get all records
+        [HttpGet]
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                List<DocumentsTable> notes = new List<DocumentsTable>();
+                using (SqlConnection connection = DocumentsDao.GetConnection())
                 {
-                    string query = "SELECT * FROM notes";
-
-                    SqlCommand command = new SqlCommand(query, connection);
-
                     connection.Open();
+                    string query = "SELECT Id, Title, Content FROM notes";
+                    SqlCommand command = new SqlCommand(query, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        Table review = new Table();
-                        review.Id = Convert.ToInt32(reader["Id"]);
-                        review.Title = reader["Title"].ToString();
-                        review.Content = reader["Content"].ToString();
-                      
-
-                        bookReviews.Add(review);
+                        DocumentsTable note = new DocumentsTable
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Title = reader["Title"].ToString(),
+                            Content = reader["Content"].ToString()
+                        };
+                        notes.Add(note);
                     }
                 }
-                return bookReviews;
+                return Ok(notes);
             }
-
-            // Get single documents
-            //[EnableCors(origins: "*", headers: "*", methods: "*")]
-            public Table Get(string title)
+            catch (Exception ex)
             {
-                using (SqlConnection connection = MainClass.GetConnection())
-                {
-                    string query = "SELECT * FROM notes WHERE Title = @Title";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Title", title);
+                return InternalServerError(ex);
+            }
+        }
 
+        // Get single note by id
+        [HttpGet]
+        public IHttpActionResult Get(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = DocumentsDao.GetConnection())
+                {
                     connection.Open();
+                    string query = "SELECT Title, Content FROM notes WHERE Id = @Id";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Id", id);
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        Table review = new Table();
-                        review.Id = Convert.ToInt32(reader["Id"]);
-                        review.Title = reader["Title"].ToString();
-                        review.Content = reader["Content"].ToString();
-                        
-                        return review;
+                        DocumentsTable note = new DocumentsTable
+                        {
+                            Title = reader["Title"].ToString(),
+                            Content = reader["Content"].ToString()
+                        };
+                        return Ok(note);
                     }
                     else
                     {
-                        return null;
+                        return NotFound();
                     }
                 }
             }
-                //Modify the document
-
-            //[EnableCors(origins: "*", headers: "*", methods: "*")]
-            public string Put(string title, Table review)
+            catch (Exception ex)
             {
-                review.ModifiedAt = DateTime.Now; 
+                return InternalServerError(ex);
+            }
+        }
 
-                using (SqlConnection connection = MainClass.GetConnection())
+        // Update a note
+        [HttpPut]
+        public IHttpActionResult Put(int id, DocumentsTable review)
+        {
+            try
+            {
+                using (SqlConnection connection = DocumentsDao.GetConnection())
                 {
-                    review.ModifiedAt = DateTime.Now;
-                    string query = "UPDATE notes SET  Content = @Content, ModifiedAt = @ModifiedAt WHERE Title=@Title";
+                    connection.Open();
+                    string query = "UPDATE notes SET Title = @Title, Content = @Content WHERE Id = @Id";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Title", review.Title);
                     command.Parameters.AddWithValue("@Content", review.Content);
-                    command.Parameters.AddWithValue("@ModifiedAt", review.ModifiedAt);
-                    
-
-                    connection.Open();
+                    command.Parameters.AddWithValue("@Id", id);
                     int rowsAffected = command.ExecuteNonQuery();
-
                     if (rowsAffected > 0)
-                        return "Updated";
+                        return Ok("Note updated successfully");
                     else
-                        return "Document not found";
+                        return NotFound();
                 }
             }
-
-            // Delete the documnet
-            //[EnableCors(origins: "*", headers: "*", methods: "*")]
-            public string Delete(string title)
+            catch (Exception ex)
             {
-                using (SqlConnection connection = MainClass.GetConnection())
+                return InternalServerError(ex);
+            }
+        }
+
+        // Delete a note
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = DocumentsDao.GetConnection())
                 {
-                    string query = "DELETE FROM notes WHERE Title = @Title";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Title", title);
-
                     connection.Open();
+                    string query = "DELETE FROM notes WHERE Id = @Id";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Id", id);
                     int rowsAffected = command.ExecuteNonQuery();
-
                     if (rowsAffected > 0)
-                        return "Note deleted successfully";
+                        return Ok("Note deleted successfully");
                     else
-                        return "Note record not found";
+                        return NotFound();
                 }
             }
-
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
+}
+
+
