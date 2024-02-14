@@ -40,6 +40,7 @@ import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
 import { TimeTrackerService } from './Team_C/timetracker/timetracker.service';
+import { ImageuploaderService } from './Team_C/imageuploader/imageuploader.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -76,16 +77,13 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     FontAwesomeModule,
     FormsModule,
-
-
     ReactiveFormsModule,
     HttpClientModule
-
-
   ],
   providers: [
-    provideClientHydration(),SharedService,TimeTrackerService
+    provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService 
   ],
+ 
   bootstrap: [AppComponent,ShowTskcomponent]
 })
 export class AppModule { }
