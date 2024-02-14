@@ -41,7 +41,11 @@ import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
 import { TimeTrackerService } from './Team_C/timetracker/timetracker.service';
 import { ImageuploaderService } from './Team_C/imageuploader/imageuploader.service';
+import { ProfileService } from './profile/profile.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './users/user.service';
+
+
 
 
 
@@ -79,10 +83,14 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
+
   ],
   providers: [
-    provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService 
+    provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService,ProfileService,UserService
+
+   
   ],
+
  
   bootstrap: [AppComponent,ShowTskcomponent]
 })
