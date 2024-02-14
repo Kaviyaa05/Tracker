@@ -1,5 +1,6 @@
 // create.component.ts
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'; // Import Router module
 import { ProjectService } from '../service/project.service';
 import { Project } from '../models/project';
 
@@ -20,7 +21,7 @@ export class CreateComponent {
 
   errorMessage: string = ''; // For displaying error messages to the user
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, private router: Router) { } // Provide Router module in the constructor
 
   submitForm() {
     const project: Project = {
@@ -40,7 +41,8 @@ export class CreateComponent {
       (response: Project) => {
         console.log('Project created successfully:', response);
         this.resetForm();
-        // You can add any additional logic here
+        // Redirect to view-all-project route after successful project creation
+        this.router.navigate(['/view-all-projects']);
       },
       (error) => {
         console.error('Error creating project:', error);

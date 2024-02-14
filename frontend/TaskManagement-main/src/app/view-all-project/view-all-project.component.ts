@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { Project } from '../models/project';
 
@@ -12,7 +13,7 @@ export class ViewAllProjectsComponent implements OnInit {
   editedProject: Project = { ProjectId: 0, ProjectName: '', Priority: '', Description: '', Owner: '', StartDate: '', EndDate: '', Status: '', TeamMembers: '' };
   showEditForm: boolean = false;
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private router: Router, private projectService: ProjectService) { }
 
   ngOnInit() {
     this.getProjects();
@@ -31,47 +32,43 @@ export class ViewAllProjectsComponent implements OnInit {
   }
 
   editProject(project: Project) {
-    // Set the editedProject object and show the edit form
-    this.editedProject = { ...project }; // Make a copy to prevent direct modification of the original object
+    this.editedProject = { ...project };
     this.showEditForm = true;
   }
 
   updateProject() {
-    // Call the update API endpoint using the project service
     this.projectService.updateProject(this.editedProject).subscribe(
       (response: any) => {
         console.log('Project updated successfully:', response);
-        // Hide the edit form and refresh the project list
         this.showEditForm = false;
         this.getProjects();
       },
       (error) => {
         console.error('Error updating project:', error);
-        // Handle error (e.g., show error message)
       }
     );
   }
 
   cancelEdit() {
-    // Reset editedProject and hide the edit form
     this.editedProject = { ProjectId: 0, ProjectName: '', Priority: '', Description: '', Owner: '', StartDate: '', EndDate: '', Status: '', TeamMembers: '' };
     this.showEditForm = false;
   }
 
   deleteProject(projectId: number | undefined) {
-    // Check if projectId is defined before making the delete request
     if (projectId !== undefined) {
       this.projectService.deleteProject(projectId).subscribe(
         () => {
           console.log('Project deleted successfully.');
-          // Remove the deleted project from the projects list
           this.projects = this.projects.filter(project => project.ProjectId !== projectId);
         },
         (error) => {
           console.error('Error deleting project:', error);
-          // Handle error (e.g., show error message)
         }
       );
     }
+  }
+
+  navigateToHome() {
+    this.router.navigate(['/task']);
   }
 }
