@@ -12,7 +12,7 @@ export class TimeTrackerService {
   addOrUpdateTimeEntry(newEntry: any) {
     throw new Error('Method not implemented.');
   }
-  private apiUrl = 'http://localhost:62101/api/TimeTracker';
+  private apiUrl = 'https://localhost:44388/api/TimeTracker';
 
   constructor(private http: HttpClient) { }
 
