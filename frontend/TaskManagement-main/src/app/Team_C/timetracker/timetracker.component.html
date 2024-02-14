@@ -1,14 +1,26 @@
-<!-- time-tracking.component.html -->
-<app-home></app-home>
-<div>
-    <h2>Time Tracker</h2>
-  
+<div class="container mt-4">
+  <h2 class="mb-3">
     <button class="btn btn-outline-primary" (click)="openPopup()">Add Time Entry</button>
-    <table *ngIf="timeEntries.length > 0" class="time-entry-table">
+    <button class="btn btn-outline-primary" (click)="toggleViewAllEntries()">View All Entries</button>
+  </h2>
+
+  <!-- Table for viewing all entries -->
+  <div *ngIf="viewAllEntries && timeEntries.length > 0">
+    <table class="table table-striped table-bordered">
       <thead>
         <tr>
           <th>User ID</th>
-          <th>Project ID</th>
+          <th>
+            <!-- Filter by Project ID dropdown -->
+            <div class="filter-dropdown">
+              <label for="filterProjectID"></label>
+              <select id="filterProjectID" class="form-control" [(ngModel)]="filterProjectID">
+                <option value="">All</option>
+                <option *ngFor="let project of getUniqueProjects()" [value]="project">{{ project }}</option>
+              </select>
+              Project ID
+            </div>
+          </th>
           <th>Task ID</th>
           <th>Start Time</th>
           <th>End Time</th>
@@ -17,49 +29,64 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let entry of timeEntries; let i = index">
-          <td>{{ entry.userId }}</td>
-          <td>{{ entry.projectId }}</td>
-          <td>{{ entry.taskId }}</td>
-          <td>{{ entry.startTime | date: 'medium' }}</td>
-          <td>{{ entry.endTime | date: 'medium' }}</td>
-          <td>{{ entry.totalHours }}</td>
-          <td>
-            <button class="btn btn-outline-primary" (click)="editTimeEntry(i)">Edit</button>
-            <button class="btn btn-outline-primary" (click)="deleteTimeEntry(i)">Delete</button>
-          </td>
-        </tr>
+        <ng-container *ngFor="let entry of timeEntries; let i = index">
+          <tr *ngIf="filterProjectID === '' || entry.ProjectID.toString() === filterProjectID">
+            <td>{{ entry.UserID }}</td>
+            <td>{{ entry.ProjectID }}</td>
+            <td>{{ entry.TaskID }}</td>
+            <td>{{ entry.StartTime | date: 'medium' }}</td>
+            <td>{{ entry.EndTime | date: 'medium' }}</td>
+            <td>{{ entry.TotalWorkingHours }}</td>
+            <td>
+              <button class="btn btn-outline-primary" (click)="EditTimeEntry(i)">Edit</button>
+              <button class="btn btn-outline-primary" (click)="DeleteTimeEntry(i)">Delete</button>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
-  
-    <!-- Popup for adding new time entry -->
-    <div [ngStyle]="{'display': showPopup ? 'block' : 'none'}" class="popup">
-      <div class="popup-content">
-        <span class="close" (click)="closePopup()">&times;</span>
-        <h3>Add Time Entry</h3>
-  
-        <!-- Angular Reactive Form -->
-        <form [formGroup]="timeEntryForm" (ngSubmit)="addTimeEntry()" class="form-container">
-          <label for="userId">User ID:</label>
-          <input type="text" id="userId" formControlName="userId" />
-  
-          <label for="projectId">Project ID:</label>
-          <input type="text" id="projectId" formControlName="projectId" />
-  
-          <label for="taskId">Task ID:</label>
-          <input type="text" id="taskId" formControlName="taskId" />
-  
-          <label for="startTime">Start Time:</label>
-          <input type="datetime-local" id="startTime" formControlName="startTime" />
-  
-          <label for="endTime">End Time:</label>
-          <input type="datetime-local" id="endTime" formControlName="endTime" />
-          <label for="totalHours">Total Working Hours:</label>
-          <input type="text" id="totalHours" formControlName="totalHours" />
-  
-          <button type="button" (click)="addTimeEntry()">Add Entry</button>
-        </form>
-      </div>
+  </div>
+
+  <!-- Popup for adding a new time entry -->
+  <div [ngStyle]="{ 'display': showPopup ? 'block' : 'none' }" class="popup">
+    <div class="popup-content">
+      <span class="close" (click)="closePopup()">&times;</span>
+      <h3 class="mb-3">Add Time Entry</h3>
+
+      <!-- Angular Reactive Form -->
+      <form [formGroup]="timeEntryForm" (ngSubmit)="AddTimeEntry()" class="form-container">
+        <div class="form-group">
+          <label for="UserID">User ID:</label>
+          <input type="text" id="UserID" class="form-control" formControlName="UserID" />
+        </div>
+
+        <div class="form-group">
+          <label for="ProjectID">Project ID:</label>
+          <input type="text" id="ProjectID" class="form-control" formControlName="ProjectID" />
+        </div>
+
+        <div class="form-group">
+          <label for="TaskID">Task ID:</label>
+          <input type="text" id="TaskID" class="form-control" formControlName="TaskID" />
+        </div>
+
+        <div class="form-group">
+          <label for="StartTime">Start Time:</label>
+          <input type="datetime-local" id="StartTime" class="form-control" formControlName="StartTime" />
+        </div>
+
+        <div class="form-group">
+          <label for="EndTime">End Time:</label>
+          <input type="datetime-local" id="EndTime" class="form-control" formControlName="EndTime" />
+        </div>
+        
+
+        <div class="form-group">
+          <label for="TotalWorkingHours">Total Working Hours:</label>
+          <input type="text" id="TotalWorkingHours" class="form-control" formControlName="TotalWorkingHours" />
+        </div>
+        <button type="button" class="btn btn-primary" (click)="AddTimeEntry()">Add Entry</button>
+      </form>
     </div>
   </div>
-  
+</div>
