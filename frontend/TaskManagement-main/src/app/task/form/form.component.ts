@@ -33,6 +33,8 @@ export class FormComponent implements OnInit {
     this.EndDate = this.tsk.EndDate;
     this.Status = this.tsk.Status;
     this.Description = this.tsk.Description;
+    
+    
   }
 
   addTask() {

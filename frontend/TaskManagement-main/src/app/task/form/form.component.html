@@ -31,8 +31,8 @@
 
 
                 <div class="form-group">
-                    <label for="priority" class="form-label">Priority</label>
-                    <select class="form-select" id="priority" name="priority"[(ngModel)]="Priority" required>
+                    <label for="Priority" class="form-label">Priority</label>
+                    <select class="form-select" id="Priority" name="Priority"[(ngModel)]="Priority" required>
                         <option value="" disabled selected>--Select--</option>
                         <option value="High">High</option>
                         <option value="Medium">Medium</option>
@@ -50,12 +50,12 @@
 
                 <div class="form-group">
                     <label for="startDate" class="form-label">Start Date</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="StartDate" required>
+                    <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="StartDate" required placeholder="Select start date">
                 </div>
 
                 <div class="form-group">
                     <label for="endDate" class="form-label">End Date</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="EndDate" required>
+                    <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="EndDate" required placeholder="Select End date">
                 </div>
 
                 <div class="form-group">
