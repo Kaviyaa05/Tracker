@@ -35,7 +35,7 @@ namespace WebApplication3.Controllers
 
         }
 
-        public string Post(Task tsk)
+        public string Post(TaskForm tsk)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace WebApplication3.Controllers
         }
 
 
-        public string Put(Task tsk)
+        public string Put(TaskForm tsk)
         {
             try
             {
