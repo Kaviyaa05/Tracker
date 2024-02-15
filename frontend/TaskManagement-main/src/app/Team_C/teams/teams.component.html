@@ -13,26 +13,27 @@
         <label for="admin">Admin:</label>
         <select id="admin" name="admin" required [(ngModel)]="admin">
             <option value="" disabled selected>Select Admin</option>
-            <option value="Kanishka">Kanishka</option>
-            <option value="Gurupriya">Gurupriya</option>
+            <option value="GuhaSaravanan">GuhaSaravanan</option>
+            <option value="Arunagiri">Arunagiri</option>
         </select>
   
         <label for="snrDev">SNR DEV:</label>
         <select id="snrDev" name="snrDev" required [(ngModel)]="snrDev">
-            <option value="GuhaSaravanan">GuhaSaravanan</option>
-            <option value="ArunKumar">ArunKumar</option>
-            <option value="Yedhunath">Yedhunath</option>
-            <option value="Vishnu">Vishnu</option>
-            <option value="Dhanabal">Dhanabal</option>
+            <option value="Deepaselvi">Deepaselvi</option>
+            <option value="Gowressh">Gowressh</option>
+            <option value="Shruti">Shruti</option>
+            <option value="Gurupriya">Gurupriya</option>
+            <option value="LakshmiPriya">LakshmiPriya</option>
+            <option value="PrakashRaja">PrakashRaja</option>
         </select>
   
         <label for="jnrDev">JNR DEV:</label>
         <select id="jnrDev" name="jnrDev" required [(ngModel)]="jnrDev">
-            <option value="Deepaselvi">Deepaselvi</option>
-            <option value="Gowressh">Gowressh</option>
-            <option value="Shruti">Shruti</option>
-            <option value="LakshmiPriya">LakshmiPriya</option>
-            <option value="PrakashRaja">PrakashRaja</option>
+            <option value="Kanishka">Kanishka</option>
+            <option value="ArunKumar">ArunKumar</option>
+            <option value="Yedhunath">Yedhunath</option>
+            <option value="Vishnu">Vishnu</option>
+            <option value="Dhanabal">Dhanabal</option>
         </select>
   
         <label for="teamLead">TL:</label>
@@ -47,13 +48,12 @@
         <label for="tne">TNE:</label>
         <select id="tne" name="tne" required [(ngModel)]="tne">
             <option value="Kavin">Kavin</option>
-            <option value="Arunagiri">Arunagiri</option>
+            <option value="Ram">Ram</option>
             <option value="Arun">Arun</option>
             <option value="Hari">Hari</option>
             <option value="Jegan">Jegan</option>
         </select>
   
-        <button type="button" class="btn btn-outline-primary"(click)="showSelectedValues()">Submit</button>
+        <button type="button" class="btn btn-outline-primary" (click)="submitForm()">Submit</button>
     </form>
-  </div>
-  
+</div>

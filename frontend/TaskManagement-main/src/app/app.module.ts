@@ -44,7 +44,6 @@ import { ImageuploaderService } from './Team_C/imageuploader/imageuploader.servi
 import { ProfileService } from './profile/profile.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './users/user.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +61,6 @@ import { UserService } from './users/user.service';
      DocumentsComponent,
      ImageuploaderComponent, 
      UsersComponent,
-     
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
       ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, 
   ],
@@ -75,15 +73,10 @@ import { UserService } from './users/user.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
-
   ],
   providers: [
     provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService,ProfileService,UserService
-
-   
   ],
-
-
   bootstrap: [AppComponent]
 
 })
