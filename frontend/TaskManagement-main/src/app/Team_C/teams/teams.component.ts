@@ -24,7 +24,7 @@ export class TeamsComponent {
       TeamMemberList: `${this.admin},${this.snrDev},${this.jnrDev},${this.teamLead},${this.tne}` // Combine all team members into a comma-separated string
     };
 
-    this.http.post<any>('http://localhost:50878/api/team', formData)
+    this.http.post<any>('http://localhost:44388/api/team', formData)
       .subscribe(
         response => {
           console.log(response);
