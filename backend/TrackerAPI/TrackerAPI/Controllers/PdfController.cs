@@ -1,19 +1,13 @@
-﻿using DinkToPdf;
-using DinkToPdf.Contracts;
-using PDF_Generator.Models;
-using PDF_Generator.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
-using TrackerAPI.Models;
-namespace PDF_Generator.Controllers
+
+namespace TrackerAPI.Controllers
 {
-    [Route("api/pdfcreator")]
-    public interface IActionResult
-    {
-    }
-    public class PdfCreatorController : ApiController
+    public class PdfController : ApiController
     {
         [HttpGet]
         [Route("")]
@@ -94,5 +88,8 @@ namespace PDF_Generator.Controllers
 
             return htmlContent;
         }
+    }
+}
+
     }
 }
