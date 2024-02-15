@@ -15,19 +15,24 @@ namespace TrackerAPI.Controllers
 
         // Add document
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public IHttpActionResult Post(DocumentsTable review)
+        public IHttpActionResult Post(Document model)
         {
+            int userId = GetUserIdFromUsers(); // Retrieve UserId from the Users table
+            int projectId = GetProjectIdFromProjects(); // Retrieve ProjectId from the Projects table
 
-
-            using (SqlConnection connection = DocumentsDao.GetConnection())
+            if (userId == 0 || projectId == 0)
             {
-                review.CreatedAt = DateTime.Now;
-                string query = "INSERT INTO notes (Title, Content, CreatedAt) VALUES (@Title, @Content, @CreatedAt)";
+                return NotFound();
+            }
+
+            using (SqlConnection connection = MainClass.GetConnection())
+            {
+                string query = "INSERT INTO Document (UserId, ProjectId, CreateTime, DocumentData) VALUES (@UserId, @ProjectId, @CreateTime, @DocumentData)";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Title", review.Title);
-                command.Parameters.AddWithValue("@Content", review.Content);
-                command.Parameters.AddWithValue("@CreatedAt", review.CreatedAt);
-                
+                command.Parameters.AddWithValue("@UserId", userId);
+                command.Parameters.AddWithValue("@ProjectId", projectId);
+                command.Parameters.AddWithValue("@CreateTime", DateTime.Now);
+                command.Parameters.AddWithValue("@DocumentData", model.DocumentData);
 
                 connection.Open();
                 int rowsAffected = command.ExecuteNonQuery();
@@ -39,8 +44,52 @@ namespace TrackerAPI.Controllers
             }
         }
 
-        // Get all records
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        private int GetUserIdFromUsers()
+        {
+            int userId = 101;
+            string query = "SELECT TOP 1 UserId FROM Users";
+            using (SqlConnection connection = MainClass.GetConnection())
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    userId = Convert.ToInt32(result);
+                }
+                else
+                {
+                    // Handle the case where no UserId is found
+                    throw new Exception("No UserId found in the Users table.");
+                }
+            }
+            return userId;
+        }
+
+        private int GetProjectIdFromProjects()
+        {
+            int projectId = 1;
+            string query = "SELECT TOP 1 ProjectId FROM Projects";
+            using (SqlConnection connection = MainClass.GetConnection())
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    projectId = Convert.ToInt32(result);
+                }
+                else
+                {
+                    // Handle the case where no ProjectId is found
+                    throw new Exception("No ProjectId found in the Projects table.");
+                }
+            }
+            return projectId;
+
+
+            // Get all records
+            [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpPost]
         public IHttpActionResult Get(DocumentsTable review)
         {
