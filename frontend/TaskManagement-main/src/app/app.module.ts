@@ -29,7 +29,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormComponent } from './task/form/form.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
 Chart.register(...registerables);
 import { DetailsComponent } from './details/details.component';
 import { TasktypeComponent } from './report/tasktype/tasktype.component';
@@ -40,13 +39,11 @@ import { ProjectburndownComponent } from './report/projectburndown/projectburndo
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
-
-
-
-
-
-
-
+import { TimeTrackerService } from './Team_C/timetracker/timetracker.service';
+import { ImageuploaderService } from './Team_C/imageuploader/imageuploader.service';
+import { ProfileService } from './profile/profile.service';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './users/user.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +62,7 @@ import { SharedService } from './task/form/shared.service';
      ImageuploaderComponent, 
      UsersComponent,
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
-      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, 
+      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, 
   ],
   imports: [
     BrowserModule,
@@ -74,11 +71,13 @@ import { SharedService } from './task/form/shared.service';
     FormsModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
-    provideClientHydration(),SharedService
+    provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService,ProfileService,UserService
   ],
-  bootstrap: [AppComponent,ShowTskcomponent]
+  bootstrap: [AppComponent]
+
 })
 export class AppModule { }

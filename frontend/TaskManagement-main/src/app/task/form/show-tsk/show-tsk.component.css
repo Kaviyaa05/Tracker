@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .project-name {
+    color: #333;
+    text-decoration: none;
+  }
+
+  .project-name:hover {
+    text-decoration: none;
+  }
+
+  
+
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .content-box {
+    margin: 20px;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .add-task {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  .btn-separator {
+    width: 10px; /* Adjust the width for the desired space between buttons */
+    height: 1px; /* Adjust the height to your preference */
+    background-color: transparent; /* Set to the background color of your header */
+    margin: 0 10px; /* Adjust the margins to control space around the separator */
+  }
+  
+  .notes-btn,
+  .add-task-btn {
+    margin: 5px; /* Adjust the margin for the buttons */
+  }
+  

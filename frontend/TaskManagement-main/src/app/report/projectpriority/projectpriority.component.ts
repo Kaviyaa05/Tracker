@@ -1,37 +1,37 @@
 import { Component } from '@angular/core';
-
+import { ReportService } from '../../services/report.service';
 @Component({
   selector: 'app-projectpriority',
   templateUrl: './projectpriority.component.html',
   styleUrl: './projectpriority.component.css'
 })
 export class ProjectpriorityComponent {
-  selectedTaskpriority: string = 'all'; // Initialize with 'all' to show all tasks initially
-  
-  tasks = [
-    { pid:2001,projpriority:'high',id: 101, name: 'Image button', userId: 1001,priority:'high', taskType: 'Issue', owner: 'Shruti', startDate: '10.01.24', dueDate: '20.01.24' },
-    { pid:2002,projpriority:'Low',id: 102, name: 'Comment button', userId: 1002,priority:'Low',  taskType: 'Bug', owner: 'Priyanka', startDate: '10.01.24', dueDate: '20.01.24' },
-    { pid:2003,projpriority:'medium',id: 103, name: 'Textbox', userId: 1003,priority:'Medium',  taskType: 'Create', owner: 'Priyanka', startDate: '10.01.24', dueDate: '21.01.24' },
-    
-      // Add other tasks as needed
-  ];
+  selectedProjectpriority: string = 'All'; // Initialize with 'all' to show all tasks initially
+  project:any[]=[];
+  fliterProject:any[]=[];
 
-  ngOnInit() {
-    // Call getFilteredTasks here if additional setup is needed
-    // this.getFilteredTasks();
-  }
+ constructor (private http:ReportService){}
 
-  showAllTasks() {
-    this.selectedTaskpriority = 'all';
+ getAllProjects(){
+  this.http.showAllProject().subscribe((data:any[])=>{
+    this.project = data;
+    this.projectPriority();
+  });
+ }
+ ngOnInit(): void {
+     this.getAllProjects();
+ }
+
+ onProjectChange(){
+  this.projectPriority();
+ }
+ projectPriority(){
+  if(this.selectedProjectpriority === 'All'){
+    this.fliterProject=this.project;
+  }else{
+    this.http.showProjectByPriority(this.selectedProjectpriority).subscribe((data:any[])=>{
+      this.fliterProject=data;
+    })
   }
-  
-  getFilteredTasks(): any[] {
-    if (this.selectedTaskpriority.toLowerCase() === 'all') {
-      return this.tasks;
-    } else {
-      // Filter tasks based on the selected task type
-      const filtered = this.tasks.filter(task => task.taskType.toLowerCase() === this.selectedTaskpriority.toLowerCase());
-      return filtered.length > 0 ? filtered : [];
-    }
-  }
+ }
 }

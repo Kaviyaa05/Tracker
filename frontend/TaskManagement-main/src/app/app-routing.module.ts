@@ -31,6 +31,7 @@ import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 
 const routes: Routes = [
   { path : '', component : LoginpageComponent},
+
   { path:'loginactivity', component:LoginactivityComponent },
   { path:'acl', component:AclSettingsComponent},
   { path:'chart', component:ChartComponent},
@@ -42,7 +43,7 @@ const routes: Routes = [
   {path:'audit' ,component:AuditComponent},
   { path: 'comment', component: CommentComponent },
   {path:'image' ,component:ImageuploaderComponent},
-  {path:'details',component:DetailsComponent},
+  {path:'details/:id',component:DetailsComponent},
   {path:'teams',component:TeamsComponent},
   {path:'boards',component:BoardsComponent},
   {path:'timetracker',component:TimetrackerComponent},

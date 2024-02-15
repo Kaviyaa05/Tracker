@@ -1,27 +1,25 @@
-<app-home></app-home>
-<h1>task table</h1>
-<!--
 <div class="container">
     <div class="task-form bg-white rounded p-4 shadow-sm">
         <form class="row g-3">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="taskId" class="form-label">Task ID</label>
-                    <input type="text" class="form-control" id="taskId" name="taskId" [(ngModel)]="task.taskId" required>
+                    <input type="text" class="form-control" id="taskId" name="taskId" [(ngModel)]="TaskId" required>
                 </div>
                 <div class="form-group">
                     <label for="userId" class="form-label">User ID</label>
-                    <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="task.userId" required>
+                    <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="UserId" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="form-label">Task Name</label>
-                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="task.name" required>
+                    <label for="taskName" class="form-label">Task Name</label>
+                    <input type="text" class="form-control" id="taskName" name="taskName" [(ngModel)]="Taskname" placeholder="Enter Task Name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="taskType" class="form-label">Task Type</label>
-                    <select class="form-select" id="taskType" name="taskType" [(ngModel)]="task.taskType" required>
+                    <label for="TaskType" class="form-label">Task Type</label>
+                    <select class="form-select" id="TaskType" name="TaskType" [(ngModel)]="TaskType" required>
+                        <option value="" disabled selected>--Select--</option>
                         <option value="Create">Create</option>
                         <option value="Bug">Bug</option>
                         <option value="Improvement">Improvement</option>
@@ -31,54 +29,62 @@
                     </select>
                 </div>
 
+
                 <div class="form-group">
-                    <label for="priority" class="form-label">Priority</label>
-                    <select class="form-select" id="priority" name="priority" [(ngModel)]="task.priority" required>
-                        <option value="high">HIGH</option>
-                        <option value="medium">MEDIUM</option>
-                        <option value="low">LOW</option>
+                    <label for="Priority" class="form-label">Priority</label>
+                    <select class="form-select" id="Priority" name="Priority"[(ngModel)]="Priority" required>
+                        <option value="" disabled selected>--Select--</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
                     </select>
                 </div>
+                
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="createdBy" class="form-label">Owner</label>
-                    <input type="text" class="form-control" id="createdBy" name="createdBy" [(ngModel)]="task.createdBy" required>
+                    <label for="createdBy" class="form-label">CreatedBy</label>
+                    <input type="text" class="form-control" id="createdBy" name="createdBy" [(ngModel)]="CreatedBy" required>
                 </div>
 
                 <div class="form-group">
                     <label for="startDate" class="form-label">Start Date</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="task.startDate" required>
+                    <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="StartDate" required placeholder="Select start date">
                 </div>
 
                 <div class="form-group">
                     <label for="endDate" class="form-label">End Date</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="task.endDate" required>
+                    <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="EndDate" required placeholder="Select End date">
                 </div>
 
                 <div class="form-group">
                     <label for="status" class="form-label">Status</label>
-                    <select class="form-select" id="status" name="status" [(ngModel)]="task.status" required>
-                        <option value="pending">ToDo</option>
-                        <option value="in-progress">In Progress</option>
-                        <option value="reopen">ReOpen</option>
-                        <option value="fixed">Fixed</option>
-                        <option value="completed">Done</option>
+                    <select class="form-select" id="status" name="status" [(ngModel)]="Status" required>
+                        <option value="" disabled selected>--Select--</option>
+                        <option value="ToDo">ToDo</option>
+                        <option value="In-Progress">In Progress</option>
+                        <option value="ReOpen">ReOpen</option>
+                        <option value="Fixed">Fixed</option>
+                        <option value="Completed">Done</option>
                     </select>
                 </div>
+                
 
                 <div class="form-group">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" [(ngModel)]="task.description" required></textarea>
+                    <textarea class="form-control" id="description" name="description" [(ngModel)]="Description" required></textarea>
                 </div>
+
                 <div class="col-12">
                     <div class="bottom-centered">
-                        <button type="submit" class="btn btn-outline-primary w-100">Create</button>
+                        <button type="button" (click)="addTask()" *ngIf="tsk.TaskId==0" class="btn btn-outline-primary w-100">Create</button>
+                    </div>
+                    <div class="bottom-centered">
+                        <button type="submit" (click)="updateTask()" *ngIf="tsk.TaskId!=0" class="btn btn-outline-primary w-100">Update</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-</div> -->
-<app-show-tsk></app-show-tsk>
+</div>
