@@ -26,13 +26,15 @@ export class ProjectService {
         catchError(this.handleError)
       );
   }
+  
 
   updateProject(project: Project): Observable<Project> {
-    return this.http.put<Project>(`${this.apiUrl}/UpdateProject`, project)
+    return this.http.put<Project>(`${this.apiUrl}/UpdateProject/${project.ProjectId}`, project)
       .pipe(
         catchError(this.handleError)
       );
   }
+
 
   deleteProject(projectId: number): Observable<Project> {
     return this.http.delete<Project>(`${this.apiUrl}/DeleteProject/${projectId}`)

@@ -42,6 +42,7 @@ import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
+import { NgModel } from '@angular/forms';
 
 
 
@@ -83,7 +84,7 @@ import { ViewAllProjectsComponent } from './view-all-project/view-all-project.co
 
   ],
   providers: [
-    provideClientHydration(),SharedService
+    provideClientHydration(),SharedService,NgModel
   ],
   bootstrap: [AppComponent,ShowTskcomponent]
 })

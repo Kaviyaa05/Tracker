@@ -1,6 +1,5 @@
-// create.component.ts
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // Import Router module
+import { Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { Project } from '../models/project';
 
@@ -10,36 +9,31 @@ import { Project } from '../models/project';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent {
-  projectName: string = '';
-  priority: string = '';
-  description: string = '';
-  owner: string = '';
-  startDate: string = '';
-  endDate: string = '';
-  status: string = '';
-  teamMembers: string = '';
+  project: Project = {
+    ProjectName: '',
+    Owner: '',
+    CreatedOn: new Date(),
+    Description: '',
+    Teams: ''
+  };
 
-  errorMessage: string = ''; // For displaying error messages to the user
+  errorMessage: string = '';
+  successMessage: string = '';
 
-  constructor(private projectService: ProjectService, private router: Router) { } // Provide Router module in the constructor
+  constructor(private projectService: ProjectService, private router: Router) { }
 
   submitForm() {
-    const project: Project = {
-      ProjectName: this.projectName,
-      Priority: this.priority,
-      Description: this.description,
-      Owner: this.owner,
-      StartDate: this.startDate,
-      EndDate: this.endDate,
-      Status: this.status,
-      TeamMembers: this.teamMembers
-    };
+    console.log('Project data before submission:', this.project);
 
-    console.log('Project data before submission:', project);
+    // Validation
+    if (!this.validateForm()) {
+      return;
+    }
 
-    this.projectService.addProject(project).subscribe(
+    this.projectService.addProject(this.project).subscribe(
       (response: Project) => {
         console.log('Project created successfully:', response);
+        this.successMessage = 'Project created successfully.';
         this.resetForm();
         // Redirect to view-all-project route after successful project creation
         this.router.navigate(['/view-all-projects']);
@@ -59,14 +53,22 @@ export class CreateComponent {
   }
 
   resetForm() {
-    this.projectName = '';
-    this.priority = '';
-    this.description = '';
-    this.owner = '';
-    this.startDate = '';
-    this.endDate = '';
-    this.status = '';
-    this.teamMembers = '';
-    this.errorMessage = ''; // Clear error message
+    this.project = {
+      ProjectName: '',
+      Owner: '',
+      CreatedOn: new Date(),
+      Description: '',
+      Teams: ''
+    };
+    this.errorMessage = '';
+    this.successMessage = '';
+  }
+
+  validateForm(): boolean {
+    if (!this.project.ProjectName || !this.project.Owner || !this.project.Description) {
+      this.errorMessage = 'Please fill in all required fields.';
+      return false;
+    }
+    return true;
   }
 }
