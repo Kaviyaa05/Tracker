@@ -19,7 +19,7 @@ namespace TrackerAPI.Models
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@DateAndTime", auditLog.Date_And_Time);
-                        cmd.Parameters.AddWithValue("@UserName", auditLog.userName);
+                        cmd.Parameters.AddWithValue("@UserName", auditLog.UserName);
                         cmd.Parameters.AddWithValue("@Module", auditLog.Module);
                         cmd.Parameters.AddWithValue("@Action", auditLog.Action);
 
@@ -93,7 +93,7 @@ namespace TrackerAPI.Models
                                 auditLogs.Add(new AuditLog
                                 {
                                     Date_And_Time = logDateTime,
-                                    userName = userName,
+                                    UserName = userName,
                                     Module = module,
                                     Action = action
                                 });
