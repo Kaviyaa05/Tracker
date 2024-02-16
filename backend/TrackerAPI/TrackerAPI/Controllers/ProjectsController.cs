@@ -21,41 +21,33 @@ namespace TrackerAPI.Controllers
             List<Project> projects = new List<Project>();
             try
             {
-                // SQL query to select all projects from the database
                 string query = "SELECT * FROM Project";
 
-                // Using ADO.NET to execute the SQL query
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    // Read data and populate projects list
                     while (reader.Read())
                     {
                         Project project = new Project
                         {
                             ProjectId = Convert.ToInt32(reader["ProjectId"]),
                             ProjectName = reader["ProjectName"].ToString(),
-                            Priority = reader["Priority"].ToString(),
-                            Description = reader["Description"].ToString(),
                             Owner = reader["Owner"].ToString(),
-                            StartDate = reader["StartDate"] != DBNull.Value ? Convert.ToDateTime(reader["StartDate"]) : (DateTime?)null,
-                            EndDate = reader["EndDate"] != DBNull.Value ? Convert.ToDateTime(reader["EndDate"]) : (DateTime?)null,
-                            Status = reader["Status"].ToString(),
-                            TeamMembers = reader["TeamMembers"].ToString()
+                            CreatedOn = Convert.ToDateTime(reader["CreatedOn"]),
+                            Description = reader["Description"].ToString(),
+                            Teams = reader["Teams"].ToString()
                         };
                         projects.Add(project);
                     }
 
-                    // Return projects list as JSON response
                     return Request.CreateResponse(HttpStatusCode.OK, projects);
                 }
             }
             catch (Exception)
             {
-                // Return an error response if an exception occurs
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed to fetch projects! ");
             }
         }
@@ -67,77 +59,64 @@ namespace TrackerAPI.Controllers
         {
             try
             {
-                // SQL query to insert a new project into the database
-                string query = @"INSERT INTO Project (ProjectName, Priority, Description, Owner, StartDate, EndDate, Status, TeamMembers) 
-                                 VALUES (@ProjectName, @Priority, @Description, @Owner, @StartDate, @EndDate, @Status, @TeamMembers)";
+                string query = @"INSERT INTO Project (ProjectName, Owner, CreatedOn, Description, Teams) 
+                                 VALUES (@ProjectName, @Owner, @CreatedOn, @Description, @Teams)";
 
-                // Using ADO.NET to execute the SQL query with parameters
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@ProjectName", project.ProjectName);
-                    cmd.Parameters.AddWithValue("@Priority", project.Priority);
-                    cmd.Parameters.AddWithValue("@Description", project.Description);
                     cmd.Parameters.AddWithValue("@Owner", project.Owner);
-                    cmd.Parameters.AddWithValue("@StartDate", project.StartDate);
-                    cmd.Parameters.AddWithValue("@EndDate", project.EndDate);
-                    cmd.Parameters.AddWithValue("@Status", project.Status);
-                    cmd.Parameters.AddWithValue("@TeamMembers", project.TeamMembers);
+                    cmd.Parameters.AddWithValue("@CreatedOn", project.CreatedOn);
+                    cmd.Parameters.AddWithValue("@Description", project.Description);
+                    cmd.Parameters.AddWithValue("@Teams", project.Teams);
 
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
 
-                // Return a success response
                 return Request.CreateResponse(HttpStatusCode.OK, "Project Added Successfully!");
             }
             catch (Exception)
             {
-                // Return an error response if an exception occurs
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed to Add Project! ");
             }
         }
 
-        // PUT: api/Projects/UpdateProject
+        // PUT: api/Projects/UpdateProject/{id}
         [HttpPut]
-        [Route("api/Projects/UpdateProject")]
-        public HttpResponseMessage UpdateProject(Project project)
+        [Route("api/Projects/UpdateProject/{id}")]
+        public HttpResponseMessage UpdateProject(int id, Project project)
         {
             try
             {
-                // SQL query to update a project in the database
                 string query = @"UPDATE Project 
-                                 SET ProjectName = @ProjectName, Priority = @Priority, Description = @Description, 
-                                     Owner = @Owner, StartDate = @StartDate, EndDate = @EndDate, Status = @Status, TeamMembers = @TeamMembers 
-                                 WHERE ProjectId = @ProjectId";
+                         SET ProjectName = @ProjectName, Owner = @Owner, CreatedOn = @CreatedOn, 
+                             Description = @Description, Teams = @Teams 
+                         WHERE ProjectId = @ProjectId";
 
-                // Using ADO.NET to execute the SQL query with parameters
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@ProjectName", project.ProjectName);
-                    cmd.Parameters.AddWithValue("@Priority", project.Priority);
-                    cmd.Parameters.AddWithValue("@Description", project.Description);
                     cmd.Parameters.AddWithValue("@Owner", project.Owner);
-                    cmd.Parameters.AddWithValue("@StartDate", project.StartDate);
-                    cmd.Parameters.AddWithValue("@EndDate", project.EndDate);
-                    cmd.Parameters.AddWithValue("@Status", project.Status);
-                    cmd.Parameters.AddWithValue("@TeamMembers", project.TeamMembers);
-                    cmd.Parameters.AddWithValue("@ProjectId", project.ProjectId); // Include the ProjectId for update
+                    cmd.Parameters.AddWithValue("@CreatedOn", project.CreatedOn);
+                    cmd.Parameters.AddWithValue("@Description", project.Description);
+                    cmd.Parameters.AddWithValue("@Teams", project.Teams);
+                    cmd.Parameters.AddWithValue("@ProjectId", id); // Use id from the route URL
 
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
 
-                // Return a success response
                 return Request.CreateResponse(HttpStatusCode.OK, "Project Updated Successfully!");
             }
             catch (Exception)
             {
-                // Return an error response if an exception occurs
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed to Update Project! ");
             }
         }
+
 
         // DELETE: api/Projects/DeleteProject/{id}
         [HttpDelete]
@@ -146,10 +125,8 @@ namespace TrackerAPI.Controllers
         {
             try
             {
-                // SQL query to delete a project from the database based on ProjectId
                 string query = "DELETE FROM Project WHERE ProjectId = @ProjectId";
 
-                // Using ADO.NET to execute the SQL query with a parameter
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
@@ -158,7 +135,6 @@ namespace TrackerAPI.Controllers
                     con.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
 
-                    // Check if any rows were affected to determine success
                     if (rowsAffected > 0)
                     {
                         return Request.CreateResponse(HttpStatusCode.OK, "Project Deleted Successfully!");
@@ -171,7 +147,6 @@ namespace TrackerAPI.Controllers
             }
             catch (Exception)
             {
-                // Return an error response if an exception occurs
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Failed to Delete Project! ");
             }
         }
