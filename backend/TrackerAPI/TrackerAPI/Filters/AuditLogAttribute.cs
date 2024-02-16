@@ -25,7 +25,7 @@ namespace TrackerAPI.Filters
             var auditLog = new AuditLog
             {
                 Date_And_Time = currentTime,
-                userName = username,
+                UserName = username,
                 Module = controllerName,
                 Action = actionName
             };
