@@ -45,6 +45,16 @@ import { SharedService } from './task/form/shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NotifyService } from './Team_C/notification/notify.service';
 
+import { TimeTrackerService } from './Team_C/timetracker/timetracker.service';
+import { ImageuploaderService } from './Team_C/imageuploader/imageuploader.service';
+import { ProfileService } from './profile/profile.service';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './users/user.service';
+
+import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
+import { NgModel } from '@angular/forms';
+
+
 
 
 
@@ -69,7 +79,10 @@ import { NotifyService } from './Team_C/notification/notify.service';
      ImageuploaderComponent, 
      UsersComponent,
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
-      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, 
+
+
+   ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent,ViewAllProjectsComponent, 
+
   ],
   imports: [
     BrowserModule,
@@ -81,11 +94,12 @@ import { NotifyService } from './Team_C/notification/notify.service';
     ReactiveFormsModule,
     TableModule,
     HttpClientModule
+
   ],
   providers: [
-    provideClientHydration(),SharedService,
-    NotifyService
+    provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService,ProfileService,UserService,NgModel,NotifyService
   ],
-  bootstrap: [AppComponent,ShowTskcomponent]
+  bootstrap: [AppComponent]
+
 })
 export class AppModule { }

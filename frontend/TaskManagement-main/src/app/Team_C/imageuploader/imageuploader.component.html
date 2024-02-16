@@ -1,13 +1,36 @@
-<app-home></app-home>
- <div>
-    <button type="button" (click)="toggleUploadForm()" class="btn btn-outline-primary" >Add Images</button>
 
-    <button type="button"class="btn btn-outline-primary" *ngIf="showUploadForm" (click)="openViewModal()">View</button>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div>
+        <input type="file" class="form-control-file" (change)="onFilesSelected($event)" multiple />
+        <button class="btn btn-primary mt-3" (click)="onUpload()">Upload Images</button>
+      </div>
 
-    <form *ngIf="showUploadForm" action="upload.php" method="post" enctype="multipart/form-data">
-      <label for="images">Select images:</label>
-      <input type="file" name="images[]" id="images" accept=".jpeg, .jpg, .png, .gif" multiple>
-      <button type="submit" name="submit"class="btn btn-outline-primary"  >Upload</button>
-    </form>
+      <div>
+        <button class="btn btn-primary" (click)="fetchImages()">View Images</button>
+        <!-- Display images here -->
+        <div class="image-row">
+          <div *ngFor="let image of images" class="image-container" (click)="openModal(image.PhotoData)">
+            <img class="img-thumbnail" [src]="'data:image/jpeg;base64,' + image.PhotoData" alt="Image">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
+
+<!-- Modal -->
+<div class="modal" [ngClass]="{'show': modalImageUrl}">
+  <div class="modal-dialog" *ngIf="modalImageUrl"> <!-- Only render the modal if modalImageUrl is set -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeModal()">&times;</button> <!-- Close button -->
+      </div>
+      <div class="modal-body">
+        <img *ngIf="modalImageUrl" [src]="modalImageUrl" class="img-fluid" alt="Full Image">
+      </div>
+    </div>
+  </div>
+</div>

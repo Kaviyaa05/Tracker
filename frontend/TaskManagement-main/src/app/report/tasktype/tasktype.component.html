@@ -1,6 +1,6 @@
 <app-home></app-home>
 <div class="header">
-    <h4 style="padding-left: 1000px;padding-top: 5px;">Task_Type</h4>
+    <h4 style="text-align: center;padding-top: 5px;">Task_Type</h4>
     <div class="container mt-1"></div>
     <div class="nav-item users-btn d-flex justify-content-end">
         <button class="btn btn-outline-primary" id="pdf-button">Export PDF</button>
@@ -8,7 +8,7 @@
     <div class="nav-item task-type-dropdown d-flex justify-content-start" id="fliter">
         <label for="taskType">Task Type:</label>
         <select id="taskType" [(ngModel)]="selectedTaskType" name="taskType">
-            <option (click)="showAllTasks()">All</option>    
+            <option value="All">All</option>    
             <option value="Issue">Issue</option>
             <option value="Create">Create</option>
             <option value="Bug">Bug</option>
@@ -27,29 +27,40 @@
             <tr>
                 <th>Project ID</th>
                 <th>Task ID</th>
-                <th>Task Name</th>
                 <th>User ID</th>
+                <th>Task Name</th>                
                 <th>Priority</th>
                 <th>Task Type</th>
+                <th>Description</th>
                 <th>Owner</th>
                 <th>Start Date</th>
                 <th>Due Date</th>
             </tr>
         </thead>
+        <ng-container *ngIf="filteredTasks.length > 0 ; else noData">
         <tbody>
-            <tr *ngFor="let task of getFilteredTasks()">
-                <td>{{ task.pid }}</td>
-                <td>{{ task.id }}</td>
-                <td>{{ task.name }}</td>
-                <td>{{ task.userId }}</td>
-                <td>{{ task.priority }}</td>
-                <td>{{ task.taskType }}</td>
-                <td>{{ task.owner }}</td>
-                <td>{{ task.startDate }}</td>
-                <td>{{ task.dueDate }}</td>
+            <tr *ngFor="let task of filteredTasks">
+                <td>{{ task.ProjectID }}</td>
+                <td>{{ task.TaskID }}</td>
+                <td>{{ task.UserID }}</td>
+                <td>{{ task.Name }}</td>                
+                <td>{{ task.Priority }}</td>
+                <td>{{ task.Type }}</td>
+                <td>{{ task.Description}}</td>
+                <td>{{ task.Owner }}</td>
+                <td>{{ task.StartDate }}</td>
+                <td>{{ task.EndDate }}</td>
             </tr>
         </tbody>
-    </table>
+    </ng-container>
+
+    <ng-template #noData>
+        <tbody>
+            <tr><td colspan="10">
+                No Records Found
+            </td></tr>
+        </tbody>
+    </ng-template>    </table>
 </div>
 
 

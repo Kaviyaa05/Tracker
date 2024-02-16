@@ -1,14 +1,31 @@
-<app-home></app-home>
-<div  class="shadow p-3 mb-5 bg-white rounded">
-    <h4>Comments</h4>
-    <div class="container">
-      <textarea [(ngModel)]="newComment" placeholder="Add a new comment"></textarea><br><br>
-      <button (click)="addComment()"  class="btn btn-success">Add Comment</button>
-    </div>
-    <div>
-      <p *ngFor="let comment of comments; let i = index">
-        {{ comment }}
-        <button (click)="deleteComment(i)" class="btn btn-danger">Delete</button>
-      </p>
+<div class="shadow p-3 mb-5 bg-white rounded">
+  <h3>Comments</h3>
+  <div>
+    
+    <form (ngSubmit)="addComment()">
+      <label for="newCommentText" style="font-weight: bold; font-size: larger;">Add a Comment</label>
+      
+      <textarea id="newCommentText" [(ngModel)]="newCommentText" [ngModelOptions]="{ standalone: true }" rows="4" cols="50" placeholder="Enter your comment here..." required></textarea>
+      <button type="submit" class="btn btn-success">SEND</button>
+    </form>
+    
   </div>
+</div>
+
+<div *ngFor="let comment of comments">
+  
+  <div>
+    <strong>Task ID:</strong> {{ comment.TaskId }}
+  </div>
+  <div>
+    <strong>Project ID:</strong> {{ comment.ProjectId }}
+  </div>
+  <div>
+    <strong>Commented Data:</strong> {{ comment.CommentedData }}
+  </div>
+  <div>
+    <strong>Date Time Posted:</strong> {{ comment.DateTimePosted | date:'medium' }}
+  </div>
+  <button (click)="deleteComments(comment.CommentId)" class="btn btn-danger">Delete</button>
+  <hr>
 </div>

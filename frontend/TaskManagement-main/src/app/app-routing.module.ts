@@ -8,7 +8,6 @@ import { AclSettingsComponent } from './acl-settings/acl-settings.component';
 import { ChartComponent } from './chart/chart.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreateComponent } from './create/create.component';
-
 import { ProfileComponent } from './profile/profile.component';
 import { AuditComponent } from './Team_C/audit/audit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -28,10 +27,13 @@ import { TaskburndownComponent } from './report/taskburndown/taskburndown.compon
 import { ProjectpriorityComponent } from './report/projectpriority/projectpriority.component';
 import { ProjectburndownComponent } from './report/projectburndown/projectburndown.component';
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
+import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
 import { NotificationComponent } from './Team_C/notification/notification.component';
+
 
 const routes: Routes = [
   { path : '', component : LoginpageComponent},
+
   { path:'loginactivity', component:LoginactivityComponent },
   { path:'acl', component:AclSettingsComponent},
   { path:'chart', component:ChartComponent},
@@ -43,7 +45,7 @@ const routes: Routes = [
   {path:'audit' ,component:AuditComponent},
   { path: 'comment', component: CommentComponent },
   {path:'image' ,component:ImageuploaderComponent},
-  {path:'details',component:DetailsComponent},
+  {path:'details/:id',component:DetailsComponent},
   {path:'teams',component:TeamsComponent},
   {path:'boards',component:BoardsComponent},
   {path:'timetracker',component:TimetrackerComponent},
@@ -59,6 +61,7 @@ const routes: Routes = [
   {path:'projectpriority',component:ProjectpriorityComponent},
   {path:'burndownproject',component:ProjectburndownComponent},
   {path:'show-tsk',component:ShowTskcomponent},
+  { path: 'view-all-projects', component: ViewAllProjectsComponent },
    {path:'**',component:PageNotFoundComponent}
    
 ];
