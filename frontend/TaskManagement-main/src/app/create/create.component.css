@@ -36,14 +36,14 @@ input[type="date"] {
 }
 
 .button-group {
-  width: 100%; /* Set width to 100% to keep the button within the form */
+  width: 100%;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
 }
 
-.btn-secondary {
+.btn-outline-secondary {
   margin-left: 10px;
 }
 
@@ -58,8 +58,7 @@ button {
     margin-right: 2%;
   }
 
-  .custom-button {
-    width: 200%;
-     /* Ensure the button takes up 100% of its container width */
+  .btn-outline-primary {
+    width: 100%;
   }
 }
