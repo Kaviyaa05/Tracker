@@ -28,7 +28,9 @@ import {registerables} from 'chart.js';
 import { ProfileComponent } from './profile/profile.component';
 import { FormComponent } from './task/form/form.component';
 import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 
 Chart.register(...registerables);
 import { DetailsComponent } from './details/details.component';
@@ -40,6 +42,8 @@ import { ProjectburndownComponent } from './report/projectburndown/projectburndo
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
+import { HttpClientModule } from '@angular/common/http';
+import { NotifyService } from './Team_C/notification/notify.service';
 
 import { TimeTrackerService } from './Team_C/timetracker/timetracker.service';
 import { ImageuploaderService } from './Team_C/imageuploader/imageuploader.service';
@@ -88,16 +92,13 @@ import { NgModel } from '@angular/forms';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    TableModule,
     HttpClientModule
 
   ],
   providers: [
-    provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService,ProfileService,UserService,NgModel
-
-    
-
+    provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService,ProfileService,UserService,NgModel,NotifyService
   ],
-
   bootstrap: [AppComponent]
 
 })

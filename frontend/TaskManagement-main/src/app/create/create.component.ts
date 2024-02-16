@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { Project } from '../models/project';
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { NotifyService } from '../Team_C/notification/notify.service';
+
 
 @Component({
   selector: 'app-create',
@@ -16,9 +20,14 @@ export class CreateComponent {
   teams: string = '';
 
   errorMessage: string = '';
-
-  constructor(private projectService: ProjectService, private router: Router) { }
-
+   
+  constructor(private projectService: ProjectService, private router: Router,notify:NotifyService) { }
+  noti: any = {
+    Username: 'guha',  
+    Time: new Date().toLocaleString(),  
+    Message: 'You Have been assigned in a Project.',
+    Priority: 'High'
+  };
   submitForm() {
     const project: Project = {
       ProjectName: this.projectName,
@@ -26,6 +35,9 @@ export class CreateComponent {
       CreatedOn: this.createdOn,
       Description: this.description,
       Teams: this.teams
+      this.addnoti();
+    console.log('Form submitted!', this.projectId, this.projectName, this.priority, this.description, this.owner, this.teamMembers, this.startDate, this.endDate, this.status);
+  }
     };
 
     console.log('Project data before submission:', project);
@@ -50,6 +62,11 @@ export class CreateComponent {
       }
     );
   }
+   addnoti(){
+    this.notify.addnotification(this.noti)
+    .subscribe(()=>{
+      console.log("notification added");
+    })
 
   resetForm() {
     this.projectName = '';
@@ -58,5 +75,7 @@ export class CreateComponent {
     this.description = '';
     this.teams = '';
     this.errorMessage = '';
+
+ 
   }
 }

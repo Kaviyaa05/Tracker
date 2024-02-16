@@ -22,6 +22,7 @@ export class TaskComponent implements OnInit {
   navigateToForm() {
     this.router.navigate(['/form']); // Adjust the route based on your actual route configuration
   }
+  
 
   navigateToDetails(taskId: number) {
     console.log(taskId);

@@ -8,7 +8,6 @@ import { AclSettingsComponent } from './acl-settings/acl-settings.component';
 import { ChartComponent } from './chart/chart.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreateComponent } from './create/create.component';
-import { NotificationComponent } from './Team_C/notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuditComponent } from './Team_C/audit/audit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -29,6 +28,8 @@ import { ProjectpriorityComponent } from './report/projectpriority/projectpriori
 import { ProjectburndownComponent } from './report/projectburndown/projectburndown.component';
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
+import { NotificationComponent } from './Team_C/notification/notification.component';
+
 
 const routes: Routes = [
   { path : '', component : LoginpageComponent},
@@ -38,7 +39,7 @@ const routes: Routes = [
   { path:'chart', component:ChartComponent},
   { path: 'task', component: TaskComponent },
 {path:'create', component:CreateComponent},
-  { path: 'notification', component:NotificationComponent},
+  {path:'notification',component:NotificationComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'form', component: FormComponent }, 
   {path:'audit' ,component:AuditComponent},
