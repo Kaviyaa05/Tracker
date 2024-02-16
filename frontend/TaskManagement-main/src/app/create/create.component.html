@@ -1,32 +1,28 @@
 <div class="container mt-4">
   <form>
-    <!-- Omitted id field since it's auto-incremented -->
-    
     <div class="form-group">
       <label for="projectName">Project Name:</label>
-      <input type="text" class="form-control" id="projectName" placeholder="Enter Project Name" [(ngModel)]="project.ProjectName" >
+      <input type="text" class="form-control" id="projectName" placeholder="Enter Project Name" [(ngModel)]="projectName" name="projectName">
     </div>
 
     <div class="form-group">
       <label for="owner">Owner:</label>
-      <input type="text" class="form-control" id="owner" placeholder="Enter Owner" [(ngModel)]="project.Owner">
+      <input type="text" class="form-control" id="owner" placeholder="Enter Owner" [(ngModel)]="owner"  name="owner">
     </div>
 
     <div class="form-group">
       <label for="createdOn">Created On:</label>
-      <input type="date" class="form-control" id="createdOn" name="createdOn" [(ngModel)]="project.CreatedOn">
+      <input type="date" class="form-control" id="createdOn" name="createdOn" [(ngModel)]="createdOn">
     </div>
 
     <div class="form-group">
       <label for="description">Description:</label>
-      <textarea class="form-control" id="description" name="description" placeholder="Enter Project Description" [(ngModel)]="project.Description"></textarea>
+      <textarea class="form-control" id="description" name="description" placeholder="Enter Project Description" [(ngModel)]="description"></textarea>
     </div>
 
-    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
-    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
-
-    <div class="form-group"> 
-      <button type="button" class="btn btn-outline-secondary btn-lg">Teams</button>
+    <div class="form-group">
+      <label for="teams">Teams:</label>
+      <input type="text" class="form-control" id="teams" placeholder="Enter Teams" [(ngModel)]="teams">
     </div>
 
     <div class="form-group">

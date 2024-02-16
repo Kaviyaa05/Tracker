@@ -9,31 +9,30 @@ import { Project } from '../models/project';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent {
-  project: Project = {
-    ProjectName: '',
-    Owner: '',
-    CreatedOn: new Date(),
-    Description: '',
-    Teams: ''
-  };
+  projectName: string = '';
+  owner: string = '';
+  createdOn: Date = new Date();
+  description: string = '';
+  teams: string = '';
 
   errorMessage: string = '';
-  successMessage: string = '';
 
   constructor(private projectService: ProjectService, private router: Router) { }
 
   submitForm() {
-    console.log('Project data before submission:', this.project);
+    const project: Project = {
+      ProjectName: this.projectName,
+      Owner: this.owner,
+      CreatedOn: this.createdOn,
+      Description: this.description,
+      Teams: this.teams
+    };
 
-    // Validation
-    if (!this.validateForm()) {
-      return;
-    }
+    console.log('Project data before submission:', project);
 
-    this.projectService.addProject(this.project).subscribe(
+    this.projectService.addProject(project).subscribe(
       (response: Project) => {
         console.log('Project created successfully:', response);
-        this.successMessage = 'Project created successfully.';
         this.resetForm();
         // Redirect to view-all-project route after successful project creation
         this.router.navigate(['/view-all-projects']);
@@ -53,22 +52,11 @@ export class CreateComponent {
   }
 
   resetForm() {
-    this.project = {
-      ProjectName: '',
-      Owner: '',
-      CreatedOn: new Date(),
-      Description: '',
-      Teams: ''
-    };
+    this.projectName = '';
+    this.owner = '';
+    this.createdOn = new Date();
+    this.description = '';
+    this.teams = '';
     this.errorMessage = '';
-    this.successMessage = '';
-  }
-
-  validateForm(): boolean {
-    if (!this.project.ProjectName || !this.project.Owner || !this.project.Description) {
-      this.errorMessage = 'Please fill in all required fields.';
-      return false;
-    }
-    return true;
   }
 }
