@@ -28,6 +28,7 @@ import { TaskburndownComponent } from './report/taskburndown/taskburndown.compon
 import { ProjectpriorityComponent } from './report/projectpriority/projectpriority.component';
 import { ProjectburndownComponent } from './report/projectburndown/projectburndown.component';
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
+import { EditComponent } from './Team_C/documents/edit/edit.component';
 
 const routes: Routes = [
   { path : '', component : LoginpageComponent},
@@ -58,6 +59,7 @@ const routes: Routes = [
   {path:'projectpriority',component:ProjectpriorityComponent},
   {path:'burndownproject',component:ProjectburndownComponent},
   {path:'show-tsk',component:ShowTskcomponent},
+  {path:'edit/:id',component:EditComponent},
    {path:'**',component:PageNotFoundComponent}
    
 ];

@@ -13,22 +13,32 @@
   <table class="table table-striped p-0" style="width: 60%; margin: 10px auto;">
     <thead>
         <tr>
+          <th>ID</th>
           <th>Title</th>
+         
+          <th>CreatedAt</th>
+          <th>ModifiedAt</th>
           <th class="text-left">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let note of notes">
-          <td>{{ note.title }}</td>
+          
+          <td>{{note.Id}}</td>
+          <td><a [routerLink]="['/view', note.Title]">{{ note.Title }}</a></td> 
+          <td>{{note.CreatedAt}}</td>
+          <td>{{note.ModifiedAt}}</td>
           <td class="text-left">
-            <button (click)="viewPage(note)" class="btn btn-outline-primary btn-sm mr-10"style="margin-right: 20px;">View</button>
-            <button (click)="editPage(note)" class="btn btn-outline-primary btn-sm">Edit</button>
+           
+            <button (click)="editPage(note.Id)" class="btn btn-outline-primary btn-sm">Edit</button>
+           
+            
           </td>
           
         </tr>
       </tbody>
     </table>
-  
+
   
   
   

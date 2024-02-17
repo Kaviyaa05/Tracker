@@ -40,6 +40,7 @@ import { ProjectburndownComponent } from './report/projectburndown/projectburndo
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
+import { EditComponent } from './Team_C/documents/edit/edit.component';
 
 
 
@@ -65,7 +66,7 @@ import { SharedService } from './task/form/shared.service';
      ImageuploaderComponent, 
      UsersComponent,
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
-      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, 
+      ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent, EditComponent, 
   ],
   imports: [
     BrowserModule,

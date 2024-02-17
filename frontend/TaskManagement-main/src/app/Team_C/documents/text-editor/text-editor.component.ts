@@ -1,49 +1,33 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-declare var tinymce: any;
+import { Router } from '@angular/router';
+import { DocumentService } from '../service/document.service';
 @Component({
   selector: 'app-text-editor',
   templateUrl: './text-editor.component.html',
-  styleUrl: './text-editor.component.css'
+  styleUrls: ['./text-editor.component.css']
 })
-export class TextEditorComponent {
-  private editor: any;
+export class TextEditorComponent{
+  
 
-  constructor(private route: ActivatedRoute) {
-    this.route.params.subscribe((params) => {
-      const id = params['id'];
-      console.log(`Loading page with ID: ${id}`);
-    });
+  constructor(private documentsService: DocumentService, private router: Router) { }
+  ngOnInit(): void {
+    
   }
 
-  ngAfterViewInit() {
-    tinymce.init({
-      selector: '#editor',
-      height: 500,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount',
-      ],
-      toolbar: 'undo redo | formatselect | ' +
-               'bold italic backcolor | alignleft aligncenter ' +
-               'alignright alignjustify | bullist numlist outdent indent | ' +
-               'removeformat | help',
-      menubar:false
-    });
-  }
+  onSubmit() {
+    const title = (document.getElementById('title') as HTMLInputElement).value;
+    const content = (document.getElementById('content') as HTMLTextAreaElement).value;
 
-  ngOnDestroy() {
-    if (this.editor) {
-      this.editor.destroy();
-    }
+    
+    this.documentsService.createNote(title, content).subscribe(
+      () => {
+        
+        this.router.navigate(['/documents']);
+      },
+      
+    );
   }
 }
-
-
-
-
   
 
 
