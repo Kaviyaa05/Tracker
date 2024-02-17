@@ -10,14 +10,16 @@ using TrackerAPI.Models;
 
 namespace TrackerAPI.Controllers
 {
+    [RoutePrefix("api/documents")]
     public class DocumentsController : ApiController
     {
+       
 
 
-            // POST action method
-            [HttpPost]
+        // POST action method
+        [HttpPost]
             [Route("")] //Route for post
-            public IHttpActionResult Post(DocumentTable note)
+            public IHttpActionResult Post(DocumentsTable note)
             {
                 try
                 {
@@ -47,7 +49,7 @@ namespace TrackerAPI.Controllers
             // PUT: For Update content 
             [HttpPut]
             [Route("{documentId}")] //Route for put
-            public IHttpActionResult Put(int documentId, DocumentTable review)
+            public IHttpActionResult Put(int documentId, DocumentsTable review)
             {
                 try
                 {
@@ -117,8 +119,8 @@ namespace TrackerAPI.Controllers
             {
                 try
                 {
-                    List<DocumentTable> notes = new List<DocumentTable>();
-                    using (SqlConnection connection = DocumentDao.GetConnection())
+                    List<DocumentsTable> notes = new List<DocumentsTable>();
+                    using (SqlConnection connection = DocumentsDao.GetConnection())
                     {
                         connection.Open();
                         string query = "SELECT DocumentId, Title, Content, CreatedAt, ModifiedAt FROM notes";
@@ -128,7 +130,7 @@ namespace TrackerAPI.Controllers
                             {
                                 while (reader.Read())
                                 {
-                                    DocumentTable note = new DocumentTable
+                                    DocumentsTable note = new DocumentsTable
                                     {
                                         DocumentId = reader.GetInt32(reader.GetOrdinal("DocumentId")),
                                         Title = reader.GetString(reader.GetOrdinal("Title")),
@@ -137,15 +139,7 @@ namespace TrackerAPI.Controllers
                                         ModifiedAt = (DateTime)(reader.IsDBNull(reader.GetOrdinal("ModifiedAt")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ModifiedAt")))
                                     };
 
-                                    
-                                    if (reader.IsDBNull(reader.GetOrdinal("ModifiedAt")))
-                                    {
-                                        note.ModificationStatus = "Not modified yet";
-                                    }
-                                    else
-                                    {
-                                        note.ModificationStatus = "Modified";
-                                    }
+                                   
 
                                     notes.Add(note);
                                 }

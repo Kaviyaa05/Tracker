@@ -18,15 +18,9 @@ namespace TrackerAPI.Models
 
 
         
-        public Document()
-        {
-            CreateTime = DateTime.Now;
-
-        }
+        
     }
 }
       
 
-        
-    }
-}
+ 
