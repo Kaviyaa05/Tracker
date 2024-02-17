@@ -33,11 +33,11 @@ export class NotificationComponent {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  id:Number=7;
+  //id:Number=7;
 
   getAll() {
    
-    this.notify.getNotification(this.id)
+    this.notify.getNotification(this.notify.Uname)
 
       .subscribe((resultData: any) => {
 
@@ -61,5 +61,6 @@ export class NotificationComponent {
      
       );
   }
+
 
 }

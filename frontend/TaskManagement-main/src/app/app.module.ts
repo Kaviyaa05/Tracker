@@ -48,7 +48,7 @@ import { NotifyService } from './Team_C/notification/notify.service';
 import { TimeTrackerService } from './Team_C/timetracker/timetracker.service';
 import { ImageuploaderService } from './Team_C/imageuploader/imageuploader.service';
 import { ProfileService } from './profile/profile.service';
-import { HttpClientModule } from '@angular/common/http';
+
 import { UserService } from './users/user.service';
 
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';

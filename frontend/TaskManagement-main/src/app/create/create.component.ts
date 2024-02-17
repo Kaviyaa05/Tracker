@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { Project } from '../models/project';
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+
 import { NotifyService } from '../Team_C/notification/notify.service';
 
 
@@ -21,53 +20,62 @@ export class CreateComponent {
 
   errorMessage: string = '';
    
-  constructor(private projectService: ProjectService, private router: Router,notify:NotifyService) { }
-  noti: any = {
-    Username: 'guha',  
-    Time: new Date().toLocaleString(),  
-    Message: 'You Have been assigned in a Project.',
-    Priority: 'High'
-  };
+  constructor(private projectService: ProjectService, private router: Router,private notify:NotifyService) { }
+  
   submitForm() {
+    this.addnoti()
     const project: Project = {
       ProjectName: this.projectName,
       Owner: this.owner,
       CreatedOn: this.createdOn,
       Description: this.description,
       Teams: this.teams
-      this.addnoti();
-    console.log('Form submitted!', this.projectId, this.projectName, this.priority, this.description, this.owner, this.teamMembers, this.startDate, this.endDate, this.status);
+      
+   // console.log('Form submitted!', this.projectId, this.projectName, this.priority, this.description, this.owner, this.teamMembers, this.startDate, this.endDate, this.status);
   }
     };
 
-    console.log('Project data before submission:', project);
+    //console.log('Project data before submission:', project);
 
-    this.projectService.addProject(project).subscribe(
-      (response: Project) => {
-        console.log('Project created successfully:', response);
-        this.resetForm();
-        // Redirect to view-all-project route after successful project creation
-        this.router.navigate(['/view-all-projects']);
-      },
-      (error) => {
-        console.error('Error creating project:', error);
+  //   this.projectService.addProject(project).subscribe(
+  //     (response: Project) => {
+  //       console.log('Project created successfully:', response);
+  //       this.resetForm();
+  //       // Redirect to view-all-project route after successful project creation
+  //       this.router.navigate(['/view-all-projects']);
+  //     },
+  //     (error) => {
+  //       console.error('Error creating project:', error);
 
-        if (error.status === 400) {
-          // Handle validation errors (if applicable)
-          this.errorMessage = error.error.message; // Assuming the server returns a 'message' property
-        } else {
-          // Handle other errors
-          this.errorMessage = 'An unexpected error occurred. Please try again later.';
-        }
-      }
-    );
-  }
-   addnoti(){
+  //       if (error.status === 400) {
+  //         // Handle validation errors (if applicable)
+  //         this.errorMessage = error.error.message; // Assuming the server returns a 'message' property
+  //       } else {
+  //         // Handle other errors
+  //         this.errorMessage = 'An unexpected error occurred. Please try again later.';
+  //       }
+  //     }
+  //   );
+  // }
+  noti: any = {
+    Username: this.notify.getusername(),  
+    Time: new Date().toLocaleString(),  
+    Message: 'You Have been assigned in a Project.',
+    Priority: 'High',
+    isRead:'false',
+    receiver:'Guhan'
+  };
+  addnoti(){ console.log(this.noti);
+    console.log(this.notify.Uname);
     this.notify.addnotification(this.noti)
     .subscribe(()=>{
       console.log("notification added");
+     
+    },
+    (error) => {
+      console.error("Error adding notification:", error);
     })
-
+  }
   resetForm() {
     this.projectName = '';
     this.owner = '';
@@ -75,7 +83,6 @@ export class CreateComponent {
     this.description = '';
     this.teams = '';
     this.errorMessage = '';
-
- 
-  }
 }
+}
+

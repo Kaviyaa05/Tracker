@@ -5,9 +5,9 @@ import { faKey, faPowerOff, faShield } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth.service'; // Import AuthService
 import { HttpClient } from '@angular/common/http';
 
-import { Component } from '@angular/core';
-import { faBell, faClock, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faKey, faPowerOff, faShield } from '@fortawesome/free-solid-svg-icons';
+//import { Component } from '@angular/core';
+//import { faBell, faClock, faUser } from '@fortawesome/free-regular-svg-icons';
+//import { faKey, faPowerOff, faShield } from '@fortawesome/free-solid-svg-icons';
 import { NotifyService } from '../Team_C/notification/notify.service';
 
 
@@ -27,8 +27,8 @@ faPower=faPowerOff;
 faShield=faShield;
   username: any;
 constructor(
-  private http: HttpClient,
-  private authService: AuthService // Inject AuthService
+  private authService: AuthService,
+  private notify:NotifyService // Inject AuthService
 ) {}
 toggleDropdown(elementId: string): void {
   this.isHovered = true;
@@ -67,6 +67,7 @@ ngOnInit(): void {
       console.log('User info response:', response);
       this.user = response;
       this.username = response.split(',')[0].split(':')[1].trim();
+      this.bellnotification();
     },
     (error) => {
       console.error('Error fetching user info:', error);
@@ -77,15 +78,16 @@ logout(): void {
   this.authService.logout();
 }
 
-constructor(private http:HttpClient,private notify:NotifyService){}
+//constructor(private notify:NotifyService){}
+
 
 usernotiArray: any[] = [];
 
 latestMessages:any[]=[];
-id:number=1;
-ngOnInit():void {
+//id:number=1;
+bellnotification(){
   
-  this.notify.getNotification(this.id)
+  this.notify.getNotification(this.username)
 
     .subscribe((resultData: any) => {
 
@@ -94,6 +96,10 @@ ngOnInit():void {
       this.usernotiArray = resultData.sort((a: { NId: number; }, b: { NId: number; }) => b.NId - a.NId);
     
       this.latestMessages = this.usernotiArray.slice(0, 3).map(item => `${item.Username} sent Message`);
+
+      // console.log("home notification");
+      // console.log(this.username);
+      // console.log(this.latestMessages);
     });
 }
 }
