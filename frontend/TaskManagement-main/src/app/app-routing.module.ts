@@ -29,11 +29,9 @@ import { ProjectburndownComponent } from './report/projectburndown/projectburndo
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
 import { NotificationComponent } from './Team_C/notification/notification.component';
-
-
+import { EditComponent } from './Team_C/documents/edit/edit.component';
 const routes: Routes = [
   { path : '', component : LoginpageComponent},
-
   { path:'loginactivity', component:LoginactivityComponent },
   { path:'acl', component:AclSettingsComponent},
   { path:'chart', component:ChartComponent},
@@ -62,8 +60,8 @@ const routes: Routes = [
   {path:'burndownproject',component:ProjectburndownComponent},
   {path:'show-tsk',component:ShowTskcomponent},
   { path: 'view-all-projects', component: ViewAllProjectsComponent },
-   {path:'**',component:PageNotFoundComponent}
-   
+  {path:'edit/:id',component:EditComponent},
+   {path:'**',component:PageNotFoundComponent}  
 ];
 
 @NgModule({

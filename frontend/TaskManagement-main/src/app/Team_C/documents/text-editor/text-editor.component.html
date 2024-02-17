@@ -1,5 +1,9 @@
+
 <div class="form-group" style="margin-left: 100px; margin-right: 100px; margin-bottom: 100px; margin-top: 10px;">
+  <!-- Text box for entering the title -->
+  <input type="text" id="title" class="form-control" placeholder="Enter Title">
+  <!-- Existing textarea for entering content -->
+  <textarea id="content" class="form-control" placeholder="Enter content"></textarea>
   
-    <textarea id="editor" class="form-control" rows="5"></textarea>
-    <button type="submit" class="btn btn-outline-primary btn-sm" style="margin-top: 10px;">Submit</button>
-  </div>
+  <button (click)="onSubmit()" class="btn btn-outline-primary btn-sm" style="margin-top: 10px;">Submit</button>
+</div>
