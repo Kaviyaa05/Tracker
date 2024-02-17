@@ -1,70 +1,30 @@
-<app-home></app-home>
 <div class="container mt-4">
   <form>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="projectId">Project ID:</label>
-        <input type="text" class="form-control" id="projectId" [(ngModel)]="projectId" name="projectId" placeholder="Enter Project ID">
-      </div>
-
-      <div class="form-group col-md-6">
-        <label for="projectName">Project Name:</label>
-        <input type="text" class="form-control" id="projectName" [(ngModel)]="projectName" name="projectName" placeholder="Enter Project Name">
-      </div>
+    <div class="form-group">
+      <label for="projectName">Project Name:</label>
+      <input type="text" class="form-control" id="projectName" placeholder="Enter Project Name" [(ngModel)]="projectName" name="projectName">
     </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="priority">Priority:</label>
-        <select class="form-control" id="priority" [(ngModel)]="priority" name="priority">
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
-      </div>
-
-      <div class="form-group col-md-6">
-        <label for="status">Status:</label>
-        <select class="form-control" id="status" [(ngModel)]="status" name="status">
-          <option value="inProgress">In Progress</option>
-          <option value="completed">Completed</option>
-          <option value="onHold">On Hold</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="owner">Owner:</label>
+      <input type="text" class="form-control" id="owner" placeholder="Enter Owner" [(ngModel)]="owner"  name="owner">
     </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="description">Description:</label>
-        <textarea class="form-control" id="description" [(ngModel)]="description" name="description" placeholder="Enter Project Description"></textarea>
-      </div>
-
-      <div class="form-group col-md-6">
-        <label for="owner">Owner:</label>
-        <input type="text" class="form-control" id="owner" [(ngModel)]="owner" name="owner" placeholder="Enter Owner">
-      </div>
+    <div class="form-group">
+      <label for="createdOn">Created On:</label>
+      <input type="date" class="form-control" id="createdOn" name="createdOn" [(ngModel)]="createdOn">
     </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="startDate">Start Date:</label>
-        <input type="date" class="form-control" id="startDate" [(ngModel)]="startDate" name="startDate">
-      </div>
-
-      <div class="form-group col-md-6">
-        <label for="endDate">End Date:</label>
-        <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate" name="endDate">
-      </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" placeholder="Enter Project Description" [(ngModel)]="description"></textarea>
     </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="teamMembers">Add Team Members:</label>
-        <button type="button" class="btn btn-outline-secondary" routerLink="/teams">Add Team Members</button>
-      </div>
+    <div class="form-group">  
+      <button type="button" class="btn btn-secondary btn-md" >Teams</button>
     </div>
 
-    <div class="form-group col-md-12">
+    <div class="form-group">
       <button type="button" class="btn btn-outline-primary btn-lg custom-button mx-auto" (click)="submitForm()">Create Project</button>
     </div>
   </form>

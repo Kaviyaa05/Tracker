@@ -1,65 +1,48 @@
 <app-home></app-home>
-<div class="container mt-5"> 
-    <h4>Notification</h4>
-
-    <div class="container mt-5"> 
-
-    <table class="table table-striped">
-        <thead>
-            <thead class="table-dark"></thead>
+<div class="container mt-4">
+    <h1>Notification</h1>
+    <h1 *ngIf="!isResultLoaded">Loading.................</h1>
+  
+    <p-table [value]="StudentArray" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]" >
+        <ng-template pTemplate="header">
             <tr>
-                <th>Username</th>
-                <th>Time</th>
-                <th>Message</th>
-                <th>priority</th>
-                <th>Mark as read</th>
+              <th>NID</th>
+              <th>Username</th>
+              <th>Time</th>
+              <th>Message</th>
+              <th>priority</th>
+              <th>Mark as read</th>
             </tr>
-        </thead>
-        <tbody>
-          
-            <tr>
-                <td>user123</td>
-                <td>1:20PM</td>
-                <td>Assigned a task</td>
-                <td>Medium</td>
-                <td><button  class="btn btn-outline-primary" type="submit" >Mark As Read</button></td>
-            </tr>
-            <tr>
-                <td>john_doe</td>
-                <td>1:20PM</td>
-                <td>Assigned a task</td>
-                <td>Medium</td>
-                <td><button  class="btn btn-outline-primary" type="submit" >Mark As Read</button></td>
-            </tr>
-            
-            <tr>
-                <td>user123</td>
-                <td>1:20PM</td>
-                <td>Assigned a task</td>
-                <td>Medium</td>
-                <td><button class="btn btn-outline-primary" type="submit" >Mark As Read</button></td>
-            </tr>
-            <tr>
-                <td>john_doe</td>
-                <td>1:20PM</td>
-                <td>Assigned a task</td>
-                <td>Medium</td>
-                <td><button  class="btn btn-outline-primary" type="submit" >Mark As Read</button></td>
-            </tr>
-            <tr>
-                <td>user123</td>
-                <td>1:20PM</td>
-                <td>Assigned a task</td>
-                <td>Medium</td>
-                <td><button  class="btn btn-outline-primary" type="submit" >Mark As Read</button></td>
-            </tr>
-            <tr>
-                <td>john_doe</td>
-                <td>1:20PM</td>
-                <td>Assigned a task</td>
-                <td>Medium</td>
-                <td><button  class="btn btn-outline-primary" type="submit" >Mark As Read</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        </ng-template>
+        <ng-template pTemplate="body" let-StudentItem >
+            <tr [class.unread]="!StudentItem.isRead">
+                <td>{{StudentItem.NId}}</td>
+                <td>{{StudentItem.Username}}</td>
+                <td>{{StudentItem.Time}}</td>
+                <td>{{StudentItem.Message}}</td>
+                <td>{{StudentItem.Priority}}</td>
+              
+               
+      <td (click)="markAsRead(StudentItem)">
+       <!--closed envelop-->
+      <svg *ngIf="!StudentItem.isRead" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+      </svg>
+      <span>    </span>
+      <!--Open envelop-->
+      <svg *ngIf="StudentItem.isRead" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-envelope-open-fill" viewBox="0 0 16 16">
+        <path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.314l6.709 3.932L8 8.928l1.291.718L16 5.714V5.4a2 2 0 0 0-1.059-1.765zM16 6.873l-5.693 3.337L16 13.372v-6.5Zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516M0 13.373l5.693-3.163L0 6.873z"/>
+      </svg>
+  
+     
+    
+    </td>
+                 </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+           
+        </ng-template>
+    </p-table>
+  </div>
+  
