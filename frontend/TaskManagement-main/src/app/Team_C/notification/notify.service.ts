@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class NotifyService {
   constructor(private http:HttpClient) { }
    
-  url="https://localhost:44388/api/values";
+  url="https://localhost:44388/api/Notification";
  
   Uname:string="";
   //username:string="";
@@ -27,7 +27,7 @@ export class NotifyService {
   }
 
   addnotification(noti:any){
-    return this.http.post("https://localhost:44388/api/values",noti)
+    return this.http.post("https://localhost:44388/api/Notification",noti)
   }
 
  

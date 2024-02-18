@@ -24,7 +24,7 @@
     <tbody>
       <tr *ngFor="let user of users">
         <td>{{ user.UserId }}</td>
-        <td>{{ user.Name }}</td>
+        <td>{{ user.UserName }}</td>
         <td>{{ user.Role }}</td>
         <td>{{ user.Email }}</td>
         <td>********</td>
@@ -58,8 +58,8 @@
             <input type="number" formControlName="UserId" class="form-control" id="exampleInputid1">
           </div>
           <div class="mb-3">
-            <label for="exampleInputName1" class="form-label">Name</label>
-            <input type="text" formControlName="Name" class="form-control" id="exampleInputName1">
+            <label for="exampleInputName1" class="form-label">UserName</label>
+            <input type="text" formControlName="UserName" class="form-control" id="exampleInputName1">
           </div>
           <div class="mb-3">
             <label for="exampleInputRole1" class="form-label">Role</label>

@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient,private router: Router) {}
 
   login(username: string, password: string): Observable<any> {
-    const loginUrl = 'https://localhost:44388//token';
+    const loginUrl = 'https://localhost:44388/token';
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

@@ -12,6 +12,7 @@ export class AuditComponent implements OnInit {
   filteredLogs: any[] = [];
   auditForm: FormGroup;
   searchQuery: string = '';
+  showNoDataMessage: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,9 +47,7 @@ export class AuditComponent implements OnInit {
   
     if (dateRange === 'all') {
       this.filteredLogs = this.auditLogs;
-      return;
-    }
-  
+    } else {
     const today = new Date();
   
     if (dateRange === 'today') {
@@ -71,8 +70,10 @@ export class AuditComponent implements OnInit {
       console.log('logDate:', logDate);
       return startDate && logDate >= startDate && logDate < new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
     });
+  }
 
     this.applySearch();
+    this.showNoDataMessage = this.filteredLogs.length === 0;
   }
   
   applySearch() {

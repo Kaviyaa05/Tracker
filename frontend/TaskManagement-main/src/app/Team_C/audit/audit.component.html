@@ -26,7 +26,7 @@
       <p>No records matched!</p>
     </div>
 
-    <table *ngIf="filteredLogs.length > 0" class="table table-striped">
+    <table *ngIf="filteredLogs.length > 0 || (filteredLogs.length === 0 && showNoDataMessage)" class="table table-striped">
       <thead>
         <tr>
           <th>Date and Time</th>
@@ -36,9 +36,12 @@
         </tr>
       </thead>
       <tbody>
+        <tr *ngIf="filteredLogs.length === 0 && showNoDataMessage">
+          <td colspan="4">No data found</td>
+        </tr>
         <tr *ngFor="let log of filteredLogs">
           <td>{{ log.Date_And_Time | date: 'medium' }}</td>
-          <td>{{ log.userName }}</td>
+          <td>{{ log.UserName }}</td>
           <td>{{ log.Module }}</td>
           <td>{{ log.Action }}</td>
         </tr>

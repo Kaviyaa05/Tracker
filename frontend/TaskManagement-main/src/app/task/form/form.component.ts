@@ -23,6 +23,7 @@ export class FormComponent implements OnInit {
   Description: string = "";
 
   ngOnInit(): void {
+    // Initialize form fields if editing an existing task
     this.TaskId = this.tsk.TaskId;
     this.UserId = this.tsk.UserId;
     this.Taskname = this.tsk.Taskname;
@@ -33,42 +34,58 @@ export class FormComponent implements OnInit {
     this.EndDate = this.tsk.EndDate;
     this.Status = this.tsk.Status;
     this.Description = this.tsk.Description;
-    
-    
   }
 
   addTask() {
-    var val = {
-      TaskId:this.TaskId,
-      UserId:this.UserId,
-      Taskname:this.Taskname,
-      TaskType:this.TaskType,
-      Priority:this.Priority,
-      CreatedBy:this.CreatedBy,
-      StartDate:this.StartDate,
-      EndDate:this.EndDate,
-      Status:this.Status,
-      Description:this.Description};
-      this.service.addTask(val).subscribe(res=>{
-        alert(res.toString());
-      });
-
-  }
-    updateTask(){
-      var val = {
-        TaskId:this.TaskId,
-        UserId:this.UserId,
-        Taskname:this.Taskname,
-        TaskType:this.TaskType,
-        Priority:this.Priority,
-        CreatedBy:this.CreatedBy,
-        StartDate:this.StartDate,
-        EndDate:this.EndDate,
-        Status:this.Status,
-        Description:this.Description};
-      this.service.updateTask(val).subscribe(res=>{
-        alert(res.toString());
-      });
+    // Check if required fields are filled out
+    if (!this.UserId || !this.Taskname || !this.TaskType || !this.Priority || !this.CreatedBy || !this.StartDate || !this.EndDate || !this.Status || !this.Description) {
+      alert("Please fill out all required fields.");
+      return;
     }
 
+    // Prepare data for the request
+    var val = {
+      UserId: this.UserId,
+      Taskname: this.Taskname,
+      TaskType: this.TaskType,
+      Priority: this.Priority,
+      CreatedBy: this.CreatedBy,
+      StartDate: this.StartDate,
+      EndDate: this.EndDate,
+      Status: this.Status,
+      Description: this.Description
+    };
+
+    // Send request to add task
+    this.service.addTask(val).subscribe(res => {
+      alert(res.toString());
+    });
+  }
+
+  updateTask() {
+    // Check if required fields are filled out
+    if (!this.TaskId || !this.UserId || !this.Taskname || !this.TaskType || !this.Priority || !this.CreatedBy || !this.StartDate || !this.EndDate || !this.Status || !this.Description) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+
+    // Prepare data for the request
+    var val = {
+      TaskId: this.TaskId,
+      UserId: this.UserId,
+      Taskname: this.Taskname,
+      TaskType: this.TaskType,
+      Priority: this.Priority,
+      CreatedBy: this.CreatedBy,
+      StartDate: this.StartDate,
+      EndDate: this.EndDate,
+      Status: this.Status,
+      Description: this.Description
+    };
+
+    // Send request to update task
+    this.service.updateTask(val).subscribe(res => {
+      alert(res.toString());
+    });
+  }
 }

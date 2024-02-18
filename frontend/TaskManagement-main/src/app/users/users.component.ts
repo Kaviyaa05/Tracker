@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
       UserId: [''],
-      Name: [''],
+      UserName: [''],
       Role: [''],
       Email: [''],
       Password: ['']
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
     this.modalTitle = "Edit User";
     this.formValue.patchValue({
       UserId: user.UserId,
-      Name: user.Name,
+      UserName: user.UserName,
       Role: user.Role,
       Email: user.Email,
       Password: user.Password

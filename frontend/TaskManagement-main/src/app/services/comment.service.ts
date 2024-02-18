@@ -7,7 +7,7 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CommentService {
-  private apiUrl = 'https://localhost:44378/api/Comment'; // URL to your ASP.NET Web API
+  private apiUrl = 'https://localhost:44388/api/Comment'; // URL to your ASP.NET Web API
 
   constructor(private http: HttpClient) {}
 
