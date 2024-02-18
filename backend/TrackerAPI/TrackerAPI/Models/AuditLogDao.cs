@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace TrackerAPI.Models
 {
     public class AuditLogDao
     {
-        private readonly string connectionString = Table.connect;
-
         public void LogAudit(AuditLog auditLog)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 {
                     string query = "INSERT INTO audit ([Date and Time], UserName, Module, Action) VALUES (@DateAndTime, @UserName, @Module, @Action)";
 
@@ -31,7 +30,7 @@ namespace TrackerAPI.Models
             catch (Exception ex)
             {
                 Console.WriteLine($"Error logging audit information: {ex.Message}");
-                throw; // Rethrow the exception to propagate it to the caller
+                throw;
             }
         }
 
@@ -63,7 +62,7 @@ namespace TrackerAPI.Models
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 {
                     string query = "SELECT * FROM audit";
 

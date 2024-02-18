@@ -19,9 +19,9 @@ namespace TrackerAPI.Models
         {
             try
             {
-                string query = @"SELECT UserId, Name, Role, Email, Password FROM dbo.Users";
+                string query = @"SELECT UserId, UserName, Role, Email, Password FROM dbo.Users";
                 DataTable table = new DataTable();
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
@@ -46,13 +46,13 @@ namespace TrackerAPI.Models
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Profile data is null");
                 }
 
-                string query = @"INSERT INTO dbo.Users (UserId, Name, Role, Email, Password) 
-                                VALUES (@UserId, @Name, @Role, @Email, @Password)";
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                string query = @"INSERT INTO dbo.Users (UserId, UserName, Role, Email, Password) 
+                                VALUES (@UserId, @UserName, @Role, @Email, @Password)";
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@UserId", log.UserId ?? "");
-                    cmd.Parameters.AddWithValue("@Name", log.Name ?? "");
+                    cmd.Parameters.AddWithValue("@UserName", log.UserName ?? "");
                     cmd.Parameters.AddWithValue("@Role", log.Role ?? "");
                     cmd.Parameters.AddWithValue("@Email", log.Email ?? "");
                     cmd.Parameters.AddWithValue("@Password", log.Password ?? "");
@@ -79,16 +79,16 @@ namespace TrackerAPI.Models
 
                 string query = @"UPDATE dbo.Users 
                                  SET UserId = @UserId, 
-                                     Name = @Name, 
+                                     UserName = @UserName, 
                                      Role = @Role, 
                                      Email = @Email, 
                                      Password = @Password 
                                  WHERE UserId = @Id";
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@UserId", log.UserId ?? "");
-                    cmd.Parameters.AddWithValue("@Name", log.Name ?? "");
+                    cmd.Parameters.AddWithValue("@UserName", log.UserName ?? "");
                     cmd.Parameters.AddWithValue("@Role", log.Role ?? "");
                     cmd.Parameters.AddWithValue("@Email", log.Email ?? "");
                     cmd.Parameters.AddWithValue("@Password", log.Password ?? "");
@@ -116,7 +116,7 @@ namespace TrackerAPI.Models
             {
                 string query = @"DELETE FROM dbo.[Users] WHERE UserId = @UserId";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@UserId", id);

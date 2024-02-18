@@ -11,7 +11,7 @@ using TrackerAPI.Models;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     [RoutePrefix("api/TimeTracker")]
     public class TimeTrackerController : ApiController
     {
@@ -24,7 +24,7 @@ namespace TrackerAPI.Controllers
                 string query = "SELECT UserID, ProjectID, TaskID, StartTime, EndTime, TotalWorkingHours FROM dbo.TimeTracker";
                 DataTable table = new DataTable();
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["TimeTrackerDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
@@ -48,7 +48,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = "INSERT INTO dbo.TimeTracker (UserID, ProjectID, TaskID, StartTime, EndTime, TotalWorkingHours) VALUES (@UserID, @ProjectID, @TaskID, @StartTime, @EndTime, @TotalWorkingHours)";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["TimeTrackerDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@UserID", time.UserID);
@@ -77,7 +77,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = "UPDATE dbo.TimeTracker SET UserID = @UserID, ProjectID = @ProjectID, StartTime = @StartTime, EndTime = @EndTime, TotalWorkingHours = @TotalWorkingHours WHERE TaskID = @TaskID";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["TimeTrackerDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@UserID", time.UserID);
@@ -107,7 +107,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = "DELETE FROM [dbo].[TimeTracker] WHERE TaskID = @TaskID";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["TimeTrackerDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@TaskID", id);

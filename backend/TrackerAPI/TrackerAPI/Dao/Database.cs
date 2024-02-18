@@ -9,7 +9,7 @@ namespace TrackerAPI.Dao
 {
     public class Database
     {
-        public static string connectionString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
+        public static string connectionString = ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString;
 
         private static SqlConnection con = null;
         private Database()

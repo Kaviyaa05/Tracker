@@ -5,7 +5,7 @@ using System.Web.Http.Cors;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    
     public class DataController : ApiController
     {
 

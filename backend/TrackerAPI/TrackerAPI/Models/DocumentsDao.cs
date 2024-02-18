@@ -10,7 +10,7 @@ namespace TrackerAPI.Models
     public  class DocumentsDao
     {
     
-     public static string connectionString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
+     public static string connectionString = ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString;
 
         public static SqlConnection GetConnection()
         {

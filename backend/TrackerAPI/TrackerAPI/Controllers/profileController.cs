@@ -21,7 +21,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = @"SELECT Name, Email, Phone, Role, About, Password, Address,UserId FROM dbo.[Users]";
                 DataTable table = new DataTable();
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
@@ -48,7 +48,7 @@ namespace TrackerAPI.Controllers
 
                 string query = @"INSERT INTO dbo.Users (Name, Email, Phone, Role, About, Password, Address,UserId) 
                                 VALUES (@Name, @Email, @Phone, @Role, @About, @Password, @Address,@UserId)";
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@Name", log.Name ?? "");
@@ -87,7 +87,7 @@ namespace TrackerAPI.Controllers
                                 SET Email = @Email, Phone = @Phone, Role = @Role, 
                                     About = @About, Password = @Password, Address = @Address,UserId = @UserId
                                 WHERE Name = @Name";
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@Name", log.Name);
@@ -122,7 +122,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = @"DELETE FROM dbo.[Users] WHERE Name = @Name";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["arunkumar"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@Name", id);

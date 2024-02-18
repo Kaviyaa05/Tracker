@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+   
     public class CommentController : ApiController
     {
         // GET: api/Comment/GetComments
@@ -23,7 +23,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = "SELECT * FROM Comment";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BackendConnectionString"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     con.Open();
@@ -61,7 +61,7 @@ namespace TrackerAPI.Controllers
                 string query = @"INSERT INTO Comment (TaskId, ProjectId, CommentedData, DateTimePosted) 
                                  VALUES (@TaskId, @ProjectId, @CommentedData, @DateTimePosted)";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BackendConnectionString"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@TaskId", comment.TaskId);
@@ -93,7 +93,7 @@ namespace TrackerAPI.Controllers
                                      DateTimePosted = @DateTimePosted
                                  WHERE CommentId = @CommentId";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BackendConnectionString"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@TaskId", comment.TaskId);
@@ -123,7 +123,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = "DELETE FROM Comment WHERE CommentId = @CommentId";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BackendConnectionString"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@CommentId", id);

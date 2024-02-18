@@ -10,7 +10,6 @@ using System.Web.Http.Cors;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProjectsController : ApiController
     {
         // GET: api/Projects
@@ -23,7 +22,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = "SELECT * FROM Project";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     con.Open();
@@ -62,7 +61,7 @@ namespace TrackerAPI.Controllers
                 string query = @"INSERT INTO Project (ProjectName, Owner, CreatedOn, Description, Teams) 
                                  VALUES (@ProjectName, @Owner, @CreatedOn, @Description, @Teams)";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@ProjectName", project.ProjectName);
@@ -95,7 +94,7 @@ namespace TrackerAPI.Controllers
                              Description = @Description, Teams = @Teams 
                          WHERE ProjectId = @ProjectId";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@ProjectName", project.ProjectName);
@@ -127,7 +126,7 @@ namespace TrackerAPI.Controllers
             {
                 string query = "DELETE FROM Project WHERE ProjectId = @ProjectId";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeConnection"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@ProjectId", id);

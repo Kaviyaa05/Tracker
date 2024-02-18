@@ -21,7 +21,7 @@ namespace TrackerAPI.Controllers
             FROM dbo.teams
             ";
             DataTable table = new DataTable();
-            using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["board"].ConnectionString))
+            using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (var cmd = new SqlCommand(query, con))
             using (var da = new SqlDataAdapter(cmd))
             {
@@ -40,7 +40,7 @@ namespace TrackerAPI.Controllers
             VALUES ( @TeamName, @TeamMemberList)
         ";
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["board"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 {
 

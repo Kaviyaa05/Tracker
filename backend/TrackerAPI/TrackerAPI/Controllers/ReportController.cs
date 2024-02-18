@@ -9,7 +9,7 @@ using TrackerAPI.Models;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins:"*" , headers:"*" , methods: "*")]
+    
     public class ReportController : ApiController
     {
         ReportDao dao = new ReportDao();

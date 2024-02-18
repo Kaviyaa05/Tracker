@@ -15,7 +15,7 @@ namespace TrackerAPI.Models
         {
             List<ReportProject> projects = new List<ReportProject>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (SqlCommand command = new SqlCommand("SELECT * FROM dummyproject", connection))
             {
 
@@ -64,7 +64,7 @@ namespace TrackerAPI.Models
 
         public List<ReportTask> fetchTask()
         {
-            string connectionStirng = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+            string connectionStirng = ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString;
             List<ReportTask> tasks = new List<ReportTask>();
 
 
@@ -133,7 +133,7 @@ namespace TrackerAPI.Models
 
        
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@TaskType", taskType);
@@ -194,7 +194,7 @@ namespace TrackerAPI.Models
             List<ReportTask> tasks = new List<ReportTask>();
 
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["kaviya"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@CurrentDate", currentDate);
@@ -250,7 +250,7 @@ namespace TrackerAPI.Models
             string query = "SELECT * FROM dummyproject WHERE end_date <= @CurrentDate";
             List<ReportProject> projects = new List<ReportProject>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@CurrentDate", currentDate);
@@ -305,7 +305,7 @@ namespace TrackerAPI.Models
 
   
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@TaskPriority", taskPriority);
@@ -362,7 +362,7 @@ namespace TrackerAPI.Models
             string query = "SELECT * FROM dummyproject WHERE project_priority = @ProjectPriority";
             List<ReportProject> projects = new List<ReportProject>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@ProjectPriority", projectPriority);
@@ -417,7 +417,7 @@ namespace TrackerAPI.Models
         {
             string query = "select dummytask.project_id, dummyproject.project_name,dummytask.task_id, dummytask.USER_ID,dummyproject.project_priority, dummytask.task_name,dummytask.task_priority, dummytask.task_type, dummytask.description,dummytask.owner,dummyproject.team_members, dummytask.start_date,dummytask.end_date from dummytask join dummyproject on dummytask.project_id = dummyproject.project_id where task_id=@TaskID";
             List<TaskDetails> details = new List<TaskDetails>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@TaskID", taskid);

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -11,55 +9,64 @@ using TrackerAPI.Models;
 
 namespace WebApplication3.Controllers
 {
-
     public class TaskController : ApiController
     {
         public HttpResponseMessage Get()
         {
             string query = @"
-                    select TaskId,UserId,Taskname,TaskType,Priority,CreatedBy,StartDate,EndDate,Status,Description from
-                    dbo.Tasks
-                    ";
+                SELECT TaskId, UserId, Taskname, TaskType, Priority, CreatedBy, StartDate, EndDate, Status, Description 
+                FROM Tasks";
+
             DataTable table = new DataTable();
-            using (var con = new SqlConnection(ConfigurationManager.
-               ConnectionStrings["TASKDB"].ConnectionString))
+            using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
             using (var cmd = new SqlCommand(query, con))
             using (var da = new SqlDataAdapter(cmd))
             {
                 cmd.CommandType = CommandType.Text;
                 da.Fill(table);
-
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, table);
-
         }
-
-        public string Post(TaskForm tsk)
+        public HttpResponseMessage Post(TaskForm tsk)
         {
             try
             {
                 string query = @"
-            INSERT INTO dbo.Tasks(TaskId,UserId, TaskName, TaskType, Priority, CreatedBy, StartDate, EndDate, Status, Description)
-            VALUES ('" + tsk.TaskId + @"','" + tsk.UserId + @"', '" + tsk.Taskname + @"', '" + tsk.TaskType + @"', '" + tsk.Priority + @"', '" + tsk.CreatedBy + @"', '" + tsk.StartDate + @"', '" + tsk.EndDate + @"', '" + tsk.Status + @"', '" + tsk.Description + @"')
-            ";
+            INSERT INTO Tasks (TaskId, UserId, Taskname, TaskType, Priority, CreatedBy, StartDate, EndDate, Status, Description)
+            VALUES (@TaskId, @UserId, @Taskname, @TaskType, @Priority, @CreatedBy, @StartDate, @EndDate, @Status, @Description)";
 
-                DataTable table = new DataTable();
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["TASKDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
-                using (var da = new SqlDataAdapter(cmd))
                 {
                     cmd.CommandType = CommandType.Text;
-                    da.Fill(table);
+                    cmd.Parameters.AddWithValue("@TaskId", tsk.TaskId);
+                    cmd.Parameters.AddWithValue("@UserId", tsk.UserId);
+                    cmd.Parameters.AddWithValue("@Taskname", tsk.Taskname);
+                    cmd.Parameters.AddWithValue("@TaskType", tsk.TaskType);
+                    cmd.Parameters.AddWithValue("@Priority", tsk.Priority);
+                    cmd.Parameters.AddWithValue("@CreatedBy", tsk.CreatedBy);
+                    cmd.Parameters.AddWithValue("@StartDate", tsk.StartDate);
+                    cmd.Parameters.AddWithValue("@EndDate", tsk.EndDate);
+                    cmd.Parameters.AddWithValue("@Status", tsk.Status);
+                    cmd.Parameters.AddWithValue("@Description", tsk.Description);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
-                return "Inserted Successfully!!";
+                return Request.CreateResponse(HttpStatusCode.OK, "Inserted Successfully!!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return "Failed to Insert!!";
+                // Log the exception
+                Console.WriteLine(ex.ToString());
+
+                // Return detailed exception information in the response
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, $"Failed to Insert!! Error: {ex.Message}");
             }
         }
+
 
 
         public string Put(TaskForm tsk)
@@ -67,34 +74,35 @@ namespace WebApplication3.Controllers
             try
             {
                 string query = @"
-                    update dbo.Tasks set 
-                    UserId='" + tsk.UserId + @"'
-                    ,TaskName='" + tsk.Taskname + @"'
-                    ,TaskType='" + tsk.TaskType + @"'
-                    ,Priority='" + tsk.Priority + @"'
-                    ,CreatedBy='" + tsk.CreatedBy + @"'
-                    ,StartDate='" + tsk.StartDate + @"'
-                    ,EndDate='" + tsk.EndDate + @"'
-                    ,Status='" + tsk.Status + @"'
-                    ,Description='" + tsk.Description + @"'
-                    where TaskId=" + tsk.TaskId + @"
-                    ";
+                    UPDATE Tasks 
+                    SET UserId = @UserId, Taskname = @Taskname, TaskType = @TaskType, Priority = @Priority, 
+                        CreatedBy = @CreatedBy, StartDate = @StartDate, EndDate = @EndDate, Status = @Status, 
+                        Description = @Description
+                    WHERE TaskId = @TaskId";
 
-                DataTable table = new DataTable();
-                using (var con = new SqlConnection(ConfigurationManager.
-                    ConnectionStrings["TASKDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
-                using (var da = new SqlDataAdapter(cmd))
                 {
                     cmd.CommandType = CommandType.Text;
-                    da.Fill(table);
+                    cmd.Parameters.AddWithValue("@UserId", tsk.UserId);
+                    cmd.Parameters.AddWithValue("@Taskname", tsk.Taskname);
+                    cmd.Parameters.AddWithValue("@TaskType", tsk.TaskType);
+                    cmd.Parameters.AddWithValue("@Priority", tsk.Priority);
+                    cmd.Parameters.AddWithValue("@CreatedBy", tsk.CreatedBy);
+                    cmd.Parameters.AddWithValue("@StartDate", tsk.StartDate);
+                    cmd.Parameters.AddWithValue("@EndDate", tsk.EndDate);
+                    cmd.Parameters.AddWithValue("@Status", tsk.Status);
+                    cmd.Parameters.AddWithValue("@Description", tsk.Description);
+                    cmd.Parameters.AddWithValue("@TaskId", tsk.TaskId);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 return "Updated Successfully!!";
             }
             catch (Exception)
             {
-
                 return "Failed to Update!!";
             }
         }
@@ -104,28 +112,28 @@ namespace WebApplication3.Controllers
             try
             {
                 string query = @"
-                    delete from dbo.Tasks
-                    where TaskId=" + id + @"
-                    ";
+                    DELETE FROM Tasks
+                    WHERE TaskId = @TaskId";
 
-                DataTable table = new DataTable();
-                using (var con = new SqlConnection(ConfigurationManager.
-                    ConnectionStrings["TASKDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
-                using (var da = new SqlDataAdapter(cmd))
                 {
                     cmd.CommandType = CommandType.Text;
-                    da.Fill(table);
-                }
+                    cmd.Parameters.AddWithValue("@TaskId", id);
 
-                return "Deleted Successfully!!";
+                    con.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                        return "Deleted Successfully!!";
+                    else
+                        return "No record found to delete!!";
+                }
             }
             catch (Exception)
             {
-
                 return "Failed to Delete!!";
             }
         }
-
     }
 }

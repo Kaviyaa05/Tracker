@@ -8,7 +8,7 @@ using TrackerAPI.Models;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+   
     public class AuditController : ApiController
     {
         private AuditLogDao auditLogDao = new AuditLogDao();

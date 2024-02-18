@@ -12,7 +12,6 @@ using System.Web.Http.Cors;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
 
     public class ImageController : ApiController
     {
@@ -24,7 +23,7 @@ namespace TrackerAPI.Controllers
                 //Query to get data
                 string query = @"SELECT Id, PhotoData FROM dbo.upload";
                 DataTable table = new DataTable();
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["ImageDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
@@ -62,7 +61,7 @@ namespace TrackerAPI.Controllers
                     return "No files uploaded";
                 }
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["ImageDB"].ConnectionString))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Kaviya"].ConnectionString))
                 {
                     con.Open();
 

@@ -9,14 +9,14 @@ using TrackerAPI.Dao;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+ 
     public class NotificationController : ApiController
     {
 
         // GET: api/Notification
         private readonly Dao1 dao = new Dao1();
 
-        [EnableCors("*", "*", "*")]
+   
 
 
         public IHttpActionResult Get()
