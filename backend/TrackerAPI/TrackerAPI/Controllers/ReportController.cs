@@ -9,13 +9,13 @@ using TrackerAPI.Models;
 
 namespace TrackerAPI.Controllers
 {
-    [EnableCors(origins:"*" , headers:"*" , methods: "*")]
     public class ReportController : ApiController
     {
         ReportDao dao = new ReportDao();
 
         
         [HttpGet]
+        [Route("api/report/Project")]
         //all projects
         public IHttpActionResult GetProject()
         {            
@@ -24,7 +24,7 @@ namespace TrackerAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/report/createproject/{owner}")]
+        [Route("api/report/CreatedProject")]
         //created projects
         public IHttpActionResult GetCreatedProject(string owner)
         {
@@ -33,9 +33,18 @@ namespace TrackerAPI.Controllers
             return Ok(createdProj);
         }
 
+        [HttpGet]
+        [Route("api/report/Task")]
+        //task by type
+        public IHttpActionResult GetTask()
+        {
+            var task = dao.fetchtask();
+            return Ok(task);
+        }
+
 
         [HttpGet]
-        [Route("api/report/taskbytype/{type}")]
+        [Route("api/report/TaskByType")]
         //task by type
         public IHttpActionResult GetTasksByType(string type)
         {
@@ -45,7 +54,7 @@ namespace TrackerAPI.Controllers
 
 
         [HttpGet]
-        [Route("api/report/taskbypriority/{priority}")]
+        [Route("api/report/TaskByPriority")]
         //task by priority
         public IHttpActionResult GetTaskByPriority(string priority)
         {
@@ -55,16 +64,18 @@ namespace TrackerAPI.Controllers
 
 
         [HttpGet]
+        [Route("api/report/overdue")]
         //over due 
-        public IHttpActionResult GetOverDue (DateTime currentdate)
+        public IHttpActionResult GetOverDue()
         {
+            
             var burndown = dao.GetOverdueTasks(DateTime.Now);
             return Ok(burndown);
         }
 
 
         [HttpGet]
-        [Route("api/report/taskassigned/{assign}")]
+        [Route("api/report/TaskAssigned")]
         //task assigned
         public IHttpActionResult GetTaskAssigned (string assign)
         {
@@ -75,7 +86,7 @@ namespace TrackerAPI.Controllers
 
 
         [HttpGet]
-        [Route("api/report/taskcreated/{create}")]
+        [Route("api/report/TaskCreated")]
         //task created
         public IHttpActionResult GetTaskCreated(string create)
         {
@@ -86,7 +97,7 @@ namespace TrackerAPI.Controllers
 
 
         [HttpGet]
-        [Route("api/report/details/{id}")]
+        [Route("api/report/Details")]
         public IHttpActionResult GetDetails (int id)
         {
             var taskdetail = dao.GetTaskDetails(id);

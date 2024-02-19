@@ -104,7 +104,7 @@ namespace TrackerAPI.Models
         {
             List<ReportTask> task = new List<ReportTask>();
             using (SqlConnection connection = new SqlConnection(connectionString))
-                using(SqlCommand command = new SqlCommand("select TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Owner,Assigned,StartDate,Enddate from task ", connection))
+                using(SqlCommand command = new SqlCommand("select ProjectName, TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Owner,Assigned,StartDate,Enddate from task ", connection))
                 {
                 try
                 {
@@ -113,19 +113,21 @@ namespace TrackerAPI.Models
                     {
                         while (reader.Read())
                         {
-                            int taskid = reader.GetInt32(0);
-                            string taskname = reader.GetString(1);
-                            string tasktype = reader.GetString(2);
-                            string taskpriority = reader.GetString(3);
-                            string taskdescription = reader.GetString(4);
-                            string owner = reader.GetString(5);
-                            string assign = reader.GetString(6);
-                            DateTime start = reader.GetDateTime(7);
-                            DateTime end = reader.GetDateTime(8);
+                            string projectName = reader.GetString(0);
+                            int taskid = reader.GetInt32(1);
+                            string taskname = reader.GetString(2);
+                            string tasktype = reader.GetString(3);
+                            string taskpriority = reader.GetString(4);
+                            string taskdescription = reader.GetString(5);
+                            string owner = reader.GetString(6);
+                            string assign = reader.GetString(7);
+                            DateTime start = reader.GetDateTime(8);
+                            DateTime end = reader.GetDateTime(9);
 
 
                             task.Add(new ReportTask
                             {
+                                ProjectName=projectName,
                                 TaskId = taskid,
                                 taskName = taskname,
                                 taskType = tasktype,
@@ -152,8 +154,9 @@ namespace TrackerAPI.Models
         {
             List<ReportTask> assigntask = new List<ReportTask>();
             using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand("select TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Owner,StartDate,Enddate from task where Assigned = @Assign ", connection))
+            using (SqlCommand command = new SqlCommand("select ProjectName,TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Owner,StartDate,Enddate from task where Assigned = @Assign ", connection))
             {
+                command.Parameters.AddWithValue("@Assign", assign);
                 try
                 {
                     connection.Open();
@@ -161,17 +164,19 @@ namespace TrackerAPI.Models
                     {
                         while (reader.Read())
                         {
-                            int taskid = reader.GetInt32(0);
-                            string taskname = reader.GetString(1);
-                            string tasktype = reader.GetString(2);
-                            string taskpriority = reader.GetString(3);
-                            string taskdescription = reader.GetString(4);
-                            string owner = reader.GetString(5);
-                            DateTime start = reader.GetDateTime(6);
-                            DateTime end = reader.GetDateTime(7);
+                            string projectName = reader.GetString(0);
+                            int taskid = reader.GetInt32(1);
+                            string taskname = reader.GetString(2);
+                            string tasktype = reader.GetString(3);
+                            string taskpriority = reader.GetString(4);
+                            string taskdescription = reader.GetString(5);
+                            string owner = reader.GetString(6);
+                            DateTime start = reader.GetDateTime(7);
+                            DateTime end = reader.GetDateTime(8);
 
                             assigntask.Add(new ReportTask
                             {
+                                ProjectName=projectName,
                                 TaskId = taskid,
                                 taskName = taskname,
                                 taskType = tasktype,
@@ -199,7 +204,7 @@ namespace TrackerAPI.Models
         {
             List<ReportTask> assigntask = new List<ReportTask>();
             using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand("select TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Assigned,StartDate,Enddate from task where Owner = @own ", connection))
+            using (SqlCommand command = new SqlCommand("select ProjectName, TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Assigned,StartDate,Enddate from task where Owner = @own ", connection))
             {
                 command.Parameters.AddWithValue("@Own", owner);
                 try
@@ -210,17 +215,19 @@ namespace TrackerAPI.Models
                     {
                         while (reader.Read())
                         {
-                            int taskid = reader.GetInt32(0);
-                            string taskname = reader.GetString(1);
-                            string tasktype = reader.GetString(2);
-                            string taskpriority = reader.GetString(3);
-                            string taskdescription = reader.GetString(4);
-                            string assign = reader.GetString(5);
-                            DateTime start = reader.GetDateTime(6);
-                            DateTime end = reader.GetDateTime(7);
+                            string projectName = reader.GetString(0);
+                            int taskid = reader.GetInt32(1);
+                            string taskname = reader.GetString(2);
+                            string tasktype = reader.GetString(3);
+                            string taskpriority = reader.GetString(4);
+                            string taskdescription = reader.GetString(5);
+                            string assign = reader.GetString(6);
+                            DateTime start = reader.GetDateTime(7);
+                            DateTime end = reader.GetDateTime(8);
 
                             assigntask.Add(new ReportTask
                             {
+                                ProjectName=projectName,
                                 TaskId = taskid,
                                 taskName = taskname,
                                 taskType = tasktype,
@@ -260,24 +267,26 @@ namespace TrackerAPI.Models
                     {
                         while (reader.Read())
                         {
-                            int taskId = reader.GetInt32(0);
-                            string taskName = reader.GetString(1);
-                            string taskType = reader.GetString(2);
-                            string taskPriority = reader.GetString(3);
-                            string taskDescription = reader.GetString(4);
-                            string owner = reader.GetString(5);
-                            string assign = reader.GetString(6);
-                            DateTime start = reader.GetDateTime(7);
-                            DateTime end = reader.GetDateTime(8);
+                            string projectName = reader.GetString(0);
+                            int taskid = reader.GetInt32(1);
+                            string taskname = reader.GetString(2);
+                            string tasktype = reader.GetString(3);
+                            string taskpriority = reader.GetString(4);
+                            string taskdescription = reader.GetString(5);
+                            string own = reader.GetString(6);
+                            string assign = reader.GetString(7);
+                            DateTime start = reader.GetDateTime(8);
+                            DateTime end = reader.GetDateTime(9);
 
                             tasks.Add(new ReportTask
                             {
-                                TaskId = taskId,
-                                taskName = taskName,
-                                taskType = taskType,
-                                taskPriority = taskPriority,
-                                taskDescription = taskDescription,
-                                owner = owner,
+                                ProjectName=projectName,
+                                TaskId = taskid,
+                                taskName = taskname,
+                                taskType = tasktype,
+                                taskPriority = taskpriority,
+                                taskDescription = taskdescription,
+                                owner = own,
                                 assigned = assign,
                                 startDate = start,
                                 endDate = end,
@@ -296,19 +305,19 @@ namespace TrackerAPI.Models
 
         public List<ReportTask> GetTasksByType(string type)
         {
-            string query = "SELECT TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE TaskType = @TaskType";
+            string query = "SELECT ProjectName,TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE TaskType = @TaskType";
             return GetTasks(query, "@TaskType", type);
         }
 
         public List<ReportTask> GetTasksByPriority(string priority)
         {
-            string query = "SELECT TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE TaskPriority = @TaskPriority";
+            string query = "SELECT ProjectName,TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE TaskPriority = @TaskPriority";
             return GetTasks(query, "@TaskPriority", priority);
         }
 
         public List<ReportTask> GetOverdueTasks(DateTime currentTime)
         {
-            string query = "SELECT TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE EndDate <= @Date";
+            string query = "select ProjectName,taskId, taskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, Enddate from Task where Enddate  <= @Date";
             return GetTasks(query, "@Date", currentTime);
         }
 
