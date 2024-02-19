@@ -30,6 +30,7 @@ import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
 import { NotificationComponent } from './Team_C/notification/notification.component';
 import { EditComponent } from './Team_C/documents/edit/edit.component';
+import { DisplayComponent } from './Team_C/documents/display/display.component';
 const routes: Routes = [
   { path : '', component : LoginpageComponent},
   { path:'loginactivity', component:LoginactivityComponent },
@@ -43,7 +44,7 @@ const routes: Routes = [
   {path:'audit' ,component:AuditComponent},
   { path: 'comment', component: CommentComponent },
   {path:'image' ,component:ImageuploaderComponent},
-  {path:'details/:id',component:DetailsComponent},
+  {path:'details',component:DetailsComponent},
   {path:'teams',component:TeamsComponent},
   {path:'boards',component:BoardsComponent},
   {path:'timetracker',component:TimetrackerComponent},
@@ -61,6 +62,7 @@ const routes: Routes = [
   {path:'show-tsk',component:ShowTskcomponent},
   { path: 'view-all-projects', component: ViewAllProjectsComponent },
   {path:'edit/:id',component:EditComponent},
+  {path:'view/:id',component:DisplayComponent},
    {path:'**',component:PageNotFoundComponent}  
 ];
 

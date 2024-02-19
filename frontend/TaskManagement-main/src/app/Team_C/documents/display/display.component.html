@@ -1,0 +1,15 @@
+<app-home></app-home>
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <textarea class="form-control" *ngIf="documentContent" [value]="documentContent" readonly></textarea>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="input-group">
+            <button class="btn btn-primary btn-block" (click)="goBack()">Back</button>
+          </div>
+        </div>
+      </div>
+      

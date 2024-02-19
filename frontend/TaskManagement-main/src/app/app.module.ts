@@ -48,7 +48,8 @@ import { ProfileService } from './profile/profile.service';
 import { UserService } from './users/user.service';
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
 import { NgModel } from '@angular/forms';
-import { EditComponent } from './Team_C/documents/edit/edit.component';
+import { DisplayComponent } from './Team_C/documents/display/display.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,8 @@ import { EditComponent } from './Team_C/documents/edit/edit.component';
      ImageuploaderComponent, 
      UsersComponent,
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
-   ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent,ViewAllProjectsComponent,EditComponent, 
+   ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent,ViewAllProjectsComponent,DisplayComponent, 
+
   ],
   imports: [
     BrowserModule,
@@ -78,13 +80,13 @@ import { EditComponent } from './Team_C/documents/edit/edit.component';
     FormsModule,
     ReactiveFormsModule,
     TableModule,
-    HttpClientModule
+    HttpClientModule,
+    EditorModule
 
   ],
   providers: [
     provideClientHydration(),SharedService,TimeTrackerService,ImageuploaderService,ProfileService,UserService,NgModel,NotifyService
   ],
   bootstrap: [AppComponent]
-
 })
 export class AppModule { }

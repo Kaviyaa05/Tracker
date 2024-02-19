@@ -2,7 +2,6 @@
 <div class="col-md-20 mt-20">
     <h3 class="text-dark font-weight-bold" style="margin-left: 20px;margin-top: 10px;">Notes</h3>
   </div>
-  
   <div>
     <div class="row">
       <div>
@@ -24,17 +23,13 @@
       <tbody>
         <tr *ngFor="let note of notes">
           
-          <td>{{note.Id}}</td>
-          <td><a [routerLink]="['/view', note.Title]">{{ note.Title }}</a></td> 
+          <td>{{note.DocumentId}}</td>
+          <td><a [routerLink]="['/view', note.DocumentId]">{{ note.Title }}</a></td> 
           <td>{{note.CreatedAt}}</td>
           <td>{{note.ModifiedAt}}</td>
           <td class="text-left">
-           
-            <button (click)="editPage(note.Id)" class="btn btn-outline-primary btn-sm">Edit</button>
-           
-            
+          <button (click)="editPage(note.Id)" class="btn btn-outline-primary btn-sm">Edit</button> 
           </td>
-          
         </tr>
       </tbody>
     </table>

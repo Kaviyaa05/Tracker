@@ -7,24 +7,16 @@ import { DocumentService } from '../service/document.service';
   styleUrls: ['./text-editor.component.css']
 })
 export class TextEditorComponent{
-  
-
   constructor(private documentsService: DocumentService, private router: Router) { }
-  ngOnInit(): void {
-    
+  ngOnInit(): void {   
   }
-
   onSubmit() {
     const title = (document.getElementById('title') as HTMLInputElement).value;
     const content = (document.getElementById('content') as HTMLTextAreaElement).value;
-
-    
     this.documentsService.createNote(title, content).subscribe(
-      () => {
-        
+      () => {  
         this.router.navigate(['/documents']);
-      },
-      
+      },    
     );
   }
 }

@@ -34,6 +34,7 @@ export class EditComponent implements OnInit {
   returnNote() {
     this.documentService.updateNote(this.noteId, this.note).subscribe(
       (data) => {
+        
         console.log('Note updated successfully:', data);
         this.router.navigate(['/documents']); 
       },

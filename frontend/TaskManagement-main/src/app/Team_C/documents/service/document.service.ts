@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +33,11 @@ export class DocumentService {
     console.log("edit")
     return this.http.put(`${this.baseUrl}/${id}`, note);
   }
+  getAllNotes(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl);
+  }
+  getNoteContentById(id: number): Observable<string> {
+    return this.http.get<string>(`${this.baseUrl}/${id}`);
+  }
+  
 }
