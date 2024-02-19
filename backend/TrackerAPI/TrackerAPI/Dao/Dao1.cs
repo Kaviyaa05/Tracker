@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using TrackerAPI.Utils;
 
 namespace TrackerAPI.Dao
 {
@@ -10,9 +11,10 @@ namespace TrackerAPI.Dao
     {
         private readonly SqlConnection connection;
 
+
         public Dao1()
         {
-            connection = Database.Connection;
+            connection = DbUtils.GetConnection();
         }
 
         public IEnumerable<Data> Show()
@@ -60,7 +62,7 @@ namespace TrackerAPI.Dao
 
         public void Insert(Data data)
         {
-            String query = "INSERT INTO Notification (Username, Time, Message, Priority) VALUES(@Username, @Time, @Message,@Priority)";
+            String query = "INSERT INTO Notification (Username, Time, Message, Priority,isRead,receiver) VALUES(@Username, @Time, @Message,@Priority,@isRead,@receiver)";
 
             try
             {
@@ -70,7 +72,8 @@ namespace TrackerAPI.Dao
                     sql.Parameters.AddWithValue("@Time", data.Time);
                     sql.Parameters.AddWithValue("@Message", data.Message);
                     sql.Parameters.AddWithValue("@Priority", data.Priority);
-
+                    sql.Parameters.AddWithValue("@isRead", data.isRead);
+                    sql.Parameters.AddWithValue("@receiver", data.receiver);
 
                     connection.Open();
                     sql.ExecuteNonQuery();
@@ -116,10 +119,10 @@ namespace TrackerAPI.Dao
 
         }
 
-        public IEnumerable<Data> getId(int Id)
+        public IEnumerable<Data> getname(string username)
         {
             List<Data> records = new List<Data>();
-            string query = "select * from Notification WHERE userid=@userid";
+            string query = "select * from Notification WHERE receiver=@Username";
 
             using (SqlCommand sql = new SqlCommand(query, connection))
             {
@@ -127,7 +130,7 @@ namespace TrackerAPI.Dao
                 {
                     connection.Open();
 
-                    sql.Parameters.AddWithValue("@userid", Id);
+                    sql.Parameters.AddWithValue("@Username", username);
 
                     using (SqlDataReader reader = sql.ExecuteReader())
                     {

@@ -9,14 +9,14 @@ using TrackerAPI.Dao;
 
 namespace TrackerAPI.Controllers
 {
- 
+
     public class NotificationController : ApiController
     {
 
         // GET: api/Notification
         private readonly Dao1 dao = new Dao1();
 
-   
+
 
 
         public IHttpActionResult Get()
@@ -39,11 +39,10 @@ namespace TrackerAPI.Controllers
 
 
         // GET api/values/5
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(string username)
         {
-            var currentuser = dao.getId(id);
+            var currentuser = dao.getname(username);
             return Ok(currentuser);
-
         }
 
         // POST api/values
@@ -66,4 +65,3 @@ namespace TrackerAPI.Controllers
         }
     }
 }
-
