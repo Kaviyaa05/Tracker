@@ -10,15 +10,16 @@ namespace TrackerAPI.Models
 {
     public class ReportDao
     {
+        string connectionString = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
 
-        public List<ReportProject> fetchProjects()
+        //fetching all projects
+        public List<ReportProject> fetchProject()
         {
-            List<ReportProject> projects = new List<ReportProject>();
+            List<ReportProject> project = new List<ReportProject>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (SqlCommand command = new SqlCommand("SELECT * FROM dummyproject", connection))
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand("select * from Project", connection))
             {
-
                 try
                 {
                     connection.Open();
@@ -26,449 +27,344 @@ namespace TrackerAPI.Models
                     {
                         while (reader.Read())
                         {
-                            int projectId = reader.GetInt32(0);
-                            int userId = reader.GetInt32(1);
-                            string name = reader.GetString(2);
-                            string description = reader.GetString(3);
-                            string priority = reader.GetString(4);
-                            string team_members = reader.GetString(5);
-                            string owner = reader.GetString(6);
-                            DateTime startDate = reader.GetDateTime(7);
-                            DateTime endDate = reader.GetDateTime(8);
+                            int projectid = reader.GetInt32(0);
+                            string projectname = reader.GetString(1);
+                            string description = reader.GetString(2);
+                            string owner = reader.GetString(3);
+                            string team = reader.GetString(4);
+                            DateTime startdate = reader.GetDateTime(5);
 
-                            projects.Add(new ReportProject
+                            project.Add(new ReportProject
                             {
-                                ProjectID = projectId,
-                                UserID = userId,
-                                Name = name,
-                                Description = description,
-                                Priority = priority,
-                                Team = team_members,
+                                ProjectID = projectid,
+                                ProjectName = projectname,
+                                ProjectDescription = description,
                                 Owner = owner,
-                                StartDate = startDate,
-                                EndDate = endDate
+                                TeamName = team,
+                                StartDate = startdate
+                            });
+                        }
+
+                    }
+                } catch (Exception e)
+                {
+                    Console.WriteLine("Error", e);
+                }
+            } return project;
+
+        }
+
+
+
+        //project created by me 
+        public List<ReportProject> createdProject(string owner)
+        {
+            List<ReportProject> assignedProejct = new List<ReportProject>();
+            string query = "select ProjectId, ProjectName, ProjectDescription,TeamName, StartDate from project where Owner  = @Owner";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Owner", owner);
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int projectid = reader.GetInt32(0);
+                            string projectname = reader.GetString(1);
+                            string description = reader.GetString(2);
+                            string team = reader.GetString(3);
+                            DateTime startdate = reader.GetDateTime(4);
+
+                            assignedProejct.Add(new ReportProject
+                            {
+                                ProjectID = projectid,
+                                ProjectName = projectname,
+                                ProjectDescription = description,
+                                TeamName = team,
+                                StartDate = startdate
+                            }) ;
+                        }
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error", e);
+                }
+            } return assignedProejct;
+        }
+
+
+
+        //fetching all tasks
+        public List<ReportTask> fetchtask()
+        {
+            List<ReportTask> task = new List<ReportTask>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+                using(SqlCommand command = new SqlCommand("select TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Owner,Assigned,StartDate,Enddate from task ", connection))
+                {
+                try
+                {
+                    connection.Open();
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int taskid = reader.GetInt32(0);
+                            string taskname = reader.GetString(1);
+                            string tasktype = reader.GetString(2);
+                            string taskpriority = reader.GetString(3);
+                            string taskdescription = reader.GetString(4);
+                            string owner = reader.GetString(5);
+                            string assign = reader.GetString(6);
+                            DateTime start = reader.GetDateTime(7);
+                            DateTime end = reader.GetDateTime(8);
+
+
+                            task.Add(new ReportTask
+                            {
+                                TaskId = taskid,
+                                taskName = taskname,
+                                taskType = tasktype,
+                                taskPriority = taskpriority,
+                                taskDescription = taskdescription,
+                                owner = owner,
+                                assigned = assign,
+                                startDate = start,
+                                endDate = end,
                             });
                         }
                     }
-                }
-                catch (Exception ex)
+                }catch(Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error", ex);
                 }
-            }
-
-            return projects;
+            } return task;
         }
 
 
-
-        public List<ReportTask> fetchTask()
+ 
+        //task assigned to me
+        public List <ReportTask> taskAssigned (string assign)
         {
-            string connectionStirng = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            List<ReportTask> tasks = new List<ReportTask>();
-
-
-            using (SqlConnection connection = new SqlConnection(connectionStirng))
+            List<ReportTask> assigntask = new List<ReportTask>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand("select TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Owner,StartDate,Enddate from task where Assigned = @Assign ", connection))
             {
-
-                using (SqlCommand command = new SqlCommand("select * from dummytask", connection))
-                {
-                    try
-                    {
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                int projectId = reader.GetInt32(0);
-                                int taskId = reader.GetInt32(1);
-                                int userId = reader.GetInt32(2);
-                                string name = reader.GetString(3);
-                                string priority = reader.GetString(4);
-                                string type = reader.GetString(5);
-                                string description = reader.GetString(6);
-                                string owner = reader.GetString(7);
-                                DateTime startDate = reader.GetDateTime(8);
-                                DateTime endDate = reader.GetDateTime(9);
-
-
-                                tasks.Add(new ReportTask
-
-
-                                {
-                                    ProjectID = projectId,
-                                    TaskID = taskId,
-                                    UserID = userId,
-                                    Name = name,
-                                    Priority = priority,
-                                    Type = type,
-                                    Description = description,
-
-                                    Owner = owner,
-                                    StartDate = startDate,
-                                    EndDate = endDate
-                                });
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-            return tasks;
-        }
-
-
-
-        public List<ReportTask> fetchTaskByType(string taskType)
-        {
-            string query = "SELECT * FROM dummytask WHERE task_type = @TaskType";
-            List<ReportTask> tasks = new List<ReportTask>();
-
-       
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@TaskType", taskType);
-
                 try
                 {
                     connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using(SqlDataReader reader= command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            int projectId = reader.GetInt32(0);
-                            int taskId = reader.GetInt32(1);
-                            int userId = reader.GetInt32(2);
-                            string name = reader.GetString(3);
-                            string priority = reader.GetString(4);
-                            string type = reader.GetString(5);
-                            string description = reader.GetString(6);
-                            string owner = reader.GetString(7);
-                            DateTime startDate = reader.GetDateTime(8);
-                            DateTime endDate = reader.GetDateTime(9);
+                            int taskid = reader.GetInt32(0);
+                            string taskname = reader.GetString(1);
+                            string tasktype = reader.GetString(2);
+                            string taskpriority = reader.GetString(3);
+                            string taskdescription = reader.GetString(4);
+                            string owner = reader.GetString(5);
+                            DateTime start = reader.GetDateTime(6);
+                            DateTime end = reader.GetDateTime(7);
 
-
-                            tasks.Add(new ReportTask
-
+                            assigntask.Add(new ReportTask
                             {
-                                ProjectID = projectId,
-                                TaskID = taskId,
-                                UserID = userId,
-                                Name = name,
-                                Priority = priority,
-                                Type = type,
-                                Description = description,
-
-                                Owner = owner,
-                                StartDate = startDate,
-                                EndDate = endDate
-                            });
-
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-
-                }
-            }
-
-            return tasks;
-        }
-
-
-
-        public List<ReportTask> fetchOverdue(DateTime currentDate)
-        {
-            string query = "SELECT * FROM dummytask WHERE end_date <= @CurrentDate";
-            List<ReportTask> tasks = new List<ReportTask>();
-
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@CurrentDate", currentDate);
-
-                try
-                {
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int projectId = reader.GetInt32(0);
-                            int taskId = reader.GetInt32(1);
-                            int userId = reader.GetInt32(2);
-                            string name = reader.GetString(3);
-                            string priority = reader.GetString(4);
-                            string type = reader.GetString(5);
-                            string description = reader.GetString(6);
-                            string owner = reader.GetString(7);
-                            DateTime startDate = reader.GetDateTime(8);
-                            DateTime endDate = reader.GetDateTime(9);
-
-
-                            tasks.Add(new ReportTask
-             {
-                                ProjectID = projectId,
-                                TaskID = taskId,
-                                UserID = userId,
-                                Name = name,
-                                Priority = priority,
-                                Type = type,
-                                Description = description,
-                                Owner = owner,
-                                StartDate = startDate,
-                                EndDate = endDate
+                                TaskId = taskid,
+                                taskName = taskname,
+                                taskType = tasktype,
+                                taskPriority = taskpriority,
+                                taskDescription = taskdescription,
+                                owner = owner,
+                                startDate = start,
+                                endDate = end,
                             });
                         }
                     }
-                }
-                catch (Exception ex)
+                }catch(Exception e)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error", e);
                 }
-            }
 
-            return tasks;
+            }
+            return assigntask;
+
         }
 
 
-
-        public List<ReportProject> fetchProjectOverdue(DateTime currentDate)
+        //task created by me
+        public List<ReportTask> taskCreated(string owner)
         {
-            string query = "SELECT * FROM dummyproject WHERE end_date <= @CurrentDate";
-            List<ReportProject> projects = new List<ReportProject>();
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
+            List<ReportTask> assigntask = new List<ReportTask>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand("select TaskId, TaskName, TaskType, TaskPriority,TaskDescription,Assigned,StartDate,Enddate from task where Owner = @own ", connection))
             {
-                command.Parameters.AddWithValue("@CurrentDate", currentDate);
-
+                command.Parameters.AddWithValue("@Own", owner);
                 try
                 {
+
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            int projectId = reader.GetInt32(0);
-                            int userId = reader.GetInt32(1);
-                            string name = reader.GetString(2);
-                            string description = reader.GetString(3);
-                            string priority = reader.GetString(4);
-                            string team_members = reader.GetString(5);
-                            string owner = reader.GetString(6);
-                            DateTime startDate = reader.GetDateTime(7);
-                            DateTime endDate = reader.GetDateTime(8);
+                            int taskid = reader.GetInt32(0);
+                            string taskname = reader.GetString(1);
+                            string tasktype = reader.GetString(2);
+                            string taskpriority = reader.GetString(3);
+                            string taskdescription = reader.GetString(4);
+                            string assign = reader.GetString(5);
+                            DateTime start = reader.GetDateTime(6);
+                            DateTime end = reader.GetDateTime(7);
 
-                            projects.Add(new ReportProject
+                            assigntask.Add(new ReportTask
                             {
-                                ProjectID = projectId,
-                                UserID = userId,
-                                Name = name,
-                                Description = description,
-                                Priority = priority,
-                                Team = team_members,
-                                Owner = owner,
-                                StartDate = startDate,
-                                EndDate = endDate
-                            });
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return projects;
-        }
-
-
-
-        public List<ReportTask> fetchTaskByPriority(string taskPriority)
-        {
-            string query = "SELECT * FROM dummytask WHERE task_priority = @TaskPriority";
-            List<ReportTask> tasks = new List<ReportTask>();
-
-  
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@TaskPriority", taskPriority);
-
-                try
-                {
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int projectId = reader.GetInt32(0);
-                            int taskId = reader.GetInt32(1);
-                            int userId = reader.GetInt32(2);
-                            string name = reader.GetString(3);
-                            string priority = reader.GetString(4);
-                            string type = reader.GetString(5);
-                            string description = reader.GetString(6);
-                            string owner = reader.GetString(7);
-                            DateTime startDate = reader.GetDateTime(8);
-                            DateTime endDate = reader.GetDateTime(9);
-
-
-                            tasks.Add(new ReportTask
-              {
-                                ProjectID = projectId,
-                                TaskID = taskId,
-                                UserID = userId,
-                                Name = name,
-                                Priority = priority,
-                                Type = type,
-                                Description = description,
-                                Owner = owner,
-                                StartDate = startDate,
-                                EndDate = endDate
-                            });
-
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-
-                }
-            }
-
-            return tasks;
-        }
-
-
-        public List<ReportProject> fetchProjectByPriority(string projectPriority)
-        {
-            string query = "SELECT * FROM dummyproject WHERE project_priority = @ProjectPriority";
-            List<ReportProject> projects = new List<ReportProject>();
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@ProjectPriority", projectPriority);
-
-                try
-                {
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int projectId = reader.GetInt32(0);
-                            int userId = reader.GetInt32(1);
-                            string name = reader.GetString(2);
-                            string description = reader.GetString(3);
-                            string priority = reader.GetString(4);
-                            string team_members = reader.GetString(5);
-                            string owner = reader.GetString(6);
-                            DateTime startDate = reader.GetDateTime(7);
-                            DateTime endDate = reader.GetDateTime(8);
-
-
-                            projects.Add(new ReportProject
-                            {
-                                ProjectID = projectId,
-                                UserID = userId,
-                                Name = name,
-                                Description = description,
-                                Priority = priority,
-                                Team = team_members,
-                                Owner = owner,
-                                StartDate = startDate,
-                                EndDate = endDate
-                            });
-
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-
-                }
-            }
-
-            return projects;
-        }
-
-
-
-        public List<TaskDetails> fetchTaskDetails(int taskid)
-        {
-            string query = "select dummytask.project_id, dummyproject.project_name,dummytask.task_id, dummytask.USER_ID,dummyproject.project_priority, dummytask.task_name,dummytask.task_priority, dummytask.task_type, dummytask.description,dummytask.owner,dummyproject.team_members, dummytask.start_date,dummytask.end_date from dummytask join dummyproject on dummytask.project_id = dummyproject.project_id where task_id=@TaskID";
-            List<TaskDetails> details = new List<TaskDetails>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@TaskID", taskid);
-                try
-                {
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int projectId = reader.GetInt32(0);
-                            string projectName = reader.GetString(1);
-                            int taskId = reader.GetInt32(2);
-                            int userId = reader.GetInt32(3);
-                            string projectPriority = reader.GetString(4);
-                            string taskname = reader.GetString(5);
-                            string taskpriority = reader.GetString(6);
-                            string tasktype = reader.GetString(7);
-                            string description = reader.GetString(8);
-                            string owner = reader.GetString(9);
-                            string teams = reader.GetString(10);
-                            DateTime startDate = reader.GetDateTime(11);
-                            DateTime endDate = reader.GetDateTime(12);
-
-                            details.Add(new TaskDetails
-                            {
-                                ProjectID = projectId,
-                                ProjectName = projectName,
-                                TaskID = taskId,
-                                UserID = userId,
-                                ProjectPriority = projectPriority,
-                                TaskName = taskname,
-                                TaskPriority = taskpriority,
-                                TaskType = tasktype,
-                                Description = description,
-                                Assigned_By = owner,
-                                Teams = teams,
-                                StartDate = startDate,
-                                EndDate = endDate
+                                TaskId = taskid,
+                                taskName = taskname,
+                                taskType = tasktype,
+                                taskPriority = taskpriority,
+                                taskDescription = taskdescription,
+                                assigned = assign,
+                                startDate = start,
+                                endDate = end,
                             });
                         }
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("error", e);
+                    Console.WriteLine("Error", e);
                 }
 
             }
-            return details;
+            return assigntask;
 
+        }
+
+
+        public List<ReportTask> GetTasks(string query, string parameterName, object parameterValue)
+        {
+            List<ReportTask> tasks = new List<ReportTask>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue(parameterName, parameterValue);
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int taskId = reader.GetInt32(0);
+                            string taskName = reader.GetString(1);
+                            string taskType = reader.GetString(2);
+                            string taskPriority = reader.GetString(3);
+                            string taskDescription = reader.GetString(4);
+                            string owner = reader.GetString(5);
+                            string assign = reader.GetString(6);
+                            DateTime start = reader.GetDateTime(7);
+                            DateTime end = reader.GetDateTime(8);
+
+                            tasks.Add(new ReportTask
+                            {
+                                TaskId = taskId,
+                                taskName = taskName,
+                                taskType = taskType,
+                                taskPriority = taskPriority,
+                                taskDescription = taskDescription,
+                                owner = owner,
+                                assigned = assign,
+                                startDate = start,
+                                endDate = end,
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error", ex);
+                }
+            }
+
+            return tasks;
+        }
+
+        public List<ReportTask> GetTasksByType(string type)
+        {
+            string query = "SELECT TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE TaskType = @TaskType";
+            return GetTasks(query, "@TaskType", type);
+        }
+
+        public List<ReportTask> GetTasksByPriority(string priority)
+        {
+            string query = "SELECT TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE TaskPriority = @TaskPriority";
+            return GetTasks(query, "@TaskPriority", priority);
+        }
+
+        public List<ReportTask> GetOverdueTasks(DateTime currentTime)
+        {
+            string query = "SELECT TaskId, TaskName, TaskType, TaskPriority, TaskDescription, Owner, Assigned, StartDate, EndDate FROM task WHERE EndDate <= @Date";
+            return GetTasks(query, "@Date", currentTime);
+        }
+
+
+        public List<ReportTask> GetTaskDetails(int taskid)
+        {
+            string query = "select * from task where taskid = @TaskId";
+            List < ReportTask > taskdetails = new List<ReportTask>();
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@TaskId", taskid);
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int projectid = reader.GetInt32(0);
+                            string projectname = reader.GetString(1);
+                            int taskId = reader.GetInt32(2);
+                            string taskName = reader.GetString(3);
+                            string taskType = reader.GetString(4);
+                            string taskPriority = reader.GetString(5);
+                            string taskDescription = reader.GetString(6);
+                            string owner = reader.GetString(7);
+                            string assign = reader.GetString(8);
+                            DateTime start = reader.GetDateTime(9);
+                            DateTime end = reader.GetDateTime(10);
+
+                            taskdetails.Add(new ReportTask
+                            {
+                                ProjectId = projectid,
+                                ProjectName = projectname,
+                                TaskId = taskId,
+                                taskName = taskName,
+                                taskType = taskType,
+                                taskPriority = taskPriority,
+                                taskDescription = taskDescription,
+                                owner = owner,
+                                assigned = assign,
+                                startDate = start,
+                                endDate = end,
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error", ex);
+                }
+            }
+
+            return taskdetails;
         }
     }
 }

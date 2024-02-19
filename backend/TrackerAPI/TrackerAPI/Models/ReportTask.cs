@@ -7,17 +7,16 @@ namespace TrackerAPI.Models
 {
     public class ReportTask
     {
-
-        public int ProjectID { get; set; }
-        public int TaskID { get; set; }
-        public int UserID { get; set; }
-        public string Name { get; set; }
-        public string Priority { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
-        public string Owner { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-
+        public int ProjectId { get; set; }
+        public string ProjectName { get; set; }
+        public int TaskId { get; set; }
+        public string taskName { get; set; }
+        public string taskType { get; set; }
+        public string taskPriority { get; set; }
+        public string taskDescription { get; set; }
+        public string owner { get; set; }
+        public string assigned { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
     }
 }

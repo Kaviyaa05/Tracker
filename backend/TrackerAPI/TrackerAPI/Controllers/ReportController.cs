@@ -13,90 +13,84 @@ namespace TrackerAPI.Controllers
     public class ReportController : ApiController
     {
         ReportDao dao = new ReportDao();
-        // GET: api/Report
 
+        
         [HttpGet]
-        [Route("api/Report/Project")]
-        public IHttpActionResult GetProjects()
-        {
-            var projects = dao.fetchProjects();
-            return Ok(projects);
+        //all projects
+        public IHttpActionResult GetProject()
+        {            
+            var project = dao.fetchProject();
+            return Ok(project);
         }
 
-
-
         [HttpGet]
-        [Route("api/Report/Task")]
-        public IHttpActionResult GetTasks()
+        [Route("api/report/createproject/{owner}")]
+        //created projects
+        public IHttpActionResult GetCreatedProject(string owner)
         {
-            var tasks = dao.fetchTask();
-            return Ok(tasks);
-        }
-
-
-        [HttpGet]
-        [Route("api/Report/TaskByType")]
-        public IHttpActionResult GetTaskByType(string taskType)
-        {
-            var tasks = dao.fetchTaskByType(taskType);
-            return Ok(tasks);
+            Console.WriteLine("HI");
+            var createdProj = dao.createdProject(owner);
+            return Ok(createdProj);
         }
 
 
         [HttpGet]
-        [Route("api/Report/taskPriority")]
-        public IHttpActionResult GetTaskPriority(string taskPriority)
+        [Route("api/report/taskbytype/{type}")]
+        //task by type
+        public IHttpActionResult GetTasksByType(string type)
         {
-            var taskpriority = dao.fetchTaskByPriority(taskPriority);
+            var tasktype = dao.GetTasksByType(type);
+            return Ok(tasktype);
+        }
+
+
+        [HttpGet]
+        [Route("api/report/taskbypriority/{priority}")]
+        //task by priority
+        public IHttpActionResult GetTaskByPriority(string priority)
+        {
+            var taskpriority = dao.GetTasksByPriority(priority);
             return Ok(taskpriority);
         }
 
 
         [HttpGet]
-        [Route("api/Report/projectPriority")]
-        public IHttpActionResult GetProjectPriority(string priority)
+        //over due 
+        public IHttpActionResult GetOverDue (DateTime currentdate)
         {
-            var projectPriority = dao.fetchProjectByPriority(priority);
-            return Ok(projectPriority);
+            var burndown = dao.GetOverdueTasks(DateTime.Now);
+            return Ok(burndown);
         }
 
 
         [HttpGet]
-        [Route("api/Report/OverDue")]
-        public IHttpActionResult GetOverDue()
+        [Route("api/report/taskassigned/{assign}")]
+        //task assigned
+        public IHttpActionResult GetTaskAssigned (string assign)
         {
-            var overdue = dao.fetchOverdue(DateTime.Now);
-            return Ok(overdue);
+            var taskassign = dao.taskAssigned(assign);
+            return Ok(taskassign);
         }
+
+
 
         [HttpGet]
-        [Route("api/report/ProjectOverdue")]
-        public IHttpActionResult GetProjectOverDue()
+        [Route("api/report/taskcreated/{create}")]
+        //task created
+        public IHttpActionResult GetTaskCreated(string create)
         {
-            var overdue = dao.fetchOverdue(DateTime.Now);
-            return Ok(overdue);
+            var taskcreate = dao.taskCreated(create);
+            return Ok(taskcreate);
         }
 
 
-       /* [HttpPost]
-        [Route("api/Report/GeneratePdf")]
-        public IHttpActionResult GeneratePdf()
-        {
-            List<Task> tasks = dao.fetchTask();
-            Pdf pdfGenerator = new Pdf();
-            var outpath = "downloads/report.pdf";
-            pdfGenerator.GeneratePdf(tasks, outpath);
-            return Ok(outpath);
-
-        }*/
 
         [HttpGet]
-        [Route("api/report/details")]
-        public IHttpActionResult GetDetails(int id)
+        [Route("api/report/details/{id}")]
+        public IHttpActionResult GetDetails (int id)
         {
-            var detail = dao.fetchTaskDetails(id);
-            return Ok(detail);
+            var taskdetail = dao.GetTaskDetails(id);
+            return Ok(taskdetail);
         }
-
     }
 }

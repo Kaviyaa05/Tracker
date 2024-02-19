@@ -10,14 +10,11 @@ namespace TrackerAPI.Models
         internal int projectId;
 
         public int ProjectID { get; set; }
-        public int UserID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Priority { get; set; }
-        public string Team { get; set; }
+        public string ProjectName { get; set; }
+        public string ProjectDescription { get; set; }
         public string Owner { get; set; }
+        public string TeamName { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
 
     }
 }
