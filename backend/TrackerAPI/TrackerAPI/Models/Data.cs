@@ -13,5 +13,6 @@ namespace TrackerAPI.Dao
         public string Message { get; set; }
         public string Priority { get; set; }
         public Boolean isRead { get; set; }
+        public string receiver { get; set; }
     }
 }
