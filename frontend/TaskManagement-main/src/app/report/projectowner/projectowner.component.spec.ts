@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectburndownComponent } from './projectburndown.component';
+import { ProjectownerComponent } from './projectowner.component';
 
-describe('ProjectburndownComponent', () => {
-  let component: ProjectburndownComponent;
-  let fixture: ComponentFixture<ProjectburndownComponent>;
+describe('ProjectownerComponent', () => {
+  let component: ProjectownerComponent;
+  let fixture: ComponentFixture<ProjectownerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectburndownComponent]
+      declarations: [ProjectownerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ProjectburndownComponent);
+    fixture = TestBed.createComponent(ProjectownerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

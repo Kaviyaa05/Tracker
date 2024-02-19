@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsService } from '../services/details.service';
 
 @Component({
@@ -8,21 +7,17 @@ import { DetailsService } from '../services/details.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  taskid!: number;
   details: any[] = [];
 
-  constructor(private route: ActivatedRoute, private obj: DetailsService) {}
+  constructor(private detailsService: DetailsService) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.taskid = +params['id'];
-      this.getDetails();
-    });
+    this.getDetails();
   }
 
   getDetails() {
-    this.obj.showTaskDetails(this.taskid).subscribe((data: any[]) => {
-      console.log(this.taskid);
+    const taskId = this.detailsService.taskId;
+    this.detailsService.showTaskDetails(taskId).subscribe((data: any[]) => {
       this.details = data;
     });
   }

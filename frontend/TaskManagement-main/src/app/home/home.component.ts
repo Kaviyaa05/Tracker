@@ -4,6 +4,8 @@ import { faBell, faClock, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faKey, faPowerOff, faShield } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth.service'; // Import AuthService
 import { HttpClient } from '@angular/common/http';
+import { ReportService } from '../services/report.service';
+
 
 //import { Component } from '@angular/core';
 //import { faBell, faClock, faUser } from '@fortawesome/free-regular-svg-icons';
@@ -28,7 +30,9 @@ faShield=faShield;
   username: any;
 constructor(
   private authService: AuthService,
-  private notify:NotifyService // Inject AuthService
+  private notify:NotifyService, // Inject AuthService
+  private report :ReportService
+
 ) {}
 toggleDropdown(elementId: string): void {
   this.isHovered = true;
@@ -68,6 +72,7 @@ ngOnInit(): void {
       this.user = response;
       this.username = response.split(',')[0].split(':')[1].trim();
       this.bellnotification();
+      this.sendUserName()
     },
     (error) => {
       console.error('Error fetching user info:', error);
@@ -76,6 +81,10 @@ ngOnInit(): void {
 }
 logout(): void {
   this.authService.logout();
+}
+
+sendUserName(){
+  this.report.setUserName(this.username)
 }
 
 //constructor(private notify:NotifyService){}

@@ -24,12 +24,13 @@ import { DocumentsComponent } from './Team_C/documents/documents.component';
 import { TextEditorComponent } from './Team_C/documents/text-editor/text-editor.component';
 import { TaskpriorityComponent } from './report/taskpriority/taskpriority.component';
 import { TaskburndownComponent } from './report/taskburndown/taskburndown.component';
-import { ProjectpriorityComponent } from './report/projectpriority/projectpriority.component';
-import { ProjectburndownComponent } from './report/projectburndown/projectburndown.component';
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
 import { NotificationComponent } from './Team_C/notification/notification.component';
 import { EditComponent } from './Team_C/documents/edit/edit.component';
+import { ProjectownerComponent } from './report/projectowner/projectowner.component';
+import { TaskassignedComponent } from './report/taskassigned/taskassigned.component';
+import { TaskownerComponent } from './report/taskowner/taskowner.component';
 const routes: Routes = [
   { path : '', component : LoginpageComponent},
   { path:'loginactivity', component:LoginactivityComponent },
@@ -43,7 +44,7 @@ const routes: Routes = [
   {path:'audit' ,component:AuditComponent},
   { path: 'comment', component: CommentComponent },
   {path:'image' ,component:ImageuploaderComponent},
-  {path:'details/:id',component:DetailsComponent},
+  {path:'details',component:DetailsComponent},
   {path:'teams',component:TeamsComponent},
   {path:'boards',component:BoardsComponent},
   {path:'timetracker',component:TimetrackerComponent},
@@ -56,8 +57,9 @@ const routes: Routes = [
   {path:'tasktype',component:TasktypeComponent},
   {path:'taskpriority',component:TaskpriorityComponent},
   {path:'burndowntask',component:TaskburndownComponent},
-  {path:'projectpriority',component:ProjectpriorityComponent},
-  {path:'burndownproject',component:ProjectburndownComponent},
+  {path:'taskowner', component:TaskownerComponent},
+  {path:'taskassigned', component:TaskassignedComponent},
+  {path:'projectowner', component:ProjectownerComponent},
   {path:'show-tsk',component:ShowTskcomponent},
   { path: 'view-all-projects', component: ViewAllProjectsComponent },
   {path:'edit/:id',component:EditComponent},

@@ -7,6 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class ReportService {
 
+  username : string ="";
+  taskId!:number;
+  
+  getUserName(){
+    return this.username;
+  }
+  setUserName(unmae : string){
+    this.username = unmae;
+  }
  
   constructor(private http: HttpClient) { }
 
@@ -14,33 +23,31 @@ export class ReportService {
     return this.http.get<any[]>('https://localhost:44388/api/report/task');
   }
 
-  showAllProject(): Observable<any[]>{
-    return this.http.get<any[]>('https://localhost:44388/api/report/project');
-  }
 
   showAllOverdue(): Observable<any[]>{
     return this.http.get<any[]>('https://localhost:44388/api/report/overdue')
   }
 
-  showAllProjectOverdue(): Observable<any[]>{
-    return this.http.get<any[]>('https://localhost:44388/api/report/ProjectOverdue')
-  }
-  
-
-  // generatePdf():Observable<any[]>{
-  //   return this.http
-  // }
 
   showTaskByType(taskType: string): Observable<any[]> {
-    return this.http.get<any[]>(`https://localhost:44392/api/report/taskByType?taskType=${taskType}`);
+    return this.http.get<any[]>(`https://localhost:44388/api/report/taskByType?type=${taskType}`);
   }
 
   showTaskByPriority(taskPriority: string):Observable<any[]>{
-    return this.http.get<any[]>(`https://localhost:44392/api/report/taskPriority?taskPriority=${taskPriority}`);
+    return this.http.get<any[]>(`https://localhost:44388/api/report/taskbypriority?priority=${taskPriority}`);
   }
 
-  showProjectByPriority(projectPriority: string):Observable<any[]>{
-    return this.http.get<any[]>(`https://localhost:44392/api/Report/projectPriority?priority=${projectPriority}`);
+  showOwnedProject(projectOwner:string): Observable<any[]>{
+    return this.http.get<any[]>(`https://localhost:44388/api/report/CreatedProject?owner=${this.getUserName()}`);
   }
 
+  showAssignedTask(taskAssigned : string) : Observable<any[]>{
+    return this.http.get<any[]>(`https://localhost:44388/api/report/TaskAssigned?assign=${this.getUserName()}`)
+  }
+
+  showCreatedTask(taskcreated:string){
+    return this.http.get<any[]>(`https://localhost:44388/api/report/TaskCreated?create=${this.getUserName()}`)
+  }
+
+  
 }

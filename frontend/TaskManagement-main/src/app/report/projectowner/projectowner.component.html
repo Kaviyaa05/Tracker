@@ -1,0 +1,44 @@
+<app-home></app-home>
+<div class="header">
+    <h4 style="text-align: center;padding-top: 5px;">Project Created</h4>
+    <div class="container mt-1"></div>
+    <div class="nav-item users-btn d-flex justify-content-end">
+        <button class="btn btn-outline-primary" id="pdf-button">Export PDF</button>
+    </div>
+   
+</div>
+<div class="container mt 3"></div>
+
+<div class="container mt 5">
+    <table id="taskTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project ID</th>
+                <th>Project Name</th>
+                <th>Team</th>
+                <th>Description</th>
+                <th>Start Date</th>                
+            </tr>
+        </thead>
+        <ng-container *ngIf="project.length > 0 ; else noData">
+            <tbody>
+                <tr *ngFor="let task of project">
+                    <td>{{ task.ProjectID }}</td>
+                    <td>{{ task.ProjectName }}</td>                
+                    <td>{{ task.TeamName }}</td>
+                    <td>{{ task.ProjectDescription }}</td>
+                    <td>{{ task.StartDate}}</td>
+            </tbody>
+            </ng-container>
+    
+            <ng-template #noData>
+                <tbody>
+                    <tr>
+                        <td colspan="5">No Project created by you</td>
+                    </tr>
+                </tbody>
+            </ng-template>
+    </table>
+</div>
+
+

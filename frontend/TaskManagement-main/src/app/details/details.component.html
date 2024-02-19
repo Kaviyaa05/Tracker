@@ -10,7 +10,12 @@
     <div class="btn-separator"></div>
     <button class="btn btn-outline-primary notes-btn" routerLink="/documents">Notes</button>
     <button class="btn btn-outline-primary add-task-btn">Add Task</button>
-  </div> 
+  
+    <button class="btn btn-outline-primary time-tracker-btn" routerLink="/timetracker">
+      Time Tracker
+    </button>
+    <button class="btn btn-outline-primary export-btn">Export</button>
+  </div>
 </div>
 
 
@@ -18,45 +23,40 @@
   <!-- Detailed Task Box -->
   <div class="detailed-task-box" *ngFor="let detail of details" (change)="getDetails()">
     <div class="task-header">
-      <span class="project-id">{{detail.ProjectID}}-{{detail.ProjectName}}</span>
-      <div class="task-buttons">
-        <button class="btn btn-outline-primary time-tracker-btn" routerLink="/timetracker">
-          Time Tracker
-        </button>
-        <button class="btn btn-outline-primary export-btn">Export</button>
-      </div>
+      <span class="project-id" style="text-align: center;">{{detail.TaskId}}-{{detail.taskName}}</span>
+      
+     
     </div>
     <div class="task-details" >
       <form class="task-form">
-        <p style="text-align: center;">{{detail.TaskID}}-{{detail.TaskName}}</p>
-        
+           
 
         <label for="priority">Task Priority:</label>
-        <div class="underlined-value">{{detail.TaskPriority}}</div>
+        <div class="underlined-value">{{detail.taskPriority}}</div>
 
         <label for="task-description">Task Description:</label>
         <div class="underlined-value">
-          {{detail.Description}}
+          {{detail.taskDescription}}
         </div>
 
         <label for="task-type">Task Type:</label>
-        <div class="underlined-value">{{detail.TaskType}}</div>
+        <div class="underlined-value">{{detail.taskType}}</div>
 
-        <label for="assigned-by">Assigned By:</label>
-        <div class="underlined-value">{{detail.Assigned_By}}</div>
+        <label for="assigned-by">Created By:</label>
+        <div class="underlined-value">{{detail.owner}}</div>
 
         <label for="priority">Assigned To:</label>
-        <div class="underlined-value">{{detail.UserID}}</div>
+        <div class="underlined-value">{{detail.assigned}}</div>
 
         <label for="start-date">Start Date:</label>
-        <div class="underlined-value">{{detail.StartDate}}</div>
+        <div class="underlined-value">{{detail.startDate}}</div>
 
         <label for="end-date">End Date:</label>
-        <div class="underlined-value">{{detail.EndDate}}</div>
+        <div class="underlined-value">{{detail.endDate}}</div>
 
       
 
-        <button for="upload-image" class="btn btn-outline-primary" routerLink="/imageuploader">Upload Image</button>
+        
         <!-- Add your image upload input here -->
       </form>
     </div>
@@ -65,5 +65,6 @@
   <!-- Comment Box -->
   <div class="comment-box">
     <button class="btn btn-outline-primary comment-btn" routerLink = '/comment'>Comments</button>
+    <button for="upload-image" class="btn btn-outline-primary" routerLink="/imageuploader">Upload Image</button>
   </div>
 </div>

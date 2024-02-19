@@ -6,11 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DetailsService {
+  taskId!: number; 
+  constructor(private http: HttpClient) { }
 
-  constructor(private http:HttpClient) { }
-
-  showTaskDetails(taskid : number):Observable<any[]>{
-    console.log(taskid + 1);
-    return this.http.get<any[]>(`https://localhost:44388/api/report/details?id=${taskid}`);
+  showTaskDetails(taskid: number): Observable<any[]> {
+    console.log(taskid);
+    console.log("run");
+    return this.http.get<any[]>(`https://localhost:44388/api/report/Details?id=${this.taskId}`);
+  
   }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectpriorityComponent } from './projectpriority.component';
+import { TaskownerComponent } from './taskowner.component';
 
-describe('ProjectpriorityComponent', () => {
-  let component: ProjectpriorityComponent;
-  let fixture: ComponentFixture<ProjectpriorityComponent>;
+describe('TaskownerComponent', () => {
+  let component: TaskownerComponent;
+  let fixture: ComponentFixture<TaskownerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectpriorityComponent]
+      declarations: [TaskownerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ProjectpriorityComponent);
+    fixture = TestBed.createComponent(TaskownerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

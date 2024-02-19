@@ -1,6 +1,6 @@
 <app-home></app-home>
 <div class="header">
-    <h4 style="text-align: center;padding-top: 5px;">Task_Burndown</h4>
+    <h4 style="text-align: center;padding-top: 5px;">Task Assigned</h4>
     <div class="container mt-1"></div>
     <div class="nav-item users-btn d-flex justify-content-end">
         <button class="btn btn-outline-primary" id="pdf-button">Export PDF</button>
@@ -15,36 +15,33 @@
             <tr>
                 <th>Project Name</th>
                 <th>Task ID</th>
-                <th>Task Name</th>                
-                <th>Priority</th>
-                <th>Type</th>
+                <th>Task Name</th>
+                <th>Task Type</th>
+                <th>Task Priority</th>
+                <th>Created By</th>
                 <th>Description</th>
-                <th>Owner</th>
-                <th>Assigned</th>
                 <th>Start Date</th>
-                <th>Due Date</th>
-            </tr>
+                <th>End date</th> 
         </thead>
-        <ng-container *ngIf="deadline.length > 0 ; else noData">
+        <ng-container *ngIf="tasks.length > 0 ; else noData">
             <tbody>
-                <tr *ngFor="let task of deadline">
+                <tr *ngFor="let task of tasks">
                     <td>{{ task.ProjectName }}</td>
-                    <td>{{ task.TaskId }}</td>
+                    <td>{{ task.TaskId }}</td>                
                     <td>{{ task.taskName }}</td>
-                    <td>{{ task.taskPriority }}</td>                
-                    <td>{{ task.taskType }}</td>
-                    <td>{{ task.taskDescription }}</td>
+                    <td>{{ task.taskType}}</td>
+                    <td>{{ task.taskPriority }}</td>                    
                     <td>{{ task.owner}}</td>
-                    <td>{{ task.assigned }}</td>
-                    <td>{{ task.startDate }}</td>
-                    <td>{{ task.endDate }}</td>
+                    <td>{{ task.taskDescription}}</td>
+                    <td>{{ task.startDate}}</td>
+                    <td>{{ task.endDate}}</td>
             </tbody>
             </ng-container>
     
             <ng-template #noData>
                 <tbody>
                     <tr>
-                        <td colspan="10">No overdue tasks!!</td>
+                        <td colspan="9">No task assigned to you</td>
                     </tr>
                 </tbody>
             </ng-template>

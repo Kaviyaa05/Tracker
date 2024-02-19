@@ -7,7 +7,7 @@
     </div>
     <div class="nav-item task-type-dropdown d-flex justify-content-start" id="fliter">
         <label for="taskType">Task Type:</label>
-        <select id="taskType" [(ngModel)]="selectedTaskType" name="taskType">
+        <select id="taskType" [(ngModel)]="selectedTaskType" name="taskType" (change)="onTaskTypeChange()">
             <option value="All">All</option>    
             <option value="Issue">Issue</option>
             <option value="Create">Create</option>
@@ -25,14 +25,14 @@
     <table id="taskTable" class="table table-striped">
         <thead>
             <tr>
-                <th>Project ID</th>
+                <th>Project Name</th>
                 <th>Task ID</th>
-                <th>User ID</th>
                 <th>Task Name</th>                
                 <th>Priority</th>
-                <th>Task Type</th>
+                <th>Type</th>
                 <th>Description</th>
                 <th>Owner</th>
+                <th>Assigned</th>
                 <th>Start Date</th>
                 <th>Due Date</th>
             </tr>
@@ -40,16 +40,16 @@
         <ng-container *ngIf="filteredTasks.length > 0 ; else noData">
         <tbody>
             <tr *ngFor="let task of filteredTasks">
-                <td>{{ task.ProjectID }}</td>
-                <td>{{ task.TaskID }}</td>
-                <td>{{ task.UserID }}</td>
-                <td>{{ task.Name }}</td>                
-                <td>{{ task.Priority }}</td>
-                <td>{{ task.Type }}</td>
-                <td>{{ task.Description}}</td>
-                <td>{{ task.Owner }}</td>
-                <td>{{ task.StartDate }}</td>
-                <td>{{ task.EndDate }}</td>
+                <td>{{ task.ProjectName }}</td>
+                <td>{{ task.TaskId }}</td>
+                <td>{{ task.taskName }}</td>
+                <td>{{ task.taskPriority }}</td>                
+                <td>{{ task.taskType }}</td>
+                <td>{{ task.taskDescription }}</td>
+                <td>{{ task.owner}}</td>
+                <td>{{ task.assigned }}</td>
+                <td>{{ task.startDate }}</td>
+                <td>{{ task.endDate }}</td>
             </tr>
         </tbody>
     </ng-container>

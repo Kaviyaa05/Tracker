@@ -35,8 +35,6 @@ import { DetailsComponent } from './details/details.component';
 import { TasktypeComponent } from './report/tasktype/tasktype.component';
 import { TaskpriorityComponent } from './report/taskpriority/taskpriority.component';
 import { TaskburndownComponent } from './report/taskburndown/taskburndown.component';
-import { ProjectpriorityComponent } from './report/projectpriority/projectpriority.component';
-import { ProjectburndownComponent } from './report/projectburndown/projectburndown.component';
 import { ShowTskcomponent } from './task/form/show-tsk/show-tsk.component';
 import { AddEditComponent } from './task/form/add-edit/add-edit.component';
 import { SharedService } from './task/form/shared.service';
@@ -49,6 +47,9 @@ import { UserService } from './users/user.service';
 import { ViewAllProjectsComponent } from './view-all-project/view-all-project.component';
 import { NgModel } from '@angular/forms';
 import { EditComponent } from './Team_C/documents/edit/edit.component';
+import { ProjectownerComponent } from './report/projectowner/projectowner.component';
+import { TaskownerComponent } from './report/taskowner/taskowner.component';
+import { TaskassignedComponent } from './report/taskassigned/taskassigned.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,7 @@ import { EditComponent } from './Team_C/documents/edit/edit.component';
      ImageuploaderComponent, 
      UsersComponent,
      UserAddEditComponent, CreateComponent, CommentComponent, ProfileComponent, FormComponent, PageNotFoundComponent,
-   ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ProjectpriorityComponent, ProjectburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent,ViewAllProjectsComponent,EditComponent, 
+   ImageuploaderComponent, DetailsComponent, TasktypeComponent, TaskpriorityComponent, TaskburndownComponent, ShowTskcomponent, AddEditComponent, ShowTskcomponent,ViewAllProjectsComponent,EditComponent, ProjectownerComponent, TaskownerComponent, TaskassignedComponent, 
   ],
   imports: [
     BrowserModule,
@@ -77,7 +78,7 @@ import { EditComponent } from './Team_C/documents/edit/edit.component';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    TableModule,
+     TableModule,
     HttpClientModule
 
   ],

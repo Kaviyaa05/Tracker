@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
+import { DetailsService } from '../services/details.service';
 
 @Component({
   selector: 'app-task',
@@ -8,13 +9,12 @@ import { Router } from '@angular/router';
 })
 export class TaskComponent implements OnInit {
 
-  
 
   tasks:any[]=[{
-    id: 101, name: 'Login', priority: 'High', type: 'Create', startDate: '24/12/2023', endDate: '20/1/2024', status: 'Todo'
+    id: 1, name: 'Login', priority: 'High', type: 'Create', startDate: '24/12/2023', endDate: '20/1/2024', status: 'Todo'
   }];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router , private http: DetailsService) {}
   ngOnInit(): void {}
 
   
@@ -24,9 +24,11 @@ export class TaskComponent implements OnInit {
   }
   
 
-  navigateToDetails(taskId: number) {
-    console.log(taskId);
-    this.router.navigate(['/details', taskId]);
+  navigateToDetails(taskid: number) {
+    console.log(taskid);
+    this.http.taskId = taskid;
+    this.router.navigate(['/details']);
   }
+   
 
 }
